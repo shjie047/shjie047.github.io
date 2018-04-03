@@ -604,7 +604,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _templateObject = _taggedTemplateLiteral(['\n  margin: 2.3rem;\n  @media only screen and (max-width: 825px) {\n    margin: 2.3rem 0;\n  }\n'], ['\n  margin: 2.3rem;\n  @media only screen and (max-width: 825px) {\n    margin: 2.3rem 0;\n  }\n']),
     _templateObject2 = _taggedTemplateLiteral(['\n  margin-top: 3rem;\n\n  > header {\n    margin-bottom: 3rem;\n  }\n\n  header h3 {\n    font-size: 2rem;\n    color: rgb(177, 177, 177);\n    letter-spacing: 0.15rem;\n    font-weight: 300;\n  }\n'], ['\n  margin-top: 3rem;\n\n  > header {\n    margin-bottom: 3rem;\n  }\n\n  header h3 {\n    font-size: 2rem;\n    color: rgb(177, 177, 177);\n    letter-spacing: 0.15rem;\n    font-weight: 300;\n  }\n']),
-    _templateObject3 = _taggedTemplateLiteral(['\n  box-shadow: 2px 2px 7px rgba(0, 0, 0, .15);\n  padding: 1rem;\n  header h4 {\n    font-size: 1.8rem; \n    color: #333;\n    font-weight: 500;\n  }\n\n  .post-content {\n    color: #333;\n    font-weight: normal;\n    font-size: 1.4rem;\n  }\n'], ['\n  box-shadow: 2px 2px 7px rgba(0, 0, 0, .15);\n  padding: 1rem;\n  header h4 {\n    font-size: 1.8rem; \n    color: #333;\n    font-weight: 500;\n  }\n\n  .post-content {\n    color: #333;\n    font-weight: normal;\n    font-size: 1.4rem;\n  }\n']),
+    _templateObject3 = _taggedTemplateLiteral(['\n  box-shadow: 2px 2px 7px rgba(0, 0, 0, .15);\n  padding: 1rem;\n  header h4 {\n    font-size: 1.8rem; \n    color: #333;\n    font-weight: 500;\n  }\n\n  .post-content {\n    color: #a0a0a0;\n    font-weight: normal;\n    font-size: 1.4rem;\n  }\n'], ['\n  box-shadow: 2px 2px 7px rgba(0, 0, 0, .15);\n  padding: 1rem;\n  header h4 {\n    font-size: 1.8rem; \n    color: #333;\n    font-weight: 500;\n  }\n\n  .post-content {\n    color: #a0a0a0;\n    font-weight: normal;\n    font-size: 1.4rem;\n  }\n']),
     _templateObject4 = _taggedTemplateLiteral(['\n  display: grid;\n  grid-template-columns: repeat(3, 300px);\n  justify-content: center;\n  grid-column-gap: 2rem;\n  grid-row-gap: 2rem;\n\n  @media only screen and (max-width: 1035px) {\n    grid-template-columns: repeat(2, 360px);\n  }\n\n  @media only screen and (max-width: 825px) {\n    grid-template-columns: 80%;\n  }\n'], ['\n  display: grid;\n  grid-template-columns: repeat(3, 300px);\n  justify-content: center;\n  grid-column-gap: 2rem;\n  grid-row-gap: 2rem;\n\n  @media only screen and (max-width: 1035px) {\n    grid-template-columns: repeat(2, 360px);\n  }\n\n  @media only screen and (max-width: 825px) {\n    grid-template-columns: 80%;\n  }\n']);
 
 var _styledComponents = __webpack_require__(2);
@@ -1928,4 +1928,4 @@ module.exports = require("classnames");
 /***/ })
 /******/ ]);
 });
-//# sourceMappingURL=static.431070b1.js.map
+//# sourceMappingURL=static.f1c808d6.js.map
