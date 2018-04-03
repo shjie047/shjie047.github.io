@@ -127,12 +127,52 @@ module.exports = require("prop-types");
 
 /***/ }),
 /* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.markdownToText = markdownToText;
+
+var _markdown = __webpack_require__(28);
+
+// markdown字符串
+function markdownToText() {
+  var body = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+  // size: 字符个数
+  return function () {
+    var size = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 140;
+
+    var str = _markdown.markdown.toHTML(body).replace(/<(?!\/?(?=>|\s.*>))\/?.*?>/g, '');
+    var chars = [];
+    var realLength = 0,
+        len = str.length,
+        charCode = -1;
+
+    for (var i = 0; i < len; i++) {
+      charCode = str.charCodeAt(i);
+      if (charCode >= 0 && charCode <= 128) realLength += 1;else realLength += 2;
+
+      chars.push(str[i]);
+      if (realLength >= size) break;
+    }
+
+    return chars.join('') + '...';
+  };
+}
+
+/***/ }),
+/* 6 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom");
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -185,7 +225,7 @@ var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 
 var _requireUniversalModule2 = _interopRequireDefault(_requireUniversalModule);
 
-var _utils = __webpack_require__(7);
+var _utils = __webpack_require__(8);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -475,7 +515,7 @@ exports.default = universal;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)(module)))
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -592,7 +632,7 @@ var cacheProm = exports.cacheProm = function cacheProm(pr, chunkName, props, pro
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)(module)))
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -621,7 +661,7 @@ var _lodash = __webpack_require__(27);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _util = __webpack_require__(9);
+var _util = __webpack_require__(5);
 
 var _moment = __webpack_require__(10);
 
@@ -698,46 +738,6 @@ var Post = (0, _styledComponents2.default)(_reactStatic.Link)(_templateObject3);
 var List = _styledComponents2.default.section(_templateObject4);
 
 /***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.markdownToText = markdownToText;
-
-var _markdown = __webpack_require__(28);
-
-// markdown字符串
-function markdownToText() {
-  var body = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-
-  // size: 字符个数
-  return function () {
-    var size = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 140;
-
-    var str = _markdown.markdown.toHTML(body).replace(/<(?!\/?(?=>|\s.*>))\/?.*?>/g, '');
-    var chars = [];
-    var realLength = 0,
-        len = str.length,
-        charCode = -1;
-
-    for (var i = 0; i < len; i++) {
-      charCode = str.charCodeAt(i);
-      if (charCode >= 0 && charCode <= 128) realLength += 1;else realLength += 2;
-
-      chars.push(str[i]);
-      if (realLength >= size) break;
-    }
-
-    return chars.join('') + '...';
-  };
-}
-
-/***/ }),
 /* 10 */
 /***/ (function(module, exports) {
 
@@ -804,7 +804,7 @@ var _reactMarkdown = __webpack_require__(29);
 
 var _reactMarkdown2 = _interopRequireDefault(_reactMarkdown);
 
-var _reactUniversalComponent = __webpack_require__(6);
+var _reactUniversalComponent = __webpack_require__(7);
 
 var _reactUniversalComponent2 = _interopRequireDefault(_reactUniversalComponent);
 
@@ -831,6 +831,8 @@ var _highlight2 = _interopRequireDefault(_highlight);
 var _reactHelmet = __webpack_require__(33);
 
 var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
+
+var _util = __webpack_require__(5);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -872,7 +874,11 @@ var Post = function (_React$Component) {
           _reactHelmet2.default,
           null,
           _react2.default.createElement('meta', { name: 'description', content: 'Helmet application' }),
-          _react2.default.createElement('meta', { name: 'description', content: '' })
+          _react2.default.createElement('meta', { property: 'og:description', content: (0, _util.markdownToText)(post.body)(160).trim() }),
+          _react2.default.createElement('meta', { property: 'og:title', content: post.title }),
+          _react2.default.createElement('meta', { property: 'og:type', content: 'article' }),
+          _react2.default.createElement('meta', { name: 'description', content: (0, _util.markdownToText)(post.body)(160).trim() }),
+          _react2.default.createElement('meta', { name: 'keywords', content: post.tags.join(',') })
         ),
         _react2.default.createElement(
           'header',
@@ -997,7 +1003,7 @@ var _styledComponents = __webpack_require__(2);
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
-var _reactDom = __webpack_require__(5);
+var _reactDom = __webpack_require__(6);
 
 var _postHome = __webpack_require__(36);
 
@@ -1080,7 +1086,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(5);
+var _reactDom = __webpack_require__(6);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -1240,7 +1246,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(23);
 
-var _reactUniversalComponent = __webpack_require__(6);
+var _reactUniversalComponent = __webpack_require__(7);
 
 var _reactUniversalComponent2 = _interopRequireDefault(_reactUniversalComponent);
 
@@ -1274,7 +1280,7 @@ var t_0 = (0, _reactUniversalComponent2.default)((0, _universalImport3.default)(
   id: '../src/containers/Archives',
   file: '/Users/shjie047/Project/blog/dist/react-static-routes.js',
   load: function load() {
-    return Promise.all([new Promise(function(resolve) { resolve(); }).then(__webpack_require__.bind(null, 8)), (0, _importCss3.default)('src/containers/Archives', {
+    return Promise.all([new Promise(function(resolve) { resolve(); }).then(__webpack_require__.bind(null, 9)), (0, _importCss3.default)('src/containers/Archives', {
       disableWarnings: true
     })]).then(function (proms) {
       return proms[0];
@@ -1284,7 +1290,7 @@ var t_0 = (0, _reactUniversalComponent2.default)((0, _universalImport3.default)(
     return _path3.default.join(__dirname, '../src/containers/Archives');
   },
   resolve: function resolve() {
-    return /*require.resolve*/(8);
+    return /*require.resolve*/(9);
   },
   chunkName: function chunkName() {
     return 'src/containers/Archives';
@@ -1487,7 +1493,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.clearChunks = exports.flushModuleIds = exports.flushChunkNames = exports.MODULE_IDS = exports.CHUNK_NAMES = undefined;
 exports.default = requireUniversalModule;
 
-var _utils = __webpack_require__(7);
+var _utils = __webpack_require__(8);
 
 var CHUNK_NAMES = exports.CHUNK_NAMES = new Set();
 var MODULE_IDS = exports.MODULE_IDS = new Set();
@@ -1843,7 +1849,7 @@ var _post = __webpack_require__(13);
 
 var _post2 = _interopRequireDefault(_post);
 
-var _util = __webpack_require__(9);
+var _util = __webpack_require__(5);
 
 var _react = __webpack_require__(0);
 
@@ -1928,4 +1934,4 @@ module.exports = require("classnames");
 /***/ })
 /******/ ]);
 });
-//# sourceMappingURL=static.f1c808d6.js.map
+//# sourceMappingURL=static.e3b21ccc.js.map
