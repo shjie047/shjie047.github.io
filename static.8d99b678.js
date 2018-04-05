@@ -1221,8 +1221,11 @@ var App = function (_React$Component) {
     value: function componentDidMount() {
       if (is_mobile()) {
         this.setState({
-          isMobile: true,
-          isPc: false
+          isMobile: true
+        });
+      } else {
+        this.setState({
+          isPc: true
         });
       }
     }
@@ -2299,4 +2302,4 @@ module.exports = require("react-tooltip");
 /***/ })
 /******/ ]);
 });
-//# sourceMappingURL=static.964c206b.js.map
+//# sourceMappingURL=static.8d99b678.js.map
