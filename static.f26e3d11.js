@@ -1274,12 +1274,12 @@ var App = function (_React$Component) {
                 null,
                 _react2.default.createElement(
                   _reactStatic.Link,
-                  { to: '/tags/\u524D\u7AEF' },
+                  { to: '/tags/frontend' },
                   '\u524D\u7AEF'
                 ),
                 _react2.default.createElement(
                   _reactStatic.Link,
-                  { to: '/tags/\u540E\u7AEF' },
+                  { to: '/tags/backed' },
                   '\u540E\u7AEF'
                 ),
                 _react2.default.createElement(
@@ -1325,7 +1325,7 @@ var App = function (_React$Component) {
                     null,
                     _react2.default.createElement(
                       _reactStatic.Link,
-                      { to: '/tags/\u524D\u7AEF' },
+                      { to: '/tags/frontend' },
                       '\u524D\u7AEF'
                     )
                   ),
@@ -1334,7 +1334,7 @@ var App = function (_React$Component) {
                     null,
                     _react2.default.createElement(
                       _reactStatic.Link,
-                      { to: '/tags/\u540E\u7AEF' },
+                      { to: '/tags/backed' },
                       '\u540E\u7AEF'
                     )
                   ),
@@ -2327,4 +2327,4 @@ module.exports = require("react-tooltip");
 /***/ })
 /******/ ]);
 });
-//# sourceMappingURL=static.289db77a.js.map
+//# sourceMappingURL=static.f26e3d11.js.map
