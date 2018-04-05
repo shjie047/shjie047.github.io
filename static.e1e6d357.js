@@ -1274,12 +1274,7 @@ var App = function (_React$Component) {
                 null,
                 _react2.default.createElement(
                   _reactStatic.Link,
-                  { to: '/tags/frontend' },
-                  '\u524D\u7AEF'
-                ),
-                _react2.default.createElement(
-                  _reactStatic.Link,
-                  { to: '/tags/backed' },
+                  { to: '/tags/backend' },
                   '\u540E\u7AEF'
                 ),
                 _react2.default.createElement(
@@ -1291,11 +1286,6 @@ var App = function (_React$Component) {
                   _reactStatic.Link,
                   { to: '/tags/java' },
                   'Java'
-                ),
-                _react2.default.createElement(
-                  _reactStatic.Link,
-                  { to: '/tags/javascript' },
-                  'JavaScript'
                 )
               ),
               _react2.default.createElement(
@@ -1325,16 +1315,7 @@ var App = function (_React$Component) {
                     null,
                     _react2.default.createElement(
                       _reactStatic.Link,
-                      { to: '/tags/frontend' },
-                      '\u524D\u7AEF'
-                    )
-                  ),
-                  _react2.default.createElement(
-                    'li',
-                    null,
-                    _react2.default.createElement(
-                      _reactStatic.Link,
-                      { to: '/tags/backed' },
+                      { to: '/tags/backend' },
                       '\u540E\u7AEF'
                     )
                   ),
@@ -1354,15 +1335,6 @@ var App = function (_React$Component) {
                       _reactStatic.Link,
                       { to: '/tags/java' },
                       'Java'
-                    )
-                  ),
-                  _react2.default.createElement(
-                    'li',
-                    null,
-                    _react2.default.createElement(
-                      _reactStatic.Link,
-                      { to: '/tags/javascript' },
-                      'JavaScript'
                     )
                   )
                 )
@@ -2327,4 +2299,4 @@ module.exports = require("react-tooltip");
 /***/ })
 /******/ ]);
 });
-//# sourceMappingURL=static.f26e3d11.js.map
+//# sourceMappingURL=static.e1e6d357.js.map
