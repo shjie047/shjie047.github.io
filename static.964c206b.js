@@ -920,7 +920,7 @@ exports.default = (0, _reactStatic.withRouteData)(function (_ref) {
               { key: tag },
               _react2.default.createElement(
                 _reactStatic.Link,
-                { to: '/tags/' + tag },
+                { to: '/tags/' + tag.toLowerCase() },
                 tag
               ),
               i !== post.tags.length - 1 && _react2.default.createElement(
@@ -2299,4 +2299,4 @@ module.exports = require("react-tooltip");
 /***/ })
 /******/ ]);
 });
-//# sourceMappingURL=static.e1e6d357.js.map
+//# sourceMappingURL=static.964c206b.js.map
