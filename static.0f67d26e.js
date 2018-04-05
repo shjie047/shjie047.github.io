@@ -1113,9 +1113,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _templateObject = _taggedTemplateLiteral(['\n  min-height: 100%;\n'], ['\n  min-height: 100%;\n']),
+var _templateObject = _taggedTemplateLiteral([''], ['']),
     _templateObject2 = _taggedTemplateLiteral(['\n  padding: 0 40px;\n  display: flex;\n  align-items: center;\n  a {\n    font-size: 1.6rem;\n    font-weight: normal;\n  }\n\n  .icon-link {\n    font-size: 1.8rem;\n  }\n\n  .archive {\n    margin-left: auto;\n  }\n'], ['\n  padding: 0 40px;\n  display: flex;\n  align-items: center;\n  a {\n    font-size: 1.6rem;\n    font-weight: normal;\n  }\n\n  .icon-link {\n    font-size: 1.8rem;\n  }\n\n  .archive {\n    margin-left: auto;\n  }\n']),
-    _templateObject3 = _taggedTemplateLiteral(['\n  a {\n    font-size: 1.4rem;\n  }\n\n  &::before {\n    content: \'\';\n    height: 2.1rem;\n    width: 1px;\n    background-color: #00000038;\n    display: inline-block;\n    vertical-align: middle;\n  }\n'], ['\n  a {\n    font-size: 1.4rem;\n  }\n\n  &::before {\n    content: \'\';\n    height: 2.1rem;\n    width: 1px;\n    background-color: #00000038;\n    display: inline-block;\n    vertical-align: middle;\n  }\n']);
+    _templateObject3 = _taggedTemplateLiteral(['\n  @media only screen and (max-width: 600px) {\n    display: none;\n  }\n\n  a {\n    font-size: 1.4rem;\n  }\n\n  &::before {\n    content: \'\';\n    height: 2.1rem;\n    width: 1px;\n    background-color: #00000038;\n    display: inline-block;\n    vertical-align: middle;\n  }\n'], ['\n  @media only screen and (max-width: 600px) {\n    display: none;\n  }\n\n  a {\n    font-size: 1.4rem;\n  }\n\n  &::before {\n    content: \'\';\n    height: 2.1rem;\n    width: 1px;\n    background-color: #00000038;\n    display: inline-block;\n    vertical-align: middle;\n  }\n']),
+    _templateObject4 = _taggedTemplateLiteral(['\n  display: none;\n  padding: 0;\n  margin: 0;\n  position: relative;\n  font-size: 1.4rem;\n\n  &::before {\n    content: \'\';\n    height: 2.1rem;\n    width: 1px;\n    background-color: #00000038;\n    display: inline-block;\n    vertical-align: middle;\n  }\n\n  > i {\n    display: inline-block;\n    padding: 1rem;\n    color: #fff;\n    font-weight: normal;\n    transition: color .3s ease;\n    &:hover {\n      color: #111;\n    }\n  }\n\n  a {\n    font-size: 1.4rem;\n    font-weight: normal;\n    line-height: 1;\n    display: block;\n    padding: 1.2rem 3rem 1.2rem 1rem;\n  }\n\n  li {\n    margin: 0;\n  }\n\n  ul {\n    list-style: none;\n    padding: 0;\n    margin: 0;\n    position: absolute;\n    top: 100%;\n    left: 0;\n    background-color: #108db8;\n    display: none;\n  }\n\n  ul.show {\n    display: inline-block;\n  }\n\n  @media only screen and (max-width: 600px) {\n    display: inline;\n  }\n'], ['\n  display: none;\n  padding: 0;\n  margin: 0;\n  position: relative;\n  font-size: 1.4rem;\n\n  &::before {\n    content: \'\';\n    height: 2.1rem;\n    width: 1px;\n    background-color: #00000038;\n    display: inline-block;\n    vertical-align: middle;\n  }\n\n  > i {\n    display: inline-block;\n    padding: 1rem;\n    color: #fff;\n    font-weight: normal;\n    transition: color .3s ease;\n    &:hover {\n      color: #111;\n    }\n  }\n\n  a {\n    font-size: 1.4rem;\n    font-weight: normal;\n    line-height: 1;\n    display: block;\n    padding: 1.2rem 3rem 1.2rem 1rem;\n  }\n\n  li {\n    margin: 0;\n  }\n\n  ul {\n    list-style: none;\n    padding: 0;\n    margin: 0;\n    position: absolute;\n    top: 100%;\n    left: 0;\n    background-color: #108db8;\n    display: none;\n  }\n\n  ul.show {\n    display: inline-block;\n  }\n\n  @media only screen and (max-width: 600px) {\n    display: inline;\n  }\n']),
+    _templateObject5 = _taggedTemplateLiteral(['\n  position: absolute;\n  top: 0;\n  left: 50%;\n  top: 50%;\n  font-size: 1.6rem;\n  color: #fff;\n  transform: translate(-50%,-50%);\n  font-weight: normal;\n  cursor: pointer;\n  &:hover {\n    color: #fff!important;\n  }\n'], ['\n  position: absolute;\n  top: 0;\n  left: 50%;\n  top: 50%;\n  font-size: 1.6rem;\n  color: #fff;\n  transform: translate(-50%,-50%);\n  font-weight: normal;\n  cursor: pointer;\n  &:hover {\n    color: #fff!important;\n  }\n']);
 
 var _react = __webpack_require__(0);
 
@@ -1146,6 +1148,10 @@ var _classnames2 = _interopRequireDefault(_classnames);
 var _reactHelmet = __webpack_require__(15);
 
 var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
+
+var _reactTooltip = __webpack_require__(44);
+
+var _reactTooltip2 = _interopRequireDefault(_reactTooltip);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1182,6 +1188,11 @@ var App = function App() {
       _react2.default.createElement(
         _reactHeadroom2.default,
         null,
+        _react2.default.createElement(
+          Title,
+          { to: '/' },
+          '\u5F00\u53D1\u7B14\u8BB0'
+        ),
         _react2.default.createElement(
           Nav,
           null,
@@ -1220,8 +1231,65 @@ var App = function App() {
             )
           ),
           _react2.default.createElement(
+            ToggledPopular,
+            { onClick: function onClick(e) {
+                if (!is_mobile()) return;
+                e.currentTarget.children[1].classList.toggle('show');
+              }, className: 'toggled-popular' },
+            _react2.default.createElement('i', { className: 'iconfont icon-popular' }),
+            _react2.default.createElement(
+              'ul',
+              null,
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  _reactStatic.Link,
+                  { to: '/tags/frontend' },
+                  '\u524D\u7AEF'
+                )
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  _reactStatic.Link,
+                  { to: '/tags/backend' },
+                  '\u540E\u7AEF'
+                )
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  _reactStatic.Link,
+                  { to: '/tags/mobile' },
+                  '\u79FB\u52A8\u7AEF'
+                )
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  _reactStatic.Link,
+                  { to: '/tags/java' },
+                  'Java'
+                )
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  _reactStatic.Link,
+                  { to: '/tags/javascript' },
+                  'JavaScript'
+                )
+              )
+            )
+          ),
+          _react2.default.createElement(
             _reactStatic.Link,
-            { className: 'archive icon-link', to: '/archives' },
+            { 'data-tip': '\u5F52\u6863', className: 'archive icon-link', to: '/archives' },
             _react2.default.createElement('i', { className: 'iconfont icon-archive' })
           )
         )
@@ -1230,7 +1298,8 @@ var App = function App() {
         'div',
         { className: 'content' },
         _react2.default.createElement(_reactStaticRoutes2.default, null)
-      )
+      ),
+      !is_mobile() && _react2.default.createElement(_reactTooltip2.default, { effect: 'solid', place: 'left' })
     )
   );
 };
@@ -1243,6 +1312,10 @@ var Root = _styledComponents2.default.div(_templateObject);
 var Nav = _styledComponents2.default.nav(_templateObject2);
 
 var Popular = _styledComponents2.default.span(_templateObject3);
+
+var ToggledPopular = _styledComponents2.default.span(_templateObject4);
+
+var Title = (0, _styledComponents2.default)(_reactStatic.Link)(_templateObject5);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)(module)))
 
 /***/ }),
@@ -2163,7 +2236,13 @@ module.exports = require("react-headroom");
 
 module.exports = require("classnames");
 
+/***/ }),
+/* 44 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-tooltip");
+
 /***/ })
 /******/ ]);
 });
-//# sourceMappingURL=static.28e83ecc.js.map
+//# sourceMappingURL=static.0f67d26e.js.map
