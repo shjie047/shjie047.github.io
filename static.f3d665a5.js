@@ -1279,7 +1279,9 @@ var App = function (_React$Component) {
                     var list = e.currentTarget.children[1];
                     list.classList.toggle('show');
                     function handleClickOutside(e) {
-                      if (!e.target.contains(el)) return;
+                      if (el.contains(e.target)) return;
+
+                      console.log('click outside');
                       list.classList.remove('show');
                       document.removeEventListener('click', handleClickOutside);
                     }
@@ -2301,4 +2303,4 @@ module.exports = require("react-tooltip");
 /***/ })
 /******/ ]);
 });
-//# sourceMappingURL=static.5fb597aa.js.map
+//# sourceMappingURL=static.f3d665a5.js.map
