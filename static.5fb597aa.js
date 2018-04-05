@@ -67,7 +67,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/";
+/******/ 	__webpack_require__.p = "https://shjie047.github.io/";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 18);
@@ -1113,6 +1113,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _templateObject = _taggedTemplateLiteral([''], ['']),
     _templateObject2 = _taggedTemplateLiteral(['\n  padding: 0 40px;\n  display: flex;\n  align-items: center;\n  a {\n    font-size: 1.6rem;\n    font-weight: normal;\n  }\n\n  .icon-link {\n    font-size: 1.8rem;\n  }\n\n  .archive {\n    margin-left: auto;\n  }\n'], ['\n  padding: 0 40px;\n  display: flex;\n  align-items: center;\n  a {\n    font-size: 1.6rem;\n    font-weight: normal;\n  }\n\n  .icon-link {\n    font-size: 1.8rem;\n  }\n\n  .archive {\n    margin-left: auto;\n  }\n']),
     _templateObject3 = _taggedTemplateLiteral(['\n  @media only screen and (max-width: 920px) {\n    display: none;\n  }\n\n  a {\n    font-size: 1.4rem;\n  }\n\n  &::before {\n    content: \'\';\n    height: 2.1rem;\n    width: 1px;\n    background-color: #00000038;\n    display: inline-block;\n    vertical-align: middle;\n  }\n'], ['\n  @media only screen and (max-width: 920px) {\n    display: none;\n  }\n\n  a {\n    font-size: 1.4rem;\n  }\n\n  &::before {\n    content: \'\';\n    height: 2.1rem;\n    width: 1px;\n    background-color: #00000038;\n    display: inline-block;\n    vertical-align: middle;\n  }\n']),
@@ -1157,6 +1159,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 var is_mobile = function is_mobile() {
   return typeof window !== 'undefined' && 'ontouchstart' in window;
 };
@@ -1168,152 +1176,189 @@ var type = '\u6587\u7AE0';
 
 function handleClickOutside() {}
 
-var App = function App() {
-  return _react2.default.createElement(
-    _reactStatic.Router,
-    null,
-    _react2.default.createElement(
-      Root,
-      { className: (0, _classnames2.default)({
-          'is-mobile': is_mobile(),
-          'is-pc': !is_mobile()
-        }) },
-      _react2.default.createElement(
-        _reactHelmet2.default,
-        null,
-        _react2.default.createElement('meta', { property: 'og:description', content: description }),
-        _react2.default.createElement('meta', { property: 'og:title', content: title }),
-        _react2.default.createElement('meta', { property: 'og:type', content: type }),
-        _react2.default.createElement('meta', { name: 'description', content: description }),
-        _react2.default.createElement('meta', { name: 'keywords', content: keywords.join(',') })
-      ),
-      _react2.default.createElement(
-        _reactHeadroom2.default,
+var App = function (_React$Component) {
+  _inherits(App, _React$Component);
+
+  function App() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, App);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = App.__proto__ || Object.getPrototypeOf(App)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+      isMobile: false
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(App, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      if (is_mobile()) {
+        this.setState({
+          isMobile: true,
+          isPc: false
+        });
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        _reactStatic.Router,
         null,
         _react2.default.createElement(
-          Title,
-          { to: '/' },
-          '\u5F00\u53D1\u7B14\u8BB0'
-        ),
-        _react2.default.createElement(
-          Nav,
-          null,
+          Root,
+          { className: (0, _classnames2.default)({
+              'is-mobile': this.state.isMobile,
+              'is-pc': this.state.isPc
+            }) },
           _react2.default.createElement(
-            _reactStatic.Link,
-            { to: '/', className: 'icon-link' },
-            _react2.default.createElement('i', { className: 'iconfont icon-home' })
+            _reactHelmet2.default,
+            null,
+            _react2.default.createElement('meta', { property: 'og:description', content: description }),
+            _react2.default.createElement('meta', { property: 'og:title', content: title }),
+            _react2.default.createElement('meta', { property: 'og:type', content: type }),
+            _react2.default.createElement('meta', { name: 'description', content: description }),
+            _react2.default.createElement('meta', { name: 'keywords', content: keywords.join(',') })
           ),
           _react2.default.createElement(
-            Popular,
+            _reactHeadroom2.default,
             null,
             _react2.default.createElement(
-              _reactStatic.Link,
-              { to: '/tags/frontend' },
-              '\u524D\u7AEF'
+              Title,
+              { to: '/' },
+              '\u5F00\u53D1\u7B14\u8BB0'
             ),
             _react2.default.createElement(
-              _reactStatic.Link,
-              { to: '/tags/backend' },
-              '\u540E\u7AEF'
-            ),
-            _react2.default.createElement(
-              _reactStatic.Link,
-              { to: '/tags/mobile' },
-              '\u79FB\u52A8\u7AEF'
-            ),
-            _react2.default.createElement(
-              _reactStatic.Link,
-              { to: '/tags/java' },
-              'Java'
-            ),
-            _react2.default.createElement(
-              _reactStatic.Link,
-              { to: '/tags/javascript' },
-              'JavaScript'
-            )
-          ),
-          _react2.default.createElement(
-            ToggledPopular,
-            { onClick: function onClick(e) {
-                if (!is_mobile()) return;
-                var list = e.currentTarget.children[1];
-                list.classList.toggle('show');
-                var handleClickOutside = function handleClickOutside() {
-                  setTimeout(function () {
-                    list.classList.remove('show');
-                  }, 150);
-                  document.removeEventListener('click', handleClickOutside);
-                };
-
-                document.addEventListener('click', handleClickOutside);
-              }, className: 'toggled-popular' },
-            _react2.default.createElement('i', { className: 'iconfont icon-popular' }),
-            _react2.default.createElement(
-              'ul',
+              Nav,
               null,
               _react2.default.createElement(
-                'li',
+                _reactStatic.Link,
+                { to: '/', className: 'icon-link' },
+                _react2.default.createElement('i', { className: 'iconfont icon-home' })
+              ),
+              _react2.default.createElement(
+                Popular,
                 null,
                 _react2.default.createElement(
                   _reactStatic.Link,
                   { to: '/tags/frontend' },
                   '\u524D\u7AEF'
-                )
-              ),
-              _react2.default.createElement(
-                'li',
-                null,
+                ),
                 _react2.default.createElement(
                   _reactStatic.Link,
                   { to: '/tags/backend' },
                   '\u540E\u7AEF'
-                )
-              ),
-              _react2.default.createElement(
-                'li',
-                null,
+                ),
                 _react2.default.createElement(
                   _reactStatic.Link,
                   { to: '/tags/mobile' },
                   '\u79FB\u52A8\u7AEF'
-                )
-              ),
-              _react2.default.createElement(
-                'li',
-                null,
+                ),
                 _react2.default.createElement(
                   _reactStatic.Link,
                   { to: '/tags/java' },
                   'Java'
-                )
-              ),
-              _react2.default.createElement(
-                'li',
-                null,
+                ),
                 _react2.default.createElement(
                   _reactStatic.Link,
                   { to: '/tags/javascript' },
                   'JavaScript'
                 )
+              ),
+              _react2.default.createElement(
+                ToggledPopular,
+                { onClick: function onClick(e) {
+                    if (!is_mobile()) return;
+                    var el = e.currentTarget;
+                    var list = e.currentTarget.children[1];
+                    list.classList.toggle('show');
+                    function handleClickOutside(e) {
+                      if (!e.target.contains(el)) return;
+                      list.classList.remove('show');
+                      document.removeEventListener('click', handleClickOutside);
+                    }
+
+                    if (list.classList.contains('show')) {
+                      document.addEventListener('click', handleClickOutside);
+                    }
+                  }, className: 'toggled-popular' },
+                _react2.default.createElement('i', { className: 'iconfont icon-popular' }),
+                _react2.default.createElement(
+                  'ul',
+                  null,
+                  _react2.default.createElement(
+                    'li',
+                    null,
+                    _react2.default.createElement(
+                      _reactStatic.Link,
+                      { to: '/tags/frontend' },
+                      '\u524D\u7AEF'
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'li',
+                    null,
+                    _react2.default.createElement(
+                      _reactStatic.Link,
+                      { to: '/tags/backend' },
+                      '\u540E\u7AEF'
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'li',
+                    null,
+                    _react2.default.createElement(
+                      _reactStatic.Link,
+                      { to: '/tags/mobile' },
+                      '\u79FB\u52A8\u7AEF'
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'li',
+                    null,
+                    _react2.default.createElement(
+                      _reactStatic.Link,
+                      { to: '/tags/java' },
+                      'Java'
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'li',
+                    null,
+                    _react2.default.createElement(
+                      _reactStatic.Link,
+                      { to: '/tags/javascript' },
+                      'JavaScript'
+                    )
+                  )
+                )
+              ),
+              _react2.default.createElement(
+                _reactStatic.Link,
+                { 'data-tip': '\u5F52\u6863', className: 'archive icon-link', to: '/archives' },
+                _react2.default.createElement('i', { className: 'iconfont icon-archive' })
               )
             )
           ),
           _react2.default.createElement(
-            _reactStatic.Link,
-            { 'data-tip': '\u5F52\u6863', className: 'archive icon-link', to: '/archives' },
-            _react2.default.createElement('i', { className: 'iconfont icon-archive' })
-          )
+            'div',
+            { className: 'content' },
+            _react2.default.createElement(_reactStaticRoutes2.default, null)
+          ),
+          !is_mobile() && _react2.default.createElement(_reactTooltip2.default, { effect: 'solid', place: 'left' })
         )
-      ),
-      _react2.default.createElement(
-        'div',
-        { className: 'content' },
-        _react2.default.createElement(_reactStaticRoutes2.default, null)
-      ),
-      !is_mobile() && _react2.default.createElement(_reactTooltip2.default, { effect: 'solid', place: 'left' })
-    )
-  );
-};
+      );
+    }
+  }]);
+
+  return App;
+}(_react2.default.Component);
 
 exports.default = (0, _reactHotLoader.hot)(module)(App);
 
@@ -2256,4 +2301,4 @@ module.exports = require("react-tooltip");
 /***/ })
 /******/ ]);
 });
-//# sourceMappingURL=static.8638d117.js.map
+//# sourceMappingURL=static.5fb597aa.js.map
