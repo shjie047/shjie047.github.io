@@ -1,0 +1,360 @@
+<!DOCTYPE html><html lang="en" data-reactroot=""><head><title data-react-helmet="true">开发笔记</title><meta data-react-helmet="true" name="title" content="开发笔记"/><meta data-react-helmet="true" property="og:description" content="原文地址
+我们写了一些建议，来演示如何使用OKHttp来解决一些常见问题。
+
+同步GET
+
+下载文件，打印header，打印body。
+string()方法对于小文档的响应来说是个既方便有高效的..."/><meta data-react-helmet="true" property="og:title" content="OKHttp Recipes"/><meta data-react-helmet="true" property="og:type" content="article"/><meta data-react-helmet="true" name="description" content="原文地址
+我们写了一些建议，来演示如何使用OKHttp来解决一些常见问题。
+
+同步GET
+
+下载文件，打印header，打印body。
+string()方法对于小文档的响应来说是个既方便有高效的..."/><meta data-react-helmet="true" name="keywords" content="Java,Translate,OKHttp,HTTP,后端"/><link rel="preload" as="script" href="https://shjie047.github.io/bootstrap.317e1443.js"/><link rel="preload" as="script" href="https://shjie047.github.io/templates/src/containers/Post.ec2b11fa.js"/><link rel="preload" as="script" href="https://shjie047.github.io/main.6d2bb50d.js"/><link rel="preload" as="style" href="https://shjie047.github.io/styles.84980f9d.css"/><link rel="stylesheet" href="https://shjie047.github.io/styles.84980f9d.css"/><meta charSet="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><style data-styled-components="bDWFJH gkZsHu dhqhFB mvmj gdQhez Riikb">
+/* sc-component-id: sc-bwzfXH */
+.dhqhFB{padding:0 40px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;} .dhqhFB a{font-size:1.6rem;font-weight:normal;} .dhqhFB .icon-link{font-size:1.8rem;} .dhqhFB .archive{margin-left:auto;}
+/* sc-component-id: sc-htpNat */
+@media only screen and (max-width:920px){.mvmj{display:none;}} .mvmj a{font-size:1.4rem;} .mvmj::before{content:'';height:2.1rem;width:1px;background-color:#00000038;display:inline-block;vertical-align:middle;}
+/* sc-component-id: sc-bxivhb */
+.gdQhez{display:none;padding:0;margin:0;position:relative;font-size:1.4rem;} .gdQhez::before{content:'';height:2.1rem;width:1px;background-color:#00000038;display:inline-block;vertical-align:middle;} .gdQhez > i{display:inline-block;padding:1rem;color:#fff;font-weight:normal;-webkit-transition:color .3s ease;transition:color .3s ease;} .gdQhez a{font-size:1.4rem;font-weight:normal;line-height:1;display:block;padding:1.2rem 3rem 1.2rem 1rem;} .gdQhez li{margin:0;} .gdQhez ul{list-style:none;padding:0;margin:0;position:absolute;top:100%;left:0;background-color:#108db8;display:none;} .gdQhez ul.show{display:inline-block;} @media only screen and (max-width:920px){.gdQhez{display:inline;}}
+/* sc-component-id: sc-ifAKCX */
+.gkZsHu{position:absolute;top:0;left:50%;top:50%;font-size:1.6rem;color:#fff;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%);font-weight:normal;cursor:pointer;} .gkZsHu:hover{color:#fff!important;}
+/* sc-component-id: sc-dnqmqq */
+.Riikb{position:relative;width:80%;max-width:710px;margin:4rem auto;padding-bottom:4rem;border-bottom:1px solid #ebf2f6;word-wrap:break-word;} .Riikb::after{display:block;content:"";width:7px;height:7px;border:1px solid #e7eef2;position:absolute;bottom:-5px;left:50%;margin-left:-5px;background:#fff;border-radius:100%;box-shadow:0 0 0 5px #fff;} .Riikb .read-more{-webkit-text-decoration:none;text-decoration:none;} .Riikb .author-thumb{width:24px;height:24px;float:left;margin-right:9px;border-radius:100%;} .Riikb .post-header{margin-bottom:3.4rem;} .Riikb .post-title a{-webkit-text-decoration:none;text-decoration:none;} .Riikb .post-meta{display:block;margin:1.75rem 0 0;font-family:Open Sans,sans-serif;font-size:1.5rem;line-height:2.2rem;color:#9eabb3;} .Riikb .post-excerpt p{margin:0;font-size:.9em;line-height:1.7em;} .Riikb .post-meta a{color:#9eabb3;-webkit-text-decoration:none;text-decoration:none;} .Riikb .post-meta a:hover{color:#9eabb3;-webkit-text-decoration:underline;text-decoration:underline;} .Riikb .post-date{display:inline-block;text-transform:uppercase;font-size:1.3rem;white-space:nowrap;} .Riikb .post-date.has-author{margin-left:8px;padding-left:12px;border-left:1px solid #d5dbde;} @media only screen and (max-width:900px){.Riikb{font-size:.95em;}} @media only screen and (max-width:500px){.Riikb{width:auto;margin:2rem 16px;padding-bottom:2rem;line-height:1.65em;}.Riikb .post-excerpt p{font-size:.85em;}.Riikb .post-meta{font-size:1.3rem;margin-top:1rem;}}</style></head><body><div id="root"><div class="sc-bdVaJa bDWFJH" data-reactroot=""><div class="headroom-wrapper"><div style="position:relative;top:0;left:0;right:0;z-index:1;-webkit-transform:translateY(0);-ms-transform:translateY(0);transform:translateY(0)" class="headroom headroom--unfixed"><a class="sc-ifAKCX gkZsHu" aria-current="false" href="https://shjie047.github.io/">开发笔记</a><nav class="sc-bwzfXH dhqhFB"><a class="icon-link" aria-current="false" href="https://shjie047.github.io/"><i class="iconfont icon-home"></i></a><span class="sc-htpNat mvmj"><a aria-current="false" href="https://shjie047.github.io/tags/前端">前端</a><a aria-current="false" href="https://shjie047.github.io/tags/后端">后端</a><a aria-current="false" href="https://shjie047.github.io/tags/mobile">移动端</a><a aria-current="false" href="https://shjie047.github.io/tags/java">Java</a><a aria-current="false" href="https://shjie047.github.io/tags/javascript">JavaScript</a></span><span class="toggled-popular sc-bxivhb gdQhez"><i class="iconfont icon-popular"></i><ul><li><a aria-current="false" href="https://shjie047.github.io/tags/frontend">前端</a></li><li><a aria-current="false" href="https://shjie047.github.io/tags/backend">后端</a></li><li><a aria-current="false" href="https://shjie047.github.io/tags/mobile">移动端</a></li><li><a aria-current="false" href="https://shjie047.github.io/tags/java">Java</a></li><li><a aria-current="false" href="https://shjie047.github.io/tags/javascript">JavaScript</a></li></ul></span><a class="archive icon-link" aria-current="false" data-tip="归档" href="https://shjie047.github.io/archives"><i class="iconfont icon-archive"></i></a></nav></div></div><div class="content"><article class="sc-dnqmqq Riikb"><header class="post-header"><h1 class="post-title">OKHttp Recipes</h1><section class="post-meta "><time class="post-date" dateTime="2017-03-19">2017/3/19</time><span>, </span><span><span><a aria-current="false" href="https://shjie047.github.io/tags/Java">Java</a><span>, </span></span><span><a aria-current="false" href="https://shjie047.github.io/tags/Translate">Translate</a><span>, </span></span><span><a aria-current="false" href="https://shjie047.github.io/tags/OKHttp">OKHttp</a><span>, </span></span><span><a aria-current="false" href="https://shjie047.github.io/tags/HTTP">HTTP</a><span>, </span></span><span><a aria-current="false" href="https://shjie047.github.io/tags/后端">后端</a></span></span></section></header><section class="post-content markdown-body"><div><p><a href="https://github.com/square/okhttp/wiki/Recipes" target="_blank">原文地址</a>
+我们写了一些建议，来演示如何使用OKHttp来解决一些常见问题。</p><h4>同步GET</h4><p>下载文件，打印header，打印body。
+<code>string()</code>方法对于小文档的响应来说是个既方便有高效的方法。但是如果一个文档太大（大于1M），就不要使用<code>string()</code>方法了，以为他会把整个文档加载到内存中,在这种情况下可以把body当作流来处理。  </p><pre><code class="language-Java">private final OkHttpClient client = new OkHttpClient();
+public void run() throws Exception {
+Request request = new Request.Builder()
+    .url(&quot;http://publicobject.com/helloworld.txt&quot;)
+    .build();
+
+Response response = client.newCall(request).execute();
+if (!response.isSuccessful()) throw new IOException(&quot;Unexpected code &quot; + response);
+
+Headers responseHeaders = response.headers();
+for (int i = 0; i &lt; responseHeaders.size(); i++) {
+System.out.println(responseHeaders.name(i) + &quot;: &quot; + responseHeaders.value(i));
+}
+System.out.println(response.body().string());
+    </code></pre><h4>异步GET</h4><p> 在工作线程下载文件，响应可读后回调。在响应的header准备好的时候回调。响应体可能仍然阻塞。现在OKHttp没有提供获取响应体的异步API。</p><pre><code class="language-Java">private final OkHttpClient client = new OkHttpClient();
+
+public void run() throws Exception {
+Request request = new Request.Builder()
+    .url(&quot;http://publicobject.com/helloworld.txt&quot;)
+    .build();
+
+client.newCall(request).enqueue(new Callback() {
+    @Override public void onFailure(Call call, IOException e) {
+    e.printStackTrace();
+    }
+
+    @Override public void onResponse(Call call, Response response) throws IOException {
+    if (!response.isSuccessful()) throw new IOException(&quot;Unexpected code &quot; + response);
+
+    Headers responseHeaders = response.headers();
+    for (int i = 0, size = responseHeaders.size(); i &lt; size; i++) {
+        System.out.println(responseHeaders.name(i) + &quot;: &quot; + responseHeaders.value(i));
+    }
+
+    System.out.println(response.body().string());
+    }
+});
+}</code></pre><h4>访问Header</h4><p> 总体上说Header有点像<code>Map&lt;String,String&gt;</code>，每一个字段都有或没有值。但是一些Header允许有多个值，就像Guava的<code>[Multimap](http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/collect/Multimap.html)</code>。
+ 例如HTTP提供多个Vary<code>的值是很常见并且合法的。OKHttp的API在这两种情况下都能轻松使用。
+ 当写入请求header的时候使用</code>header(name,value)<code>设置仅有一个的</code>name<code>和</code>value<code>。如果有存在的值，会先移除值再添加。 使用</code>addHeader(name,value)<code>添加header不会移除已经存在的header。
+ 当读响应header的时候，</code>header(name)<code>只返回最后一个值，通常也仅有一个。如果没有值，将会返回null。以一个list的方式获取所有的值可以使用</code>headers(name)`。
+ 如果要访问所有的header，可以使用Headers类，支持坐标访问。</p><pre><code class="language-Java">private final OkHttpClient client = new OkHttpClient();
+
+public void run() throws Exception {
+Request request = new Request.Builder()
+    .url(&quot;https://api.github.com/repos/square/okhttp/issues&quot;)
+    .header(&quot;User-Agent&quot;, &quot;OkHttp Headers.java&quot;)
+    .addHeader(&quot;Accept&quot;, &quot;application/json; q=0.5&quot;)
+    .addHeader(&quot;Accept&quot;, &quot;application/vnd.github.v3+json&quot;)
+    .build();
+
+Response response = client.newCall(request).execute();
+if (!response.isSuccessful()) throw new IOException(&quot;Unexpected code &quot; + response);
+
+System.out.println(&quot;Server: &quot; + response.header(&quot;Server&quot;));
+System.out.println(&quot;Date: &quot; + response.header(&quot;Date&quot;));
+System.out.println(&quot;Vary: &quot; + response.headers(&quot;Vary&quot;));
+}</code></pre><h4>使用POST发送String请求。</h4><p> 使用HTTP的POST给服务发送请求。这个例子发送了一个markdown文档到服务器用来将markdown渲染成HTML。因为整个请求是放在内存中的，所以使用此API的时候避免大文档（小于1M）。</p><pre><code class="language-Java">public static final MediaType MEDIA_TYPE_MARKDOWN
+    = MediaType.parse(&quot;text/x-markdown; charset=utf-8&quot;);
+
+private final OkHttpClient client = new OkHttpClient();
+
+public void run() throws Exception {
+String postBody = &quot;&quot;
+    + &quot;Releases\n&quot;
+    + &quot;--------\n&quot;
+    + &quot;\n&quot;
+    + &quot; * _1.0_ May 6, 2013\n&quot;
+    + &quot; * _1.1_ June 15, 2013\n&quot;
+    + &quot; * _1.2_ August 11, 2013\n&quot;;
+
+Request request = new Request.Builder()
+    .url(&quot;https://api.github.com/markdown/raw&quot;)
+    .post(RequestBody.create(MEDIA_TYPE_MARKDOWN, postBody))
+    .build();
+
+Response response = client.newCall(request).execute();
+if (!response.isSuccessful()) throw new IOException(&quot;Unexpected code &quot; + response);
+
+System.out.println(response.body().string());
+}</code></pre><h4>使用POST发送流</h4><p> 使用POST将请求体以流的方式发送。请求体在被写入的时候生成。这个例子直接使用了<code>[Okio](https://github.com/square/okio)</code>的缓冲库。可能你更熟悉<code>OutputStream</code>可以通过<code>BufferedSink.outputStream</code>获取。</p><pre><code class="language-Java">public static final MediaType MEDIA_TYPE_MARKDOWN
+    = MediaType.parse(&quot;text/x-markdown; charset=utf-8&quot;);
+
+private final OkHttpClient client = new OkHttpClient();
+
+public void run() throws Exception {
+RequestBody requestBody = new RequestBody() {
+    @Override public MediaType contentType() {
+    return MEDIA_TYPE_MARKDOWN;
+    }
+
+    @Override public void writeTo(BufferedSink sink) throws IOException {
+    sink.writeUtf8(&quot;Numbers\n&quot;);
+    sink.writeUtf8(&quot;-------\n&quot;);
+    for (int i = 2; i &lt;= 997; i++) {
+        sink.writeUtf8(String.format(&quot; * %s = %s\n&quot;, i, factor(i)));
+    }
+    }
+
+    private String factor(int n) {
+    for (int i = 2; i &lt; n; i++) {
+        int x = n / i;
+        if (x * i == n) return factor(x) + &quot; × &quot; + i;
+    }
+    return Integer.toString(n);
+    }
+};
+
+Request request = new Request.Builder()
+    .url(&quot;https://api.github.com/markdown/raw&quot;)
+    .post(requestBody)
+    .build();
+
+Response response = client.newCall(request).execute();
+if (!response.isSuccessful()) throw new IOException(&quot;Unexpected code &quot; + response);
+
+System.out.println(response.body().string());
+}</code></pre><h4>使用POST发送一个文件</h4><p> 文件很容易当作一个请求体。</p><pre><code class="language-Java">public static final MediaType MEDIA_TYPE_MARKDOWN
+    = MediaType.parse(&quot;text/x-markdown; charset=utf-8&quot;);
+
+private final OkHttpClient client = new OkHttpClient();
+
+public void run() throws Exception {
+File file = new File(&quot;README.md&quot;);
+
+Request request = new Request.Builder()
+    .url(&quot;https://api.github.com/markdown/raw&quot;)
+    .post(RequestBody.create(MEDIA_TYPE_MARKDOWN, file))
+    .build();
+
+Response response = client.newCall(request).execute();
+if (!response.isSuccessful()) throw new IOException(&quot;Unexpected code &quot; + response);
+
+System.out.println(response.body().string());
+}</code></pre><h4>发送form 参数</h4><p> 使用<code>FormBody.Builder</code>来创建一个同HTML 的<code>form</code>标签方式相同的请求踢。名字和值会被编码成HTML兼容的URL编码。</p><pre><code class="language-Java">private final OkHttpClient client = new OkHttpClient();
+
+public void run() throws Exception {
+RequestBody formBody = new FormBody.Builder()
+    .add(&quot;search&quot;, &quot;Jurassic Park&quot;)
+    .build();
+Request request = new Request.Builder()
+    .url(&quot;https://en.wikipedia.org/w/index.php&quot;)
+    .post(formBody)
+    .build();
+
+Response response = client.newCall(request).execute();
+if (!response.isSuccessful()) throw new IOException(&quot;Unexpected code &quot; + response);
+
+System.out.println(response.body().string());
+}</code></pre><h4>发送multipart请求</h4><p> <code>MultipartBody.Builder</code>可以创建和HTML上传文件兼容的请求。每一个multipart请求体自身也是请求体，可以有自己的header。如果提供了，这些header仅描述自身的一部分，例如<code>Content-Dispositon</code>。<code>Content-Type</code>,<code>Content-Length</code>如果可用会自动添加。</p><pre><code class="language-Java">private static final String IMGUR_CLIENT_ID = &quot;...&quot;;
+private static final MediaType MEDIA_TYPE_PNG = MediaType.parse(&quot;image/png&quot;);
+
+private final OkHttpClient client = new OkHttpClient();
+
+public void run() throws Exception {
+// Use the imgur image upload API as documented at https://api.imgur.com/endpoints/image
+RequestBody requestBody = new MultipartBody.Builder()
+    .setType(MultipartBody.FORM)
+    .addFormDataPart(&quot;title&quot;, &quot;Square Logo&quot;)
+    .addFormDataPart(&quot;image&quot;, &quot;logo-square.png&quot;,
+        RequestBody.create(MEDIA_TYPE_PNG, new File(&quot;website/static/logo-square.png&quot;)))
+    .build();
+
+Request request = new Request.Builder()
+    .header(&quot;Authorization&quot;, &quot;Client-ID &quot; + IMGUR_CLIENT_ID)
+    .url(&quot;https://api.imgur.com/3/image&quot;)
+    .post(requestBody)
+    .build();
+
+Response response = client.newCall(request).execute();
+if (!response.isSuccessful()) throw new IOException(&quot;Unexpected code &quot; + response);
+
+System.out.println(response.body().string());
+}</code></pre><h4>使用Gson解析响应JSON</h4><p> <a href="http://code.google.com/p/google-gson/" target="_blank">Gson</a>是一个很顺手的转换Java对象和JSON的API。这里我们用它来解析GitHub响应的JSON。
+ 注意，<code>ResponseBody.charStream()</code>使用<code>content-type</code>的响应header来选择解码响应流的字符集，如果没有提供默认使用UTF-8。</p><pre><code class="language-Java">private final OkHttpClient client = new OkHttpClient();
+private final Gson gson = new Gson();
+
+public void run() throws Exception {
+Request request = new Request.Builder()
+    .url(&quot;https://api.github.com/gists/c2a7c39532239ff261be&quot;)
+    .build();
+Response response = client.newCall(request).execute();
+if (!response.isSuccessful()) throw new IOException(&quot;Unexpected code &quot; + response);
+
+Gist gist = gson.fromJson(response.body().charStream(), Gist.class);
+for (Map.Entry&lt;String, GistFile&gt; entry : gist.files.entrySet()) {
+    System.out.println(entry.getKey());
+    System.out.println(entry.getValue().content);
+}
+}
+
+static class Gist {
+Map&lt;String, GistFile&gt; files;
+}
+
+static class GistFile {
+String content;
+}</code></pre><h4>响应缓存</h4><p> 为了换成响应需要又一个可读写的缓存目录并且限制缓存的大小。缓存目录应该是私有的，并且非信任的应用无权访问。<br/> 同时访问一个缓冲目录回出现错误。大多数应用应该调用一次<code>new OkHttpClient()</code>，配置它的缓存，在其他地方使用统一个实例。否则两个缓存实例会互相损害，损坏换成，可能是你的应用崩溃。
+ 响应缓存使用HTTP的header来配置。如果请求头添加了<code>Cache-Control: max-stale=3600</code>,OKHttp将会使用这些配置。是服务器来配置响应可以被缓存多长时间，通过响应头来配置，例如<code>Cache-Control: max-age=9600</code>。有一些header可以强制换成响应，强制一个网络返回或者强制一个有条件的GET确定缓存是否有效。</p><pre><code class="language-Java">private final OkHttpClient client;
+
+public CacheResponse(File cacheDirectory) throws Exception {
+int cacheSize = 10 * 1024 * 1024; // 10 MiB
+Cache cache = new Cache(cacheDirectory, cacheSize);
+
+client = new OkHttpClient.Builder()
+    .cache(cache)
+    .build();
+}
+
+public void run() throws Exception {
+Request request = new Request.Builder()
+    .url(&quot;http://publicobject.com/helloworld.txt&quot;)
+    .build();
+
+Response response1 = client.newCall(request).execute();
+if (!response1.isSuccessful()) throw new IOException(&quot;Unexpected code &quot; + response1);
+
+String response1Body = response1.body().string();
+System.out.println(&quot;Response 1 response:          &quot; + response1);
+System.out.println(&quot;Response 1 cache response:    &quot; + response1.cacheResponse());
+System.out.println(&quot;Response 1 network response:  &quot; + response1.networkResponse());
+
+Response response2 = client.newCall(request).execute();
+if (!response2.isSuccessful()) throw new IOException(&quot;Unexpected code &quot; + response2);
+
+String response2Body = response2.body().string();
+System.out.println(&quot;Response 2 response:          &quot; + response2);
+System.out.println(&quot;Response 2 cache response:    &quot; + response2.cacheResponse());
+System.out.println(&quot;Response 2 network response:  &quot; + response2.networkResponse());
+
+System.out.println(&quot;Response 2 equals Response 1? &quot; + response1Body.equals(response2Body));
+}</code></pre><p> 为了阻止缓冲可以使用<code>[CacheControl.FORCE_NETWORK](CacheControl.FORCE_NETWORK)</code>.为了阻止网络连接可以使用<code>[CacheControl.FORCE_CACHE](http://square.github.io/okhttp/3.x/okhttp/okhttp3/CacheControl.html#FORCE_CACHE)</code>。警告：如果使用了<code>FORCE_CACHE</code>并且响应需要网络，将会返回<code>504 Unsatisfiable Request</code>。</p><h4>取消请求</h4><p> 使用<code>Call.cancel()</code>立即取消正在进行的请求。如果一个线程正在写一个请求或者读一个响应将会抛出IOException。当一个请求不在需要的时候使用这个函数来保护网络。例如当用户导航离开应用的时候。同步和异步的请求都可以取消。</p><pre><code class="language-Java">private final ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+private final OkHttpClient client = new OkHttpClient();
+
+public void run() throws Exception {
+Request request = new Request.Builder()
+    .url(&quot;http://httpbin.org/delay/2&quot;) // This URL is served with a 2 second delay.
+    .build();
+
+final long startNanos = System.nanoTime();
+final Call call = client.newCall(request);
+
+// Schedule a job to cancel the call in 1 second.
+executor.schedule(new Runnable() {
+    @Override public void run() {
+    System.out.printf(&quot;%.2f Canceling call.%n&quot;, (System.nanoTime() - startNanos) / 1e9f);
+    call.cancel();
+    System.out.printf(&quot;%.2f Canceled call.%n&quot;, (System.nanoTime() - startNanos) / 1e9f);
+    }
+}, 1, TimeUnit.SECONDS);
+
+try {
+    System.out.printf(&quot;%.2f Executing call.%n&quot;, (System.nanoTime() - startNanos) / 1e9f);
+    Response response = call.execute();
+    System.out.printf(&quot;%.2f Call was expected to fail, but completed: %s%n&quot;,
+        (System.nanoTime() - startNanos) / 1e9f, response);
+} catch (IOException e) {
+    System.out.printf(&quot;%.2f Call failed as expected: %s%n&quot;,
+        (System.nanoTime() - startNanos) / 1e9f, e);
+}
+}</code></pre><h4>超时</h4><p> 当端点不可达的时候使用超时使请求失败。网络分区可能是客户端连接问题，服务器可用性问题或者其他问题。OKHttp支持连接，读，写超时。</p><pre><code class="language-Java">private final OkHttpClient client;
+
+public ConfigureTimeouts() throws Exception {
+client = new OkHttpClient.Builder()
+    .connectTimeout(10, TimeUnit.SECONDS)
+    .writeTimeout(10, TimeUnit.SECONDS)
+    .readTimeout(30, TimeUnit.SECONDS)
+    .build();
+}
+
+public void run() throws Exception {
+Request request = new Request.Builder()
+    .url(&quot;http://httpbin.org/delay/2&quot;) // This URL is served with a 2 second delay.
+    .build();
+
+Response response = client.newCall(request).execute();
+System.out.println(&quot;Response completed: &quot; + response);
+}</code></pre><h4>调用前配置</h4><p> 所有的HTTP调用配置都会在<code>OkHttpClient</code>中，包括，代理设置，超时和缓存。当需要修改某个调用的配置的时候，使用<code>OKHttpClient.newBuilder()</code>。这个函数会返回共享的连接池，调度器，并且跟原始client相同的配置。在下面这个例子中，一个请求的超时时间是500ms另一个是3000ms。</p><pre><code class="language-Java">private final OkHttpClient client = new OkHttpClient();
+
+public void run() throws Exception {
+Request request = new Request.Builder()
+   .url(&quot;http://httpbin.org/delay/1&quot;) // This URL is served with a 1 second delay.
+   .build();
+
+try {
+   // Copy to customize OkHttp for this request.
+   OkHttpClient copy = client.newBuilder()
+       .readTimeout(500, TimeUnit.MILLISECONDS)
+       .build();
+
+   Response response = copy.newCall(request).execute();
+   System.out.println(&quot;Response 1 succeeded: &quot; + response);
+} catch (IOException e) {
+   System.out.println(&quot;Response 1 failed: &quot; + e);
+}
+
+try {
+   // Copy to customize OkHttp for this request.
+   OkHttpClient copy = client.newBuilder()
+       .readTimeout(3000, TimeUnit.MILLISECONDS)
+       .build();
+
+   Response response = copy.newCall(request).execute();
+   System.out.println(&quot;Response 2 succeeded: &quot; + response);
+} catch (IOException e) {
+   System.out.println(&quot;Response 2 failed: &quot; + e);
+}
+}</code></pre><h4>处理认证</h4><p> OKHttp会自动重试认证请求。当响应是<code>401 Not Authorized</code>,<code>Authenticator</code>需要用来提供凭证。将会重新实现一个带有凭证的请求，如果没有凭证可用跳过重试，返回null。
+ 使用<code>Response.challenges()</code>来获取任何认证口令的方案和域。当使用<code>Basic</code>认证的时候使用<code>Credentials.basic(username,password)</code>来编码一个header。</p><pre><code class="language-Java">private final OkHttpClient client;
+
+public Authenticate() {
+client = new OkHttpClient.Builder()
+    .authenticator(new Authenticator() {
+        @Override public Request authenticate(Route route, Response response) throws IOException {
+        System.out.println(&quot;Authenticating for response: &quot; + response);
+        System.out.println(&quot;Challenges: &quot; + response.challenges());
+        String credential = Credentials.basic(&quot;jesse&quot;, &quot;password1&quot;);
+        return response.request().newBuilder()
+            .header(&quot;Authorization&quot;, credential)
+            .build();
+        }
+    })
+    .build();
+}
+
+public void run() throws Exception {
+Request request = new Request.Builder()
+    .url(&quot;http://publicobject.com/secrets/hellosecret.txt&quot;)
+    .build();
+
+Response response = client.newCall(request).execute();
+if (!response.isSuccessful()) throw new IOException(&quot;Unexpected code &quot; + response);
+
+System.out.println(response.body().string());
+}</code></pre></div></section><section class="post-footer"></section></article></div><div class="__react_component_tooltip place-top type-dark " data-id="tooltip"></div></div></div><script type="text/javascript">window.__CSS_CHUNKS__ = {"main":"https://shjie047.github.io/styles.84980f9d.css"}</script><script type="text/javascript">
+                window.__routeInfo = {'path':'post/2017-03-19/Recipes','templateID':2,'sharedPropsHashes':{},'localProps':null,'allProps':{'post':{'title':'OKHttp Recipes','tags':['Java','Translate','OKHttp','HTTP','\u540E\u7AEF'],'iso8601Date':'2017-03-19T03:44:10+08:00','basename':'Recipes','body':'\n\n[\u539F\u6587\u5730\u5740](https://github.com/square/okhttp/wiki/Recipes)\n\u6211\u4EEC\u5199\u4E86\u4E00\u4E9B\u5EFA\u8BAE\uFF0C\u6765\u6F14\u793A\u5982\u4F55\u4F7F\u7528OKHttp\u6765\u89E3\u51B3\u4E00\u4E9B\u5E38\u89C1\u95EE\u9898\u3002\n\n#### \u540C\u6B65GET\n\u4E0B\u8F7D\u6587\u4EF6\uFF0C\u6253\u5370header\uFF0C\u6253\u5370body\u3002\n`string()`\u65B9\u6CD5\u5BF9\u4E8E\u5C0F\u6587\u6863\u7684\u54CD\u5E94\u6765\u8BF4\u662F\u4E2A\u65E2\u65B9\u4FBF\u6709\u9AD8\u6548\u7684\u65B9\u6CD5\u3002\u4F46\u662F\u5982\u679C\u4E00\u4E2A\u6587\u6863\u592A\u5927\uFF08\u5927\u4E8E1M\uFF09\uFF0C\u5C31\u4E0D\u8981\u4F7F\u7528`string()`\u65B9\u6CD5\u4E86\uFF0C\u4EE5\u4E3A\u4ED6\u4F1A\u628A\u6574\u4E2A\u6587\u6863\u52A0\u8F7D\u5230\u5185\u5B58\u4E2D,\u5728\u8FD9\u79CD\u60C5\u51B5\u4E0B\u53EF\u4EE5\u628Abody\u5F53\u4F5C\u6D41\u6765\u5904\u7406\u3002  \n\n```Java\nprivate final OkHttpClient client = new OkHttpClient();\npublic void run() throws Exception {\nRequest request = new Request.Builder()\n    .url("http://publicobject.com/helloworld.txt")\n    .build();\n\nResponse response = client.newCall(request).execute();\nif (!response.isSuccessful()) throw new IOException("Unexpected code " + response);\n\nHeaders responseHeaders = response.headers();\nfor (int i = 0; i < responseHeaders.size(); i++) {\nSystem.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));\n}\nSystem.out.println(response.body().string());\n    \n```\n\n #### \u5F02\u6B65GET\n \u5728\u5DE5\u4F5C\u7EBF\u7A0B\u4E0B\u8F7D\u6587\u4EF6\uFF0C\u54CD\u5E94\u53EF\u8BFB\u540E\u56DE\u8C03\u3002\u5728\u54CD\u5E94\u7684header\u51C6\u5907\u597D\u7684\u65F6\u5019\u56DE\u8C03\u3002\u54CD\u5E94\u4F53\u53EF\u80FD\u4ECD\u7136\u963B\u585E\u3002\u73B0\u5728OKHttp\u6CA1\u6709\u63D0\u4F9B\u83B7\u53D6\u54CD\u5E94\u4F53\u7684\u5F02\u6B65API\u3002\n\n```Java\nprivate final OkHttpClient client = new OkHttpClient();\n\npublic void run() throws Exception {\nRequest request = new Request.Builder()\n    .url("http://publicobject.com/helloworld.txt")\n    .build();\n\nclient.newCall(request).enqueue(new Callback() {\n    @Override public void onFailure(Call call, IOException e) {\n    e.printStackTrace();\n    }\n\n    @Override public void onResponse(Call call, Response response) throws IOException {\n    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);\n\n    Headers responseHeaders = response.headers();\n    for (int i = 0, size = responseHeaders.size(); i < size; i++) {\n        System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));\n    }\n\n    System.out.println(response.body().string());\n    }\n});\n}\n```\n\n #### \u8BBF\u95EEHeader\n \u603B\u4F53\u4E0A\u8BF4Header\u6709\u70B9\u50CF`Map<String,String>`\uFF0C\u6BCF\u4E00\u4E2A\u5B57\u6BB5\u90FD\u6709\u6216\u6CA1\u6709\u503C\u3002\u4F46\u662F\u4E00\u4E9BHeader\u5141\u8BB8\u6709\u591A\u4E2A\u503C\uFF0C\u5C31\u50CFGuava\u7684`[Multimap](http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/collect/Multimap.html)`\u3002\n \u4F8B\u5982HTTP\u63D0\u4F9B\u591A\u4E2AVary`\u7684\u503C\u662F\u5F88\u5E38\u89C1\u5E76\u4E14\u5408\u6CD5\u7684\u3002OKHttp\u7684API\u5728\u8FD9\u4E24\u79CD\u60C5\u51B5\u4E0B\u90FD\u80FD\u8F7B\u677E\u4F7F\u7528\u3002\n \u5F53\u5199\u5165\u8BF7\u6C42header\u7684\u65F6\u5019\u4F7F\u7528`header(name,value)`\u8BBE\u7F6E\u4EC5\u6709\u4E00\u4E2A\u7684`name`\u548C`value`\u3002\u5982\u679C\u6709\u5B58\u5728\u7684\u503C\uFF0C\u4F1A\u5148\u79FB\u9664\u503C\u518D\u6DFB\u52A0\u3002 \u4F7F\u7528`addHeader(name,value)`\u6DFB\u52A0header\u4E0D\u4F1A\u79FB\u9664\u5DF2\u7ECF\u5B58\u5728\u7684header\u3002\n \u5F53\u8BFB\u54CD\u5E94header\u7684\u65F6\u5019\uFF0C`header(name)`\u53EA\u8FD4\u56DE\u6700\u540E\u4E00\u4E2A\u503C\uFF0C\u901A\u5E38\u4E5F\u4EC5\u6709\u4E00\u4E2A\u3002\u5982\u679C\u6CA1\u6709\u503C\uFF0C\u5C06\u4F1A\u8FD4\u56DEnull\u3002\u4EE5\u4E00\u4E2Alist\u7684\u65B9\u5F0F\u83B7\u53D6\u6240\u6709\u7684\u503C\u53EF\u4EE5\u4F7F\u7528`headers(name)`\u3002\n \u5982\u679C\u8981\u8BBF\u95EE\u6240\u6709\u7684header\uFF0C\u53EF\u4EE5\u4F7F\u7528Headers\u7C7B\uFF0C\u652F\u6301\u5750\u6807\u8BBF\u95EE\u3002\n\n```Java\nprivate final OkHttpClient client = new OkHttpClient();\n\npublic void run() throws Exception {\nRequest request = new Request.Builder()\n    .url("https://api.github.com/repos/square/okhttp/issues")\n    .header("User-Agent", "OkHttp Headers.java")\n    .addHeader("Accept", "application/json; q=0.5")\n    .addHeader("Accept", "application/vnd.github.v3+json")\n    .build();\n\nResponse response = client.newCall(request).execute();\nif (!response.isSuccessful()) throw new IOException("Unexpected code " + response);\n\nSystem.out.println("Server: " + response.header("Server"));\nSystem.out.println("Date: " + response.header("Date"));\nSystem.out.println("Vary: " + response.headers("Vary"));\n}\n```\n\n #### \u4F7F\u7528POST\u53D1\u9001String\u8BF7\u6C42\u3002\n \u4F7F\u7528HTTP\u7684POST\u7ED9\u670D\u52A1\u53D1\u9001\u8BF7\u6C42\u3002\u8FD9\u4E2A\u4F8B\u5B50\u53D1\u9001\u4E86\u4E00\u4E2Amarkdown\u6587\u6863\u5230\u670D\u52A1\u5668\u7528\u6765\u5C06markdown\u6E32\u67D3\u6210HTML\u3002\u56E0\u4E3A\u6574\u4E2A\u8BF7\u6C42\u662F\u653E\u5728\u5185\u5B58\u4E2D\u7684\uFF0C\u6240\u4EE5\u4F7F\u7528\u6B64API\u7684\u65F6\u5019\u907F\u514D\u5927\u6587\u6863\uFF08\u5C0F\u4E8E1M\uFF09\u3002\n\n```Java\npublic static final MediaType MEDIA_TYPE_MARKDOWN\n    = MediaType.parse("text/x-markdown; charset=utf-8");\n\nprivate final OkHttpClient client = new OkHttpClient();\n\npublic void run() throws Exception {\nString postBody = ""\n    + "Releases\\n"\n    + "--------\\n"\n    + "\\n"\n    + " * _1.0_ May 6, 2013\\n"\n    + " * _1.1_ June 15, 2013\\n"\n    + " * _1.2_ August 11, 2013\\n";\n\nRequest request = new Request.Builder()\n    .url("https://api.github.com/markdown/raw")\n    .post(RequestBody.create(MEDIA_TYPE_MARKDOWN, postBody))\n    .build();\n\nResponse response = client.newCall(request).execute();\nif (!response.isSuccessful()) throw new IOException("Unexpected code " + response);\n\nSystem.out.println(response.body().string());\n}\n```\n\n #### \u4F7F\u7528POST\u53D1\u9001\u6D41\n \u4F7F\u7528POST\u5C06\u8BF7\u6C42\u4F53\u4EE5\u6D41\u7684\u65B9\u5F0F\u53D1\u9001\u3002\u8BF7\u6C42\u4F53\u5728\u88AB\u5199\u5165\u7684\u65F6\u5019\u751F\u6210\u3002\u8FD9\u4E2A\u4F8B\u5B50\u76F4\u63A5\u4F7F\u7528\u4E86`[Okio](https://github.com/square/okio)`\u7684\u7F13\u51B2\u5E93\u3002\u53EF\u80FD\u4F60\u66F4\u719F\u6089`OutputStream`\u53EF\u4EE5\u901A\u8FC7`BufferedSink.outputStream`\u83B7\u53D6\u3002\n\n\n```Java\npublic static final MediaType MEDIA_TYPE_MARKDOWN\n    = MediaType.parse("text/x-markdown; charset=utf-8");\n\nprivate final OkHttpClient client = new OkHttpClient();\n\npublic void run() throws Exception {\nRequestBody requestBody = new RequestBody() {\n    @Override public MediaType contentType() {\n    return MEDIA_TYPE_MARKDOWN;\n    }\n\n    @Override public void writeTo(BufferedSink sink) throws IOException {\n    sink.writeUtf8("Numbers\\n");\n    sink.writeUtf8("-------\\n");\n    for (int i = 2; i <= 997; i++) {\n        sink.writeUtf8(String.format(" * %s = %s\\n", i, factor(i)));\n    }\n    }\n\n    private String factor(int n) {\n    for (int i = 2; i < n; i++) {\n        int x = n / i;\n        if (x * i == n) return factor(x) + " \xD7 " + i;\n    }\n    return Integer.toString(n);\n    }\n};\n\nRequest request = new Request.Builder()\n    .url("https://api.github.com/markdown/raw")\n    .post(requestBody)\n    .build();\n\nResponse response = client.newCall(request).execute();\nif (!response.isSuccessful()) throw new IOException("Unexpected code " + response);\n\nSystem.out.println(response.body().string());\n}\n```\n\n #### \u4F7F\u7528POST\u53D1\u9001\u4E00\u4E2A\u6587\u4EF6\n \u6587\u4EF6\u5F88\u5BB9\u6613\u5F53\u4F5C\u4E00\u4E2A\u8BF7\u6C42\u4F53\u3002\n\n```Java\npublic static final MediaType MEDIA_TYPE_MARKDOWN\n    = MediaType.parse("text/x-markdown; charset=utf-8");\n\nprivate final OkHttpClient client = new OkHttpClient();\n\npublic void run() throws Exception {\nFile file = new File("README.md");\n\nRequest request = new Request.Builder()\n    .url("https://api.github.com/markdown/raw")\n    .post(RequestBody.create(MEDIA_TYPE_MARKDOWN, file))\n    .build();\n\nResponse response = client.newCall(request).execute();\nif (!response.isSuccessful()) throw new IOException("Unexpected code " + response);\n\nSystem.out.println(response.body().string());\n}\n```\n\n #### \u53D1\u9001form \u53C2\u6570\n \u4F7F\u7528`FormBody.Builder`\u6765\u521B\u5EFA\u4E00\u4E2A\u540CHTML \u7684`form`\u6807\u7B7E\u65B9\u5F0F\u76F8\u540C\u7684\u8BF7\u6C42\u8E22\u3002\u540D\u5B57\u548C\u503C\u4F1A\u88AB\u7F16\u7801\u6210HTML\u517C\u5BB9\u7684URL\u7F16\u7801\u3002\n\n```Java\nprivate final OkHttpClient client = new OkHttpClient();\n\npublic void run() throws Exception {\nRequestBody formBody = new FormBody.Builder()\n    .add("search", "Jurassic Park")\n    .build();\nRequest request = new Request.Builder()\n    .url("https://en.wikipedia.org/w/index.php")\n    .post(formBody)\n    .build();\n\nResponse response = client.newCall(request).execute();\nif (!response.isSuccessful()) throw new IOException("Unexpected code " + response);\n\nSystem.out.println(response.body().string());\n}\n```\n\n #### \u53D1\u9001multipart\u8BF7\u6C42\n `MultipartBody.Builder`\u53EF\u4EE5\u521B\u5EFA\u548CHTML\u4E0A\u4F20\u6587\u4EF6\u517C\u5BB9\u7684\u8BF7\u6C42\u3002\u6BCF\u4E00\u4E2Amultipart\u8BF7\u6C42\u4F53\u81EA\u8EAB\u4E5F\u662F\u8BF7\u6C42\u4F53\uFF0C\u53EF\u4EE5\u6709\u81EA\u5DF1\u7684header\u3002\u5982\u679C\u63D0\u4F9B\u4E86\uFF0C\u8FD9\u4E9Bheader\u4EC5\u63CF\u8FF0\u81EA\u8EAB\u7684\u4E00\u90E8\u5206\uFF0C\u4F8B\u5982`Content-Dispositon`\u3002`Content-Type`,`Content-Length`\u5982\u679C\u53EF\u7528\u4F1A\u81EA\u52A8\u6DFB\u52A0\u3002\n \n```Java\nprivate static final String IMGUR_CLIENT_ID = "...";\nprivate static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");\n\nprivate final OkHttpClient client = new OkHttpClient();\n\npublic void run() throws Exception {\n// Use the imgur image upload API as documented at https://api.imgur.com/endpoints/image\nRequestBody requestBody = new MultipartBody.Builder()\n    .setType(MultipartBody.FORM)\n    .addFormDataPart("title", "Square Logo")\n    .addFormDataPart("image", "logo-square.png",\n        RequestBody.create(MEDIA_TYPE_PNG, new File("website/static/logo-square.png")))\n    .build();\n\nRequest request = new Request.Builder()\n    .header("Authorization", "Client-ID " + IMGUR_CLIENT_ID)\n    .url("https://api.imgur.com/3/image")\n    .post(requestBody)\n    .build();\n\nResponse response = client.newCall(request).execute();\nif (!response.isSuccessful()) throw new IOException("Unexpected code " + response);\n\nSystem.out.println(response.body().string());\n}\n```\n #### \u4F7F\u7528Gson\u89E3\u6790\u54CD\u5E94JSON\n [Gson](http://code.google.com/p/google-gson/)\u662F\u4E00\u4E2A\u5F88\u987A\u624B\u7684\u8F6C\u6362Java\u5BF9\u8C61\u548CJSON\u7684API\u3002\u8FD9\u91CC\u6211\u4EEC\u7528\u5B83\u6765\u89E3\u6790GitHub\u54CD\u5E94\u7684JSON\u3002\n \u6CE8\u610F\uFF0C`ResponseBody.charStream()`\u4F7F\u7528`content-type`\u7684\u54CD\u5E94header\u6765\u9009\u62E9\u89E3\u7801\u54CD\u5E94\u6D41\u7684\u5B57\u7B26\u96C6\uFF0C\u5982\u679C\u6CA1\u6709\u63D0\u4F9B\u9ED8\u8BA4\u4F7F\u7528UTF-8\u3002\n\n```Java\nprivate final OkHttpClient client = new OkHttpClient();\nprivate final Gson gson = new Gson();\n\npublic void run() throws Exception {\nRequest request = new Request.Builder()\n    .url("https://api.github.com/gists/c2a7c39532239ff261be")\n    .build();\nResponse response = client.newCall(request).execute();\nif (!response.isSuccessful()) throw new IOException("Unexpected code " + response);\n\nGist gist = gson.fromJson(response.body().charStream(), Gist.class);\nfor (Map.Entry<String, GistFile> entry : gist.files.entrySet()) {\n    System.out.println(entry.getKey());\n    System.out.println(entry.getValue().content);\n}\n}\n\nstatic class Gist {\nMap<String, GistFile> files;\n}\n\nstatic class GistFile {\nString content;\n}\n```\n\n #### \u54CD\u5E94\u7F13\u5B58\n \u4E3A\u4E86\u6362\u6210\u54CD\u5E94\u9700\u8981\u53C8\u4E00\u4E2A\u53EF\u8BFB\u5199\u7684\u7F13\u5B58\u76EE\u5F55\u5E76\u4E14\u9650\u5236\u7F13\u5B58\u7684\u5927\u5C0F\u3002\u7F13\u5B58\u76EE\u5F55\u5E94\u8BE5\u662F\u79C1\u6709\u7684\uFF0C\u5E76\u4E14\u975E\u4FE1\u4EFB\u7684\u5E94\u7528\u65E0\u6743\u8BBF\u95EE\u3002  \n \u540C\u65F6\u8BBF\u95EE\u4E00\u4E2A\u7F13\u51B2\u76EE\u5F55\u56DE\u51FA\u73B0\u9519\u8BEF\u3002\u5927\u591A\u6570\u5E94\u7528\u5E94\u8BE5\u8C03\u7528\u4E00\u6B21`new OkHttpClient()`\uFF0C\u914D\u7F6E\u5B83\u7684\u7F13\u5B58\uFF0C\u5728\u5176\u4ED6\u5730\u65B9\u4F7F\u7528\u7EDF\u4E00\u4E2A\u5B9E\u4F8B\u3002\u5426\u5219\u4E24\u4E2A\u7F13\u5B58\u5B9E\u4F8B\u4F1A\u4E92\u76F8\u635F\u5BB3\uFF0C\u635F\u574F\u6362\u6210\uFF0C\u53EF\u80FD\u662F\u4F60\u7684\u5E94\u7528\u5D29\u6E83\u3002\n \u54CD\u5E94\u7F13\u5B58\u4F7F\u7528HTTP\u7684header\u6765\u914D\u7F6E\u3002\u5982\u679C\u8BF7\u6C42\u5934\u6DFB\u52A0\u4E86`Cache-Control: max-stale=3600`,OKHttp\u5C06\u4F1A\u4F7F\u7528\u8FD9\u4E9B\u914D\u7F6E\u3002\u662F\u670D\u52A1\u5668\u6765\u914D\u7F6E\u54CD\u5E94\u53EF\u4EE5\u88AB\u7F13\u5B58\u591A\u957F\u65F6\u95F4\uFF0C\u901A\u8FC7\u54CD\u5E94\u5934\u6765\u914D\u7F6E\uFF0C\u4F8B\u5982`Cache-Control: max-age=9600`\u3002\u6709\u4E00\u4E9Bheader\u53EF\u4EE5\u5F3A\u5236\u6362\u6210\u54CD\u5E94\uFF0C\u5F3A\u5236\u4E00\u4E2A\u7F51\u7EDC\u8FD4\u56DE\u6216\u8005\u5F3A\u5236\u4E00\u4E2A\u6709\u6761\u4EF6\u7684GET\u786E\u5B9A\u7F13\u5B58\u662F\u5426\u6709\u6548\u3002\n \n```Java\nprivate final OkHttpClient client;\n\npublic CacheResponse(File cacheDirectory) throws Exception {\nint cacheSize = 10 * 1024 * 1024; // 10 MiB\nCache cache = new Cache(cacheDirectory, cacheSize);\n\nclient = new OkHttpClient.Builder()\n    .cache(cache)\n    .build();\n}\n\npublic void run() throws Exception {\nRequest request = new Request.Builder()\n    .url("http://publicobject.com/helloworld.txt")\n    .build();\n\nResponse response1 = client.newCall(request).execute();\nif (!response1.isSuccessful()) throw new IOException("Unexpected code " + response1);\n\nString response1Body = response1.body().string();\nSystem.out.println("Response 1 response:          " + response1);\nSystem.out.println("Response 1 cache response:    " + response1.cacheResponse());\nSystem.out.println("Response 1 network response:  " + response1.networkResponse());\n\nResponse response2 = client.newCall(request).execute();\nif (!response2.isSuccessful()) throw new IOException("Unexpected code " + response2);\n\nString response2Body = response2.body().string();\nSystem.out.println("Response 2 response:          " + response2);\nSystem.out.println("Response 2 cache response:    " + response2.cacheResponse());\nSystem.out.println("Response 2 network response:  " + response2.networkResponse());\n\nSystem.out.println("Response 2 equals Response 1? " + response1Body.equals(response2Body));\n}\n```\n\n \u4E3A\u4E86\u963B\u6B62\u7F13\u51B2\u53EF\u4EE5\u4F7F\u7528`[CacheControl.FORCE_NETWORK](CacheControl.FORCE_NETWORK)`.\u4E3A\u4E86\u963B\u6B62\u7F51\u7EDC\u8FDE\u63A5\u53EF\u4EE5\u4F7F\u7528`[CacheControl.FORCE_CACHE](http://square.github.io/okhttp/3.x/okhttp/okhttp3/CacheControl.html#FORCE_CACHE)`\u3002\u8B66\u544A\uFF1A\u5982\u679C\u4F7F\u7528\u4E86`FORCE_CACHE`\u5E76\u4E14\u54CD\u5E94\u9700\u8981\u7F51\u7EDC\uFF0C\u5C06\u4F1A\u8FD4\u56DE`504 Unsatisfiable Request`\u3002\n #### \u53D6\u6D88\u8BF7\u6C42\n \u4F7F\u7528`Call.cancel()`\u7ACB\u5373\u53D6\u6D88\u6B63\u5728\u8FDB\u884C\u7684\u8BF7\u6C42\u3002\u5982\u679C\u4E00\u4E2A\u7EBF\u7A0B\u6B63\u5728\u5199\u4E00\u4E2A\u8BF7\u6C42\u6216\u8005\u8BFB\u4E00\u4E2A\u54CD\u5E94\u5C06\u4F1A\u629B\u51FAIOException\u3002\u5F53\u4E00\u4E2A\u8BF7\u6C42\u4E0D\u5728\u9700\u8981\u7684\u65F6\u5019\u4F7F\u7528\u8FD9\u4E2A\u51FD\u6570\u6765\u4FDD\u62A4\u7F51\u7EDC\u3002\u4F8B\u5982\u5F53\u7528\u6237\u5BFC\u822A\u79BB\u5F00\u5E94\u7528\u7684\u65F6\u5019\u3002\u540C\u6B65\u548C\u5F02\u6B65\u7684\u8BF7\u6C42\u90FD\u53EF\u4EE5\u53D6\u6D88\u3002\n \n```Java\nprivate final ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);\nprivate final OkHttpClient client = new OkHttpClient();\n\npublic void run() throws Exception {\nRequest request = new Request.Builder()\n    .url("http://httpbin.org/delay/2") // This URL is served with a 2 second delay.\n    .build();\n\nfinal long startNanos = System.nanoTime();\nfinal Call call = client.newCall(request);\n\n// Schedule a job to cancel the call in 1 second.\nexecutor.schedule(new Runnable() {\n    @Override public void run() {\n    System.out.printf("%.2f Canceling call.%n", (System.nanoTime() - startNanos) / 1e9f);\n    call.cancel();\n    System.out.printf("%.2f Canceled call.%n", (System.nanoTime() - startNanos) / 1e9f);\n    }\n}, 1, TimeUnit.SECONDS);\n\ntry {\n    System.out.printf("%.2f Executing call.%n", (System.nanoTime() - startNanos) / 1e9f);\n    Response response = call.execute();\n    System.out.printf("%.2f Call was expected to fail, but completed: %s%n",\n        (System.nanoTime() - startNanos) / 1e9f, response);\n} catch (IOException e) {\n    System.out.printf("%.2f Call failed as expected: %s%n",\n        (System.nanoTime() - startNanos) / 1e9f, e);\n}\n}\n```\n\n #### \u8D85\u65F6\n \u5F53\u7AEF\u70B9\u4E0D\u53EF\u8FBE\u7684\u65F6\u5019\u4F7F\u7528\u8D85\u65F6\u4F7F\u8BF7\u6C42\u5931\u8D25\u3002\u7F51\u7EDC\u5206\u533A\u53EF\u80FD\u662F\u5BA2\u6237\u7AEF\u8FDE\u63A5\u95EE\u9898\uFF0C\u670D\u52A1\u5668\u53EF\u7528\u6027\u95EE\u9898\u6216\u8005\u5176\u4ED6\u95EE\u9898\u3002OKHttp\u652F\u6301\u8FDE\u63A5\uFF0C\u8BFB\uFF0C\u5199\u8D85\u65F6\u3002\n \n```Java\nprivate final OkHttpClient client;\n\npublic ConfigureTimeouts() throws Exception {\nclient = new OkHttpClient.Builder()\n    .connectTimeout(10, TimeUnit.SECONDS)\n    .writeTimeout(10, TimeUnit.SECONDS)\n    .readTimeout(30, TimeUnit.SECONDS)\n    .build();\n}\n\npublic void run() throws Exception {\nRequest request = new Request.Builder()\n    .url("http://httpbin.org/delay/2") // This URL is served with a 2 second delay.\n    .build();\n\nResponse response = client.newCall(request).execute();\nSystem.out.println("Response completed: " + response);\n}\n ```\n\n #### \u8C03\u7528\u524D\u914D\u7F6E\n \u6240\u6709\u7684HTTP\u8C03\u7528\u914D\u7F6E\u90FD\u4F1A\u5728`OkHttpClient`\u4E2D\uFF0C\u5305\u62EC\uFF0C\u4EE3\u7406\u8BBE\u7F6E\uFF0C\u8D85\u65F6\u548C\u7F13\u5B58\u3002\u5F53\u9700\u8981\u4FEE\u6539\u67D0\u4E2A\u8C03\u7528\u7684\u914D\u7F6E\u7684\u65F6\u5019\uFF0C\u4F7F\u7528`OKHttpClient.newBuilder()`\u3002\u8FD9\u4E2A\u51FD\u6570\u4F1A\u8FD4\u56DE\u5171\u4EAB\u7684\u8FDE\u63A5\u6C60\uFF0C\u8C03\u5EA6\u5668\uFF0C\u5E76\u4E14\u8DDF\u539F\u59CBclient\u76F8\u540C\u7684\u914D\u7F6E\u3002\u5728\u4E0B\u9762\u8FD9\u4E2A\u4F8B\u5B50\u4E2D\uFF0C\u4E00\u4E2A\u8BF7\u6C42\u7684\u8D85\u65F6\u65F6\u95F4\u662F500ms\u53E6\u4E00\u4E2A\u662F3000ms\u3002\n\n ```Java\nprivate final OkHttpClient client = new OkHttpClient();\n\npublic void run() throws Exception {\nRequest request = new Request.Builder()\n    .url("http://httpbin.org/delay/1") // This URL is served with a 1 second delay.\n    .build();\n\ntry {\n    // Copy to customize OkHttp for this request.\n    OkHttpClient copy = client.newBuilder()\n        .readTimeout(500, TimeUnit.MILLISECONDS)\n        .build();\n\n    Response response = copy.newCall(request).execute();\n    System.out.println("Response 1 succeeded: " + response);\n} catch (IOException e) {\n    System.out.println("Response 1 failed: " + e);\n}\n\ntry {\n    // Copy to customize OkHttp for this request.\n    OkHttpClient copy = client.newBuilder()\n        .readTimeout(3000, TimeUnit.MILLISECONDS)\n        .build();\n\n    Response response = copy.newCall(request).execute();\n    System.out.println("Response 2 succeeded: " + response);\n} catch (IOException e) {\n    System.out.println("Response 2 failed: " + e);\n}\n}\n ```\n\n #### \u5904\u7406\u8BA4\u8BC1\n OKHttp\u4F1A\u81EA\u52A8\u91CD\u8BD5\u8BA4\u8BC1\u8BF7\u6C42\u3002\u5F53\u54CD\u5E94\u662F`401 Not Authorized`,`Authenticator`\u9700\u8981\u7528\u6765\u63D0\u4F9B\u51ED\u8BC1\u3002\u5C06\u4F1A\u91CD\u65B0\u5B9E\u73B0\u4E00\u4E2A\u5E26\u6709\u51ED\u8BC1\u7684\u8BF7\u6C42\uFF0C\u5982\u679C\u6CA1\u6709\u51ED\u8BC1\u53EF\u7528\u8DF3\u8FC7\u91CD\u8BD5\uFF0C\u8FD4\u56DEnull\u3002\n \u4F7F\u7528` Response.challenges()`\u6765\u83B7\u53D6\u4EFB\u4F55\u8BA4\u8BC1\u53E3\u4EE4\u7684\u65B9\u6848\u548C\u57DF\u3002\u5F53\u4F7F\u7528`Basic`\u8BA4\u8BC1\u7684\u65F6\u5019\u4F7F\u7528`Credentials.basic(username,password)`\u6765\u7F16\u7801\u4E00\u4E2Aheader\u3002\n \n```Java\nprivate final OkHttpClient client;\n\npublic Authenticate() {\nclient = new OkHttpClient.Builder()\n    .authenticator(new Authenticator() {\n        @Override public Request authenticate(Route route, Response response) throws IOException {\n        System.out.println("Authenticating for response: " + response);\n        System.out.println("Challenges: " + response.challenges());\n        String credential = Credentials.basic("jesse", "password1");\n        return response.request().newBuilder()\n            .header("Authorization", credential)\n            .build();\n        }\n    })\n    .build();\n}\n\npublic void run() throws Exception {\nRequest request = new Request.Builder()\n    .url("http://publicobject.com/secrets/hellosecret.txt")\n    .build();\n\nResponse response = client.newCall(request).execute();\nif (!response.isSuccessful()) throw new IOException("Unexpected code " + response);\n\nSystem.out.println(response.body().string());\n}\n```\n','date':'2017-03-19'}},'siteData':{'title':'React Static'}};</script><script defer="" type="text/javascript" src="https://shjie047.github.io/bootstrap.317e1443.js"></script><script defer="" type="text/javascript" src="https://shjie047.github.io/templates/src/containers/Post.ec2b11fa.js"></script><script defer="" type="text/javascript" src="https://shjie047.github.io/main.6d2bb50d.js"></script></body></html>
