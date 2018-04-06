@@ -1039,24 +1039,33 @@ exports.default = (0, _reactStatic.withRouteData)(function (_ref) {
   var posts = _ref.posts,
       search = _ref.history.location.search;
 
-  var query = _qs2.default.parse(search);
-  console.log();
+  var query = _qs2.default.parse(search.slice(1));
+  var pages = Math.ceil(posts.length / page_size);
+  var _query$page_no = query.page_no,
+      page_no = _query$page_no === undefined ? 1 : _query$page_no;
+
+  page_no = +page_no;
+
+  if (page_no < 1) page_no = 1;
+  if (page_no > pages) page_no = pages;
+
   return _react2.default.createElement(
     'div',
     null,
     _react2.default.createElement(
       'div',
       null,
-      (0, _lodash2.default)(posts, 'date').reverse().map(function (post) {
+      (0, _lodash2.default)(posts, 'date').reverse().slice(page_size * (page_no - 1), page_size * page_no).map(function (post) {
         return _react2.default.createElement(_postHome2.default, {
           key: post.title,
-          post: post
+          post: post,
+          page_size: page_size
         });
       })
     ),
     _react2.default.createElement(_pagination2.default, {
-      pages: Math.ceil(posts.length / page_size),
-      page_no: +query.page_no || 1,
+      pages: pages,
+      page_no: page_no,
       page_size: page_size
     })
   );
@@ -1208,7 +1217,12 @@ var keywords = ['前端', '后端', 'Java', 'Javascript', 'js', '开发', '教�
 var title = '\u5F00\u53D1\u7B14\u8BB0';
 var type = '\u6587\u7AE0';
 
-function handleClickOutside() {}
+function handleBackTop(e) {
+  window.scroll(0, 0);
+  // Remove hash from URL:
+  history.pushState("", document.title, window.location.pathname + window.location.search);
+  e.preventDefault();
+}
 
 var App = function (_React$Component) {
   _inherits(App, _React$Component);
@@ -1274,7 +1288,7 @@ var App = function (_React$Component) {
             null,
             _react2.default.createElement(
               Title,
-              { to: '/' },
+              { onClick: handleBackTop, to: '/' },
               '\u5F00\u53D1\u7B14\u8BB0'
             ),
             _react2.default.createElement(
@@ -2161,7 +2175,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _templateObject = _taggedTemplateLiteral(['\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: #9eabb3;\n  font-size: 1.3rem;\n'], ['\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: #9eabb3;\n  font-size: 1.3rem;\n']);
+var _templateObject = _taggedTemplateLiteral(['\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: #9eabb3;\n  font-size: 1.3rem;\n  margin-bottom: 3rem;\n  user-select: none;\n'], ['\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: #9eabb3;\n  font-size: 1.3rem;\n  margin-bottom: 3rem;\n  user-select: none;\n']),
+    _templateObject2 = _taggedTemplateLiteral(['\n  display: inline-block;\n\n  i {\n    display: inline-block;\n    font-size: 3rem;\n    font-weight: 100;\n    color: #00000082;\n    transition: color .3s ease;\n  }\n\n  &:hover i {\n    color: #111;\n  }\n\n  &.prev i {\n    transform: rotate(-90deg);\n  }\n\n  &.next i {\n    transform: rotate(90deg);\n  }\n'], ['\n  display: inline-block;\n\n  i {\n    display: inline-block;\n    font-size: 3rem;\n    font-weight: 100;\n    color: #00000082;\n    transition: color .3s ease;\n  }\n\n  &:hover i {\n    color: #111;\n  }\n\n  &.prev i {\n    transform: rotate(-90deg);\n  }\n\n  &.next i {\n    transform: rotate(90deg);\n  }\n']),
+    _templateObject3 = _taggedTemplateLiteral(['\n  margin: 0 2.5rem;\n'], ['\n  margin: 0 2.5rem;\n']);
 
 var _propTypes = __webpack_require__(3);
 
@@ -2175,6 +2191,8 @@ var _styledComponents = __webpack_require__(2);
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
+var _reactStatic = __webpack_require__(1);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
@@ -2186,10 +2204,24 @@ var Paginnation = function Paginnation(_ref) {
   return _react2.default.createElement(
     Root,
     null,
-    'Page ',
-    page_no,
-    ' of ',
-    pages
+    page_no > 1 && _react2.default.createElement(
+      Btn,
+      { className: 'prev', to: '?page_no=' + (page_no - 1) },
+      _react2.default.createElement('i', { className: 'iconfont icon-arrow' })
+    ),
+    _react2.default.createElement(
+      Show,
+      null,
+      'Page ',
+      page_no,
+      ' of ',
+      pages
+    ),
+    page_no < pages && _react2.default.createElement(
+      Btn,
+      { className: 'next', to: '?page_no=' + (page_no + 1) },
+      _react2.default.createElement('i', { className: 'iconfont icon-arrow' })
+    )
   );
 };
 
@@ -2204,6 +2236,10 @@ Paginnation.PropsType = {
 };
 
 var Root = _styledComponents2.default.div(_templateObject);
+
+var Btn = (0, _styledComponents2.default)(_reactStatic.Link)(_templateObject2);
+
+var Show = _styledComponents2.default.div(_templateObject3);
 
 /***/ }),
 /* 41 */
@@ -2315,4 +2351,4 @@ module.exports = require("react-tooltip");
 /***/ })
 /******/ ]);
 });
-//# sourceMappingURL=static.980e0446.js.map
+//# sourceMappingURL=static.5b51a98e.js.map
