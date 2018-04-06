@@ -93,46 +93,6 @@ module.exports = require("styled-components");
 
 /***/ }),
 /* 3 */
-/***/ (function(module, exports) {
-
-module.exports = require("prop-types");
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-dom");
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports) {
-
-module.exports = function(module) {
-	if(!module.webpackPolyfill) {
-		module.deprecate = function() {};
-		module.paths = [];
-		// module.parent = undefined by default
-		if(!module.children) module.children = [];
-		Object.defineProperty(module, "loaded", {
-			enumerable: true,
-			get: function() {
-				return module.l;
-			}
-		});
-		Object.defineProperty(module, "id", {
-			enumerable: true,
-			get: function() {
-				return module.i;
-			}
-		});
-		module.webpackPolyfill = 1;
-	}
-	return module;
-};
-
-
-/***/ }),
-/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -142,6 +102,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.markdownToText = markdownToText;
+exports.backtop = backtop;
 
 var _markdown = __webpack_require__(32);
 
@@ -170,6 +131,53 @@ function markdownToText() {
     return chars.join('') + '...';
   };
 }
+
+function backtop(e) {
+  window.scroll(0, 0);
+  // Remove hash from URL:
+  history.pushState("", document.title, window.location.pathname + window.location.search);
+  e.preventDefault();
+}
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+module.exports = require("prop-types");
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-dom");
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+module.exports = function(module) {
+	if(!module.webpackPolyfill) {
+		module.deprecate = function() {};
+		module.paths = [];
+		// module.parent = undefined by default
+		if(!module.children) module.children = [];
+		Object.defineProperty(module, "loaded", {
+			enumerable: true,
+			get: function() {
+				return module.l;
+			}
+		});
+		Object.defineProperty(module, "id", {
+			enumerable: true,
+			get: function() {
+				return module.i;
+			}
+		});
+		module.webpackPolyfill = 1;
+	}
+	return module;
+};
+
 
 /***/ }),
 /* 7 */
@@ -221,7 +229,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(3);
+var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -518,7 +526,7 @@ function universal(component) {
   }, _temp;
 }
 exports.default = universal;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)(module)))
 
 /***/ }),
 /* 9 */
@@ -635,7 +643,7 @@ var loadFromPromiseCache = exports.loadFromPromiseCache = function loadFromPromi
 var cacheProm = exports.cacheProm = function cacheProm(pr, chunkName, props, promisecache) {
   return promisecache[callForString(chunkName, props)] = pr;
 };
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)(module)))
 
 /***/ }),
 /* 10 */
@@ -669,7 +677,7 @@ var _lodash = __webpack_require__(31);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _util = __webpack_require__(6);
+var _util = __webpack_require__(3);
 
 var _moment = __webpack_require__(11);
 
@@ -849,7 +857,7 @@ var _reactHelmet = __webpack_require__(17);
 
 var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 
-var _util = __webpack_require__(6);
+var _util = __webpack_require__(3);
 
 var _afterRender = __webpack_require__(36);
 
@@ -1020,7 +1028,7 @@ var _styledComponents = __webpack_require__(2);
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
-var _reactDom = __webpack_require__(4);
+var _reactDom = __webpack_require__(5);
 
 var _postHome = __webpack_require__(42);
 
@@ -1117,7 +1125,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(4);
+var _reactDom = __webpack_require__(5);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -1198,6 +1206,8 @@ var _reactTooltip = __webpack_require__(45);
 
 var _reactTooltip2 = _interopRequireDefault(_reactTooltip);
 
+var _util = __webpack_require__(3);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
@@ -1216,13 +1226,6 @@ var description = '\u8FD9\u662F\u4E00\u4E2A\u4E92\u8054\u7F51\u76F8\u5173\u7684\
 var keywords = ['前端', '后端', 'Java', 'Javascript', 'js', '开发', '教程', '技术'];
 var title = '\u5F00\u53D1\u7B14\u8BB0';
 var type = '\u6587\u7AE0';
-
-function handleBackTop(e) {
-  window.scroll(0, 0);
-  // Remove hash from URL:
-  history.pushState("", document.title, window.location.pathname + window.location.search);
-  e.preventDefault();
-}
 
 var App = function (_React$Component) {
   _inherits(App, _React$Component);
@@ -1288,7 +1291,7 @@ var App = function (_React$Component) {
             null,
             _react2.default.createElement(
               Title,
-              { onClick: handleBackTop, to: '/' },
+              { onClick: _util.backtop, to: '/' },
               '\u5F00\u53D1\u7B14\u8BB0'
             ),
             _react2.default.createElement(
@@ -1402,7 +1405,7 @@ var Popular = _styledComponents2.default.span(_templateObject3);
 var ToggledPopular = _styledComponents2.default.span(_templateObject4);
 
 var Title = (0, _styledComponents2.default)(_reactStatic.Link)(_templateObject5);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)(module)))
 
 /***/ }),
 /* 22 */
@@ -1876,7 +1879,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(3);
+var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -1975,7 +1978,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(4);
+var _reactDom = __webpack_require__(5);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2032,7 +2035,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(3);
+var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -2179,7 +2182,7 @@ var _templateObject = _taggedTemplateLiteral(['\n  display: flex;\n  align-items
     _templateObject2 = _taggedTemplateLiteral(['\n  display: inline-block;\n\n  i {\n    display: inline-block;\n    font-size: 3rem;\n    font-weight: 100;\n    color: #00000082;\n    transition: color .3s ease;\n  }\n\n  &:hover i {\n    color: #111;\n  }\n\n  &.prev i {\n    transform: rotate(-90deg);\n  }\n\n  &.next i {\n    transform: rotate(90deg);\n  }\n'], ['\n  display: inline-block;\n\n  i {\n    display: inline-block;\n    font-size: 3rem;\n    font-weight: 100;\n    color: #00000082;\n    transition: color .3s ease;\n  }\n\n  &:hover i {\n    color: #111;\n  }\n\n  &.prev i {\n    transform: rotate(-90deg);\n  }\n\n  &.next i {\n    transform: rotate(90deg);\n  }\n']),
     _templateObject3 = _taggedTemplateLiteral(['\n  margin: 0 2.5rem;\n'], ['\n  margin: 0 2.5rem;\n']);
 
-var _propTypes = __webpack_require__(3);
+var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -2193,9 +2196,22 @@ var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 var _reactStatic = __webpack_require__(1);
 
+var _util = __webpack_require__(3);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+function handleClick(e) {
+  var el = e.target;
+  while (el.nodeName.toLowerCase() !== 'a' && el !== e.currentTarget) {
+    el = el.parentNode;
+  }
+
+  if (el.nodeName.toLowerCase() === 'a') {
+    (0, _util.backtop)(e);
+  }
+}
 
 var Paginnation = function Paginnation(_ref) {
   var pages = _ref.pages,
@@ -2203,7 +2219,7 @@ var Paginnation = function Paginnation(_ref) {
       page_size = _ref.page_size;
   return _react2.default.createElement(
     Root,
-    null,
+    { onClick: handleClick },
     page_no > 1 && _react2.default.createElement(
       Btn,
       { className: 'prev', to: '?page_no=' + (page_no - 1) },
@@ -2262,7 +2278,7 @@ var _post = __webpack_require__(15);
 
 var _post2 = _interopRequireDefault(_post);
 
-var _util = __webpack_require__(6);
+var _util = __webpack_require__(3);
 
 var _react = __webpack_require__(0);
 
@@ -2351,4 +2367,4 @@ module.exports = require("react-tooltip");
 /***/ })
 /******/ ]);
 });
-//# sourceMappingURL=static.5b51a98e.js.map
+//# sourceMappingURL=static.63ccec44.js.map
