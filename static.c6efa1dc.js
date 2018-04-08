@@ -659,8 +659,8 @@ Object.defineProperty(exports, "__esModule", {
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _templateObject = _taggedTemplateLiteral(['\n  margin: 2.3rem;\n  @media only screen and (max-width: 825px) {\n    margin: 2.3rem 0;\n  }\n'], ['\n  margin: 2.3rem;\n  @media only screen and (max-width: 825px) {\n    margin: 2.3rem 0;\n  }\n']),
-    _templateObject2 = _taggedTemplateLiteral(['\n  margin-top: 3rem;\n\n  > header {\n    margin-bottom: 3rem;\n  }\n\n  header h3 {\n    font-size: 2rem;\n    color: rgb(177, 177, 177);\n    letter-spacing: 0.15rem;\n    font-weight: 300;\n  }\n'], ['\n  margin-top: 3rem;\n\n  > header {\n    margin-bottom: 3rem;\n  }\n\n  header h3 {\n    font-size: 2rem;\n    color: rgb(177, 177, 177);\n    letter-spacing: 0.15rem;\n    font-weight: 300;\n  }\n']),
-    _templateObject3 = _taggedTemplateLiteral(['\n  box-shadow: 2px 2px 7px rgba(0, 0, 0, .15);\n  padding: 1rem;\n  header h4 {\n    font-size: 1.8rem; \n    color: #333;\n    font-weight: 500;\n  }\n\n  .post-content {\n    color: #a0a0a0;\n    font-weight: normal;\n    font-size: 1.4rem;\n  }\n'], ['\n  box-shadow: 2px 2px 7px rgba(0, 0, 0, .15);\n  padding: 1rem;\n  header h4 {\n    font-size: 1.8rem; \n    color: #333;\n    font-weight: 500;\n  }\n\n  .post-content {\n    color: #a0a0a0;\n    font-weight: normal;\n    font-size: 1.4rem;\n  }\n']),
+    _templateObject2 = _taggedTemplateLiteral(['\n  margin-bottom: 6rem;\n\n  > header {\n    margin-bottom: 3rem;\n  }\n\n  header h3 {\n    font-size: 3.2rem;\n    color: rgb(154, 154, 154);\n    letter-spacing: 0.15rem;\n    font-weight: 300;\n  }\n'], ['\n  margin-bottom: 6rem;\n\n  > header {\n    margin-bottom: 3rem;\n  }\n\n  header h3 {\n    font-size: 3.2rem;\n    color: rgb(154, 154, 154);\n    letter-spacing: 0.15rem;\n    font-weight: 300;\n  }\n']),
+    _templateObject3 = _taggedTemplateLiteral(['\n  box-shadow: 2px 3px 7px rgba(0,0,0,.1);\n  padding: 1rem;\n  transition: box-shadow .2s ease;\n  header h4 {\n    font-size: 1.8rem; \n    color: #4a4a4a;\n    font-weight: 500;\n    margin: 0;\n  }\n\n  .post-content {\n    color: #a0a0a0;\n    font-weight: normal;\n    font-size: 1.4rem;\n  }\n\n  &:hover {\n    box-shadow: 3px 5px 10px rgba(0,0,0,.25);\n    header h4 {\n      color: #333;\n    }\n  }\n'], ['\n  box-shadow: 2px 3px 7px rgba(0,0,0,.1);\n  padding: 1rem;\n  transition: box-shadow .2s ease;\n  header h4 {\n    font-size: 1.8rem; \n    color: #4a4a4a;\n    font-weight: 500;\n    margin: 0;\n  }\n\n  .post-content {\n    color: #a0a0a0;\n    font-weight: normal;\n    font-size: 1.4rem;\n  }\n\n  &:hover {\n    box-shadow: 3px 5px 10px rgba(0,0,0,.25);\n    header h4 {\n      color: #333;\n    }\n  }\n']),
     _templateObject4 = _taggedTemplateLiteral(['\n  display: grid;\n  grid-template-columns: repeat(3, 300px);\n  justify-content: center;\n  grid-column-gap: 2rem;\n  grid-row-gap: 2rem;\n\n  @media only screen and (max-width: 1035px) {\n    grid-template-columns: repeat(2, 360px);\n  }\n\n  @media only screen and (max-width: 825px) {\n    grid-template-columns: 80%;\n  }\n'], ['\n  display: grid;\n  grid-template-columns: repeat(3, 300px);\n  justify-content: center;\n  grid-column-gap: 2rem;\n  grid-row-gap: 2rem;\n\n  @media only screen and (max-width: 1035px) {\n    grid-template-columns: repeat(2, 360px);\n  }\n\n  @media only screen and (max-width: 825px) {\n    grid-template-columns: 80%;\n  }\n']);
 
 var _styledComponents = __webpack_require__(2);
@@ -701,8 +701,6 @@ exports.default = (0, _reactStatic.withRouteData)(function (_ref) {
   return _react2.default.createElement(
     Root,
     null,
-
-    // Object.keys(grouped).sort((left, right) => left < right).map(date => (
     (0, _lodash4.default)(Object.keys(grouped), 'date').reverse().map(function (date) {
       return _react2.default.createElement(
         Wrapper,
@@ -733,15 +731,6 @@ exports.default = (0, _reactStatic.withRouteData)(function (_ref) {
                   'h4',
                   null,
                   post.title
-                )
-              ),
-              _react2.default.createElement(
-                'section',
-                { className: 'post-content' },
-                _react2.default.createElement(
-                  'p',
-                  null,
-                  (0, _util.markdownToText)(post.body)(60)
                 )
               )
             );
@@ -875,6 +864,10 @@ var _imageBlock = __webpack_require__(39);
 
 var _imageBlock2 = _interopRequireDefault(_imageBlock);
 
+var _paragraphBlock = __webpack_require__(40);
+
+var _paragraphBlock2 = _interopRequireDefault(_paragraphBlock);
+
 var _classnames = __webpack_require__(7);
 
 var _classnames2 = _interopRequireDefault(_classnames);
@@ -957,7 +950,7 @@ exports.default = (0, _reactStatic.withRouteData)(function (_ref) {
         transformImageUri: function transformImageUri(uri) {
           return uri.indexOf('http') !== 0 ? 'http://p6jqy6mfr.bkt.clouddn.com/' + uri : uri;
         },
-        renderers: { code: _codeBlock2.default, link: _linkBlock2.default, image: _imageBlock2.default }
+        renderers: { code: _codeBlock2.default, link: _linkBlock2.default, image: _imageBlock2.default, paragraph: _paragraphBlock2.default }
       })
     ),
     _react2.default.createElement('section', { className: 'post-footer' })
@@ -975,7 +968,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _templateObject = _taggedTemplateLiteral(['\n  position: relative;\n  width: 80%;\n  max-width: 710px;\n  margin: 4rem auto;\n  padding-bottom: 4rem;\n  border-bottom: 1px solid #ebf2f6;\n  word-wrap: break-word\n\n  &::after {\n    display: block;\n    content: "";\n    width: 7px;\n    height: 7px;\n    border: 1px solid #e7eef2;\n    position: absolute;\n    bottom: -5px;\n    left: 50%;\n    margin-left: -5px;\n    background: #fff;\n    border-radius: 100%;\n    box-shadow: 0 0 0 5px #fff\n  }\n\n  .read-more {\n    text-decoration: none;\n  }\n\n  .author-thumb {\n    width: 24px;\n    height: 24px;\n    float: left;\n    margin-right: 9px;\n    border-radius: 100%;\n  }\n\n  .post-header {\n    margin-bottom: 3.4rem;\n  }\n\n  .post-title a {\n    text-decoration: none\n  }\n\n  .post-meta {\n    display: block;\n    margin: 1.75rem 0 0;\n    font-family: Open Sans,sans-serif;\n    font-size: 1.5rem;\n    line-height: 2.2rem;\n    color: #9eabb3\n  }\n\n  .post-excerpt p {\n    margin: 0;\n    font-size: .9em;\n    line-height: 1.7em\n  }\n\n  .post-meta a {\n    color: #9eabb3;\n    text-decoration: none\n  }\n\n  .post-meta a:hover {\n    color: #9eabb3;\n    text-decoration: underline\n  }\n\n  .post-date {\n    display: inline-block;\n    text-transform: uppercase;\n    font-size: 1.3rem;\n    white-space: nowrap;\n    &.has-author {\n      margin-left: 8px;\n      padding-left: 12px;\n      border-left: 1px solid #d5dbde;\n    }\n  }\n\n  @media only screen and (max-width: 900px) {\n    font-size:.95em\n  }\n\n  @media only screen and (max-width: 500px) {\n    width:auto;\n    margin: 2rem 16px;\n    padding-bottom: 2rem;\n    line-height: 1.65em;\n\n    .post-excerpt p {\n      font-size: .85em;\n    }\n\n    .post-meta {\n        font-size: 1.3rem;\n        margin-top: 1rem\n    }\n  }\n'], ['\n  position: relative;\n  width: 80%;\n  max-width: 710px;\n  margin: 4rem auto;\n  padding-bottom: 4rem;\n  border-bottom: 1px solid #ebf2f6;\n  word-wrap: break-word\n\n  &::after {\n    display: block;\n    content: "";\n    width: 7px;\n    height: 7px;\n    border: 1px solid #e7eef2;\n    position: absolute;\n    bottom: -5px;\n    left: 50%;\n    margin-left: -5px;\n    background: #fff;\n    border-radius: 100%;\n    box-shadow: 0 0 0 5px #fff\n  }\n\n  .read-more {\n    text-decoration: none;\n  }\n\n  .author-thumb {\n    width: 24px;\n    height: 24px;\n    float: left;\n    margin-right: 9px;\n    border-radius: 100%;\n  }\n\n  .post-header {\n    margin-bottom: 3.4rem;\n  }\n\n  .post-title a {\n    text-decoration: none\n  }\n\n  .post-meta {\n    display: block;\n    margin: 1.75rem 0 0;\n    font-family: Open Sans,sans-serif;\n    font-size: 1.5rem;\n    line-height: 2.2rem;\n    color: #9eabb3\n  }\n\n  .post-excerpt p {\n    margin: 0;\n    font-size: .9em;\n    line-height: 1.7em\n  }\n\n  .post-meta a {\n    color: #9eabb3;\n    text-decoration: none\n  }\n\n  .post-meta a:hover {\n    color: #9eabb3;\n    text-decoration: underline\n  }\n\n  .post-date {\n    display: inline-block;\n    text-transform: uppercase;\n    font-size: 1.3rem;\n    white-space: nowrap;\n    &.has-author {\n      margin-left: 8px;\n      padding-left: 12px;\n      border-left: 1px solid #d5dbde;\n    }\n  }\n\n  @media only screen and (max-width: 900px) {\n    font-size:.95em\n  }\n\n  @media only screen and (max-width: 500px) {\n    width:auto;\n    margin: 2rem 16px;\n    padding-bottom: 2rem;\n    line-height: 1.65em;\n\n    .post-excerpt p {\n      font-size: .85em;\n    }\n\n    .post-meta {\n        font-size: 1.3rem;\n        margin-top: 1rem\n    }\n  }\n']);
+var _templateObject = _taggedTemplateLiteral(['\n  position: relative;\n  width: 80%;\n  max-width: 710px;\n  margin: 4rem auto;\n  padding-bottom: 4rem;\n  border-bottom: 1px solid #ebf2f6;\n  word-wrap: break-word\n\n  &::after {\n    display: block;\n    content: "";\n    width: 7px;\n    height: 7px;\n    border: 1px solid #e7eef2;\n    position: absolute;\n    bottom: -5px;\n    left: 50%;\n    margin-left: -5px;\n    background: #fff;\n    border-radius: 100%;\n    box-shadow: 0 0 0 5px #fff\n  }\n\n  .read-more {\n    text-decoration: none;\n  }\n\n  .author-thumb {\n    width: 24px;\n    height: 24px;\n    float: left;\n    margin-right: 9px;\n    border-radius: 100%;\n  }\n\n  .post-header {\n    margin-bottom: 3.4rem;\n  }\n\n  .post-title a {\n    text-decoration: none\n  }\n\n  .post-meta {\n    display: block;\n    margin: 1.75rem 0 0;\n    font-family: Open Sans,sans-serif;\n    font-size: 1.5rem;\n    line-height: 2.2rem;\n    color: #9eabb3\n  }\n\n  .post-excerpt p {\n    margin: 0;\n    font-size: .9em;\n    line-height: 1.7em\n  }\n\n  .post-meta a {\n    color: #9eabb3;\n    text-decoration: none\n  }\n\n  .post-meta a:hover {\n    color: #9eabb3;\n    text-decoration: underline\n  }\n\n  .post-date {\n    display: inline-block;\n    text-transform: uppercase;\n    font-size: 1.3rem;\n    white-space: nowrap;\n    &.has-author {\n      margin-left: 8px;\n      padding-left: 12px;\n      border-left: 1px solid #d5dbde;\n    }\n  }\n\n  @media only screen and (max-width: 900px) {\n    font-size:.95em\n  }\n\n  @media only screen and (max-width: 500px) {\n    width:auto;\n    margin: 2rem 16px;\n    padding-bottom: 2rem;\n    line-height: 1.65em;\n\n    .post-excerpt p {\n      font-size: .85em;\n    }\n\n    .post-meta {\n        font-size: 1.3rem;\n        margin-top: 1rem\n    }\n  }\n\n  pre {\n    padding: 1.2rem;\n    > code {\n      box-shadow: 0 0 15px rgba(0,0,0,.35);\n      padding: 1.5rem;\n    }\n  }\n'], ['\n  position: relative;\n  width: 80%;\n  max-width: 710px;\n  margin: 4rem auto;\n  padding-bottom: 4rem;\n  border-bottom: 1px solid #ebf2f6;\n  word-wrap: break-word\n\n  &::after {\n    display: block;\n    content: "";\n    width: 7px;\n    height: 7px;\n    border: 1px solid #e7eef2;\n    position: absolute;\n    bottom: -5px;\n    left: 50%;\n    margin-left: -5px;\n    background: #fff;\n    border-radius: 100%;\n    box-shadow: 0 0 0 5px #fff\n  }\n\n  .read-more {\n    text-decoration: none;\n  }\n\n  .author-thumb {\n    width: 24px;\n    height: 24px;\n    float: left;\n    margin-right: 9px;\n    border-radius: 100%;\n  }\n\n  .post-header {\n    margin-bottom: 3.4rem;\n  }\n\n  .post-title a {\n    text-decoration: none\n  }\n\n  .post-meta {\n    display: block;\n    margin: 1.75rem 0 0;\n    font-family: Open Sans,sans-serif;\n    font-size: 1.5rem;\n    line-height: 2.2rem;\n    color: #9eabb3\n  }\n\n  .post-excerpt p {\n    margin: 0;\n    font-size: .9em;\n    line-height: 1.7em\n  }\n\n  .post-meta a {\n    color: #9eabb3;\n    text-decoration: none\n  }\n\n  .post-meta a:hover {\n    color: #9eabb3;\n    text-decoration: underline\n  }\n\n  .post-date {\n    display: inline-block;\n    text-transform: uppercase;\n    font-size: 1.3rem;\n    white-space: nowrap;\n    &.has-author {\n      margin-left: 8px;\n      padding-left: 12px;\n      border-left: 1px solid #d5dbde;\n    }\n  }\n\n  @media only screen and (max-width: 900px) {\n    font-size:.95em\n  }\n\n  @media only screen and (max-width: 500px) {\n    width:auto;\n    margin: 2rem 16px;\n    padding-bottom: 2rem;\n    line-height: 1.65em;\n\n    .post-excerpt p {\n      font-size: .85em;\n    }\n\n    .post-meta {\n        font-size: 1.3rem;\n        margin-top: 1rem\n    }\n  }\n\n  pre {\n    padding: 1.2rem;\n    > code {\n      box-shadow: 0 0 15px rgba(0,0,0,.35);\n      padding: 1.5rem;\n    }\n  }\n']);
 
 var _styledComponents = __webpack_require__(2);
 
@@ -1016,11 +1009,11 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactStatic = __webpack_require__(1);
 
-var _pagination = __webpack_require__(40);
+var _pagination = __webpack_require__(41);
 
 var _pagination2 = _interopRequireDefault(_pagination);
 
-var _qs = __webpack_require__(41);
+var _qs = __webpack_require__(42);
 
 var _qs2 = _interopRequireDefault(_qs);
 
@@ -1030,7 +1023,7 @@ var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 var _reactDom = __webpack_require__(5);
 
-var _postHome = __webpack_require__(42);
+var _postHome = __webpack_require__(43);
 
 var _postHome2 = _interopRequireDefault(_postHome);
 
@@ -1129,14 +1122,14 @@ var _reactDom = __webpack_require__(5);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _app = __webpack_require__(21);
+var _App = __webpack_require__(21);
 
-var _app2 = _interopRequireDefault(_app);
+var _App2 = _interopRequireDefault(_App);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // Export your top level component as JSX (for static rendering)
-exports.default = _app2.default;
+exports.default = _App2.default;
 
 // Render your app
 
@@ -1150,7 +1143,7 @@ if (typeof document !== 'undefined') {
   };
 
   // Render!
-  render(_app2.default);
+  render(_App2.default);
 }
 
 /***/ }),
@@ -1184,13 +1177,13 @@ var _reactStaticRoutes = __webpack_require__(23);
 
 var _reactStaticRoutes2 = _interopRequireDefault(_reactStaticRoutes);
 
-__webpack_require__(43);
+__webpack_require__(44);
 
 var _styledComponents = __webpack_require__(2);
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
-var _reactHeadroom = __webpack_require__(44);
+var _reactHeadroom = __webpack_require__(45);
 
 var _reactHeadroom2 = _interopRequireDefault(_reactHeadroom);
 
@@ -1202,7 +1195,7 @@ var _reactHelmet = __webpack_require__(17);
 
 var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 
-var _reactTooltip = __webpack_require__(45);
+var _reactTooltip = __webpack_require__(46);
 
 var _reactTooltip2 = _interopRequireDefault(_reactTooltip);
 
@@ -1305,6 +1298,11 @@ var App = function (_React$Component) {
               _react2.default.createElement(
                 Popular,
                 null,
+                _react2.default.createElement(
+                  _reactStatic.Link,
+                  { to: '/tags/frontend' },
+                  '\u524D\u7AEF'
+                ),
                 _react2.default.createElement(
                   _reactStatic.Link,
                   { to: '/tags/backend' },
@@ -1953,13 +1951,13 @@ module.exports = require("react-markdown");
 /* 34 */
 /***/ (function(module, exports) {
 
-module.exports = require("github-markdown-css");
+// removed by extract-text-webpack-plugin
 
 /***/ }),
 /* 35 */
 /***/ (function(module, exports) {
 
-module.exports = require("highlight.js/styles/default.css");
+// removed by extract-text-webpack-plugin
 
 /***/ }),
 /* 36 */
@@ -2158,17 +2156,98 @@ var getPos = function getPos(src) {
 var getStyle = function getStyle(pos) {
   return {
     display: 'block',
-    margin: '4rem ' + (pos === 'center' ? 'auto' : '0')
+    margin: '0 ' + (pos === 'center' ? 'auto' : '0'),
+    marginTop: '4rem',
+    cursor: 'zoom-in'
   };
 };
 
 exports.default = function (_ref) {
   var src = _ref.src;
-  return _react2.default.createElement('img', { style: getStyle(getPos(src)), src: src });
+  return _react2.default.createElement('img', { onClick: function onClick(e) {
+      return showImage(src);
+    }, style: getStyle(getPos(src)), src: src });
 };
+
+function showImage(src) {
+  var el = document.createElement('div');
+  el.style.zIndex = '9999';
+  el.style.position = 'fixed';
+  el.style.left = '0';
+  el.style.top = '0';
+  el.style.bottom = '0';
+  el.style.right = '0';
+  el.style.backgroundColor = '#fff';
+
+  var img = new Image();
+  img.src = src;
+  img.style.position = 'absolute';
+  img.style.transform = 'translate(-50%, -50%)';
+  img.style.left = '50%';
+  img.style.top = '50%';
+  img.style.maxHeight = '100%';
+  img.style.maxWidth = '100%';
+
+  img.style.cursor = 'zoom-out';
+  el.appendChild(img);
+
+  el.onclick = remove;
+
+  document.body.appendChild(el);
+  document.addEventListener('scroll', remove);
+
+  function remove() {
+    document.body.removeChild(el);
+    document.removeEventListener('scroll', remove);
+  }
+}
 
 /***/ }),
 /* 40 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (props) {
+  var str = props.children[0];
+
+  if (typeof str === 'string') {
+    var _str$split = str.split('_#_'),
+        _str$split2 = _slicedToArray(_str$split, 2),
+        content = _str$split2[0],
+        align = _str$split2[1];
+
+    if (align) {
+      return _react2.default.createElement(
+        'p',
+        { style: { textAlign: align } },
+        content
+      );
+    }
+  }
+
+  return _react2.default.createElement(
+    'p',
+    null,
+    props.children
+  );
+};
+
+/***/ }),
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2258,13 +2337,13 @@ var Btn = (0, _styledComponents2.default)(_reactStatic.Link)(_templateObject2);
 var Show = _styledComponents2.default.div(_templateObject3);
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports) {
 
 module.exports = require("qs");
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2347,19 +2426,19 @@ exports.default = function (_ref) {
 };
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-headroom");
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-tooltip");
@@ -2367,4 +2446,4 @@ module.exports = require("react-tooltip");
 /***/ })
 /******/ ]);
 });
-//# sourceMappingURL=static.63ccec44.js.map
+//# sourceMappingURL=static.c6efa1dc.js.map
