@@ -1,0 +1,196 @@
+<!DOCTYPE html><html lang="en" data-reactroot=""><head><title data-react-helmet="true">代码拾遗</title><meta data-react-helmet="true" name="title" content="代码拾遗"/><meta data-react-helmet="true" property="og:description" content="原文地址
+
+ 在之前我写过一篇关于通过使用http.HandlerFunc来实现一个定制handler类型用来避免一些平常的错误的文章。func MyHandler(w http.ResponseWriter, r *http.Requ..."/><meta data-react-helmet="true" property="og:title" content="http.Handler 与Go的错误处理"/><meta data-react-helmet="true" property="og:type" content="article"/><meta data-react-helmet="true" name="description" content="原文地址
+
+ 在之前我写过一篇关于通过使用http.HandlerFunc来实现一个定制handler类型用来避免一些平常的错误的文章。func MyHandler(w http.ResponseWriter, r *http.Requ..."/><meta data-react-helmet="true" name="keywords" content="Go,Translate,backend"/><link rel="preload" as="script" href="https://shjie047.github.io/bootstrap.12d62418.js"/><link rel="preload" as="script" href="https://shjie047.github.io/templates/src/containers/Post.04c17553.js"/><link rel="preload" as="script" href="https://shjie047.github.io/main.71b50d94.js"/><link rel="preload" as="style" href="https://shjie047.github.io/styles.cda04391.css"/><link rel="stylesheet" href="https://shjie047.github.io/styles.cda04391.css"/><meta charSet="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><style data-styled-components="fJTUOz bDWFJH fkiuXN bGYHop goZMZM faAjVQ bzbSEp jwEubJ">
+/* sc-component-id: sc-bwzfXH */
+.bGYHop{padding:0 40px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;} @media only screen and (max-width:400px){.bGYHop{padding:0 20px;}} .bGYHop a{font-size:1.6rem;font-weight:normal;} .bGYHop .icon-link{font-size:1.8rem;} .bGYHop .icon-btn{-webkit-apparance:none;background-color:transparent;border:none;outline:none;color:#fff;cursor:pointer;}
+/* sc-component-id: sc-keyframes-fJTUOz */
+@-webkit-keyframes fJTUOz{0%{width:0px;padding:4px 0;}100%{width:160px;padding:4px 5px;}} @keyframes fJTUOz{0%{width:0px;padding:4px 0;}100%{width:160px;padding:4px 5px;}}
+/* sc-component-id: sc-htpNat */
+.bzbSEp{margin-left:auto;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;overflow:hidden;} .bzbSEp .search-input input{-webkit-apparance:none;border:0;outline:0;padding:4px 5px;margin:0;background-color:#fff;width:160px;-webkit-animation:.2s fJTUOz ease;animation:.2s fJTUOz ease;}
+/* sc-component-id: sc-bxivhb */
+@media only screen and (max-width:920px){.goZMZM{display:none;}} .goZMZM a{font-size:1.4rem;} .goZMZM::before{content:'';height:2.1rem;width:1px;background-color:#00000038;display:inline-block;vertical-align:middle;}
+/* sc-component-id: sc-ifAKCX */
+.faAjVQ{display:none;padding:0;margin:0;position:relative;font-size:1.4rem;} .faAjVQ::before{content:'';height:2.1rem;width:1px;background-color:#00000038;display:inline-block;vertical-align:middle;} .faAjVQ > i{display:inline-block;padding:1rem;color:#fff;font-weight:normal;-webkit-transition:color .3s ease;transition:color .3s ease;} .faAjVQ a{font-size:1.4rem;font-weight:normal;line-height:1;display:block;padding:1.2rem 3rem 1.2rem 1rem;} .faAjVQ li{margin:0;} .faAjVQ ul{list-style:none;padding:0;margin:0;position:absolute;top:100%;left:0;background-color:#108db8;display:none;width:120px;padding:10px 0;} .faAjVQ ul.show{display:inline-block;} @media only screen and (max-width:920px){.faAjVQ{display:inline;}}
+/* sc-component-id: sc-EHOje */
+.fkiuXN{position:absolute;top:0;left:50%;top:50%;color:#fff;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%);background-repeat:no-repeat;background-size:100% auto;width:8rem;height:2rem;}
+/* sc-component-id: sc-iwsKbI */
+.jwEubJ{position:relative;width:80%;max-width:710px;margin:4rem auto;padding-bottom:4rem;border-bottom:1px solid #ebf2f6;word-wrap:break-word;} .jwEubJ::after{display:block;content:"";width:7px;height:7px;border:1px solid #e7eef2;position:absolute;bottom:-5px;left:50%;margin-left:-5px;background:#fff;border-radius:100%;box-shadow:0 0 0 5px #fff;} .jwEubJ .read-more{-webkit-text-decoration:none;text-decoration:none;} .jwEubJ .author-thumb{width:24px;height:24px;float:left;margin-right:9px;border-radius:100%;} .jwEubJ .post-header{margin-bottom:3.4rem;} .jwEubJ .post-title a{-webkit-text-decoration:none;text-decoration:none;} .jwEubJ .post-meta{display:block;margin:1.75rem 0 0;font-family:Open Sans,sans-serif;font-size:1.5rem;line-height:2.2rem;color:#9eabb3;} .jwEubJ .post-excerpt p{margin:0;font-size:.9em;line-height:1.7em;} .jwEubJ .post-meta a{color:#9eabb3;-webkit-text-decoration:none;text-decoration:none;} .jwEubJ .post-meta a:hover{color:#9eabb3;-webkit-text-decoration:underline;text-decoration:underline;} .jwEubJ .post-date{display:inline-block;text-transform:uppercase;font-size:1.3rem;white-space:nowrap;} .jwEubJ .post-date.has-author{margin-left:8px;padding-left:12px;border-left:1px solid #d5dbde;} @media only screen and (max-width:900px){.jwEubJ{font-size:.95em;}} @media only screen and (max-width:500px){.jwEubJ{width:auto;margin:2rem 16px;padding-bottom:2rem;line-height:1.65em;}.jwEubJ .post-excerpt p{font-size:.85em;}.jwEubJ .post-meta{font-size:1.3rem;margin-top:1rem;}.jwEubJ pre{padding:0!important;}} .jwEubJ pre{padding:1.2rem;} .jwEubJ pre > code{overflow-x:auto;box-shadow:0 0 15px rgba(0,0,0,.35);padding:1.5rem;}</style></head><body><div id="root"><div class="sc-bdVaJa bDWFJH" data-reactroot=""><div class="headroom-wrapper"><div style="position:relative;top:0;left:0;right:0;z-index:1;-webkit-transform:translateY(0);-ms-transform:translateY(0);transform:translateY(0)" class="headroom headroom--unfixed"><div class="sc-EHOje fkiuXN" style="background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxODgiIGhlaWdodD0iNDUiIHZpZXdCb3g9IjAgMCAxODggNDUiPjx0ZXh0IGZpbGw9IiNGRkYiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZm9udC1mYW1pbHk9IllvdVl1YW4iIGZvbnQtc2l6ZT0iNDgiPjx0c3BhbiB4PSItMiIgeT0iMzgiPuS7o+eggeaLvumBlzwvdHNwYW4+PC90ZXh0Pjwvc3ZnPg==)"></div><nav class="sc-bwzfXH bGYHop"><a class="icon-link" aria-current="false" href="https://shjie047.github.io/"><i class="iconfont icon-home"></i></a><span class="sc-bxivhb goZMZM"><a aria-current="false" href="https://shjie047.github.io/tags/frontend">前端</a><a aria-current="false" href="https://shjie047.github.io/tags/backend">后端</a><a aria-current="false" href="https://shjie047.github.io/tags/mobile">移动端</a><a aria-current="false" href="https://shjie047.github.io/tags/java">Java</a></span><span class="toggled-popular sc-ifAKCX faAjVQ"><i class="iconfont icon-popular"></i><ul><li><a aria-current="false" href="https://shjie047.github.io/tags/backend">后端</a></li><li><a aria-current="false" href="https://shjie047.github.io/tags/mobile">移动端</a></li><li><a aria-current="false" href="https://shjie047.github.io/tags/java">Java</a></li></ul></span><div class="sc-htpNat bzbSEp"><button class="search-btn icon-btn"><i class="iconfont icon-search"></i></button><a class="archive icon-link" aria-current="false" data-tip="归档" href="https://shjie047.github.io/archives"><i class="iconfont icon-archive"></i></a></div></nav></div></div><div class="content"><article class="sc-iwsKbI jwEubJ"><header class="post-header"><h1 class="post-title">http.Handler 与Go的错误处理</h1><section class="post-meta "><time class="post-date" dateTime="2015-11-13">2015/11/13</time><span>, </span><span><span><a aria-current="false" href="https://shjie047.github.io/tags/go">Go</a><span>, </span></span><span><a aria-current="false" href="https://shjie047.github.io/tags/translate">Translate</a><span>, </span></span><span><a aria-current="false" href="https://shjie047.github.io/tags/backend">backend</a></span></span></section></header><section class="post-content markdown-body"><div><p><a href="http://elithrar.github.io/article/http-handler-error-handling-revisited/" target="_blank">原文地址</a></p><p> 在之前我写过一篇关于通过使用<code>http.HandlerFunc</code>来实现一个定制handler类型用来避免一些平常的错误的<a href="http://elithrar.github.io/article/custom-handlers-avoiding-globals/" target="_blank">文章</a>。<code>func MyHandler(w http.ResponseWriter, r *http.Request)</code>的签名经常可以看到。这是一个有用的通用的包含一些基本功能的handler类型，但是和其他事情一样，也有一些不足：</p><ul><li>当你想要在一个handler中停止处理的时候，必须记得显示的调用一个return。这个在当你想要跑出一个从定向（301、302），未找到（404）或者服务器端错误（500）的状态的时候是很平常的。如果不这么做可能会引起一些微妙的错误（函数会继续执行），因为函数不需要一个返回值，编译器也不会警告你。</li><li>不容易传递额外的参数（例如，数据库连接池，配置）。你最后不得不实用一系列的全局变量（不算太坏，但是跟踪他们会导致难以扩展）或者将他们存到请求上下文中，然后每次都从其取出。这样做很笨重。</li><li><p>一直在不断的重复同样的语句。想要记录数据库包返回的错误？既可以再每个查询方法中调用<code>log.Printf</code>，也可以再每个handler中返回错误。如果你的handler可以返回给一个集中记录错误的函数，并且跑出一个500的错误就更好了。</p><p>我以前的方法中使用了<code>func(http.ResponseWriter, *http.Request)</code>签名。这已经被证明是一个简介的方式，但是有个奇怪的地方是，返回一个无错误的状态，例如，200,302,303往往是多余的，因为要么你已经在其他地方设置了，要么就是没用的。例如：</p></li></ul><pre><code class="language-Go">func SomeHandler(w http.ResponseWriter, r *http.Request) (int, error) {
+    db, err := someDBcall()
+    if err != nil {
+        // This makes sense.
+        return 500, err
+    }
+
+    if user.LoggedIn {
+        http.Redirect(w, r, &quot;/dashboard&quot;, 302)
+        // Superfluous! Our http.Redirect function handles the 302, not 
+        // our return value (which is effectively ignored).
+        return 302, nil
+    }
+
+}</code></pre><p>看起来还行，但是我们可以做的更好</p><h3>一些区别</h3><p> 那么我们应该如何改进它？我们先列出代码：</p><pre><code class="language-Go">package handler
+
+// Error represents a handler error. It provides methods for a HTTP status 
+// code and embeds the built-in error interface.
+type Error interface {
+    error
+    Status() int
+}
+
+// StatusError represents an error with an associated HTTP status code.
+type StatusError struct {
+    Code int
+    Err  error
+}
+
+// Allows StatusError to satisfy the error interface.
+func (se StatusError) Error() string {
+    return se.Err.Error()
+}
+
+// Returns our HTTP status code.
+func (se StatusError) Status() int {
+    return se.Code
+}
+
+// A (simple) example of our application-wide configuration.
+type Env struct {
+    DB   *sql.DB
+    Port string
+    Host string
+}
+
+// The Handler struct that takes a configured Env and a function matching
+// our useful signature.
+type Handler struct {
+    *Env
+    H func(e *Env, w http.ResponseWriter, r *http.Request) error
+}
+
+// ServeHTTP allows our Handler type to satisfy http.Handler.
+func (h Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+    err := h.H(h.Env, w, r)
+    if err != nil {
+        switch e := err.(type) {
+        case Error:
+            // We can retrieve the status here and write out a specific
+            // HTTP status code.
+            log.Printf(&quot;HTTP %d - %s&quot;, e.Status(), e)
+            http.Error(w, e.Error(), e.Status())
+        default:
+            // Any error types we don&#x27;t specifically look out for default
+            // to serving a HTTP 500
+            http.Error(w, http.StatusText(http.StatusInternalServerError),
+                http.StatusInternalServerError)
+        }
+    }
+}</code></pre><p> 上面的代码不言自明，但是要说明一下一些突出的观点：</p><ul><li>我们自定义了一个<code>Error</code>类型（接口），他内嵌了Go的内建的error接口，同时提供了一个<code>Status() int</code>方法。</li><li>我们提供了一个简单的<code>StatusError</code>类型（结构体），它满足<code>handler.Error</code>的接口。StatusError接受一个HTTP的状态码（int类型），一个可以让我们包装错误用来记录或者查询的error类型。</li><li><p>我们的<code>ServeHTTP</code>方法包好了一个&quot;e := err.(type)&quot;的类型断言，它可以测试我们需要处理的错误，允许我们处理那些特别的错误。在这个例子中，他是只是一个<code>handler.Error</code>类型。其他的错误，例如其他包中的错误想net.Error，或者其他我们定义的额外的错误，如果想要检查，同样也可以检查。</p><p>如果我们不想捕捉那些错误，那么<code>default</code>将会默认捕捉到。记住一点，<code>ServeHTTP</code>可以使我们的Handler类型满足http.Handler接口，这样他就可以在任何使用http.Handler的地方使用了，例如Go的net/http包或者所有的其他的第三方框架。这样使得定制的handler更有用，他们用起来很灵活。
+注意 net 包处理事情很简单。它又一个net.Error的接口，内嵌了内建的error接口。一些具体的类型实现了它。函数返回的具体类型跟错误的类型相同（DNS错误，解析错误等）。再datastore 包中定义的DBError有一个Query() string 方法，可以很好的解释。</p></li></ul><h3>所有示例</h3><p> 它最后是什么样子的？我们是否可以将其分到不同的包中？</p><pre><code class="language-Go">package handler
+
+import (
+    &quot;net/http&quot;
+)
+
+// Error represents a handler error. It provides methods for a HTTP status 
+// code and embeds the built-in error interface.
+type Error interface {
+    error
+    Status() int
+}
+
+// StatusError represents an error with an associated HTTP status code.
+type StatusError struct {
+    Code int
+    Err  error
+}
+
+// Allows StatusError to satisfy the error interface.
+func (se StatusError) Error() string {
+    return se.Err.Error()
+}
+
+// Returns our HTTP status code.
+func (se StatusError) Status() int {
+    return se.Code
+}
+
+// A (simple) example of our application-wide configuration.
+type Env struct {
+    DB   *sql.DB
+    Port string
+    Host string
+}
+
+// The Handler struct that takes a configured Env and a function matching
+// our useful signature.
+type Handler struct {
+    *Env
+    H func(e *Env, w http.ResponseWriter, r *http.Request) error
+}
+
+// ServeHTTP allows our Handler type to satisfy http.Handler.
+func (h Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+    err := h.H(h.Env, w, r)
+    if err != nil {
+        switch e := err.(type) {
+        case Error:
+            // We can retrieve the status here and write out a specific
+            // HTTP status code.
+            log.Printf(&quot;HTTP %d - %s&quot;, e.Status(), e)
+            http.Error(w, e.Error(), e.Status())
+        default:
+            // Any error types we don&#x27;t specifically look out for default
+            // to serving a HTTP 500
+            http.Error(w, http.StatusText(http.StatusInternalServerError),
+                http.StatusInternalServerError)
+        }
+    }
+}
+
+func GetIndex(env *Env, w http.ResponseWriter, r *http.Request) error {
+    users, err := env.DB.GetAllUsers()
+    if err != nil {
+        // We return a status error here, which conveniently wraps the error
+        // returned from our DB queries. We can clearly define which errors 
+        // are worth raising a HTTP 500 over vs. which might just be a HTTP 
+        // 404, 403 or 401 (as appropriate). It&#x27;s also clear where our 
+        // handler should stop processing by returning early.
+        return StatusError{500, err}
+    }
+
+    fmt.Fprintf(w, &quot;%+v&quot;, users)
+    return nil
+}</code></pre><p> main包：</p><pre><code class="language-Go">package main
+
+import (
+    &quot;net/http&quot;
+    &quot;github.com/you/somepkg/handler&quot;
+)
+
+func main() {
+    db, err := sql.Open(&quot;connectionstringhere&quot;)
+    if err != nil {
+          log.Fatal(err)
+    }
+
+    // Initialise our app-wide environment with the services/info we need.
+    env := &amp;handler.Env{
+        DB: db,
+        Port: os.Getenv(&quot;PORT&quot;),
+        Host: os.Getenv(&quot;HOST&quot;),
+        // We might also have a custom log.Logger, our 
+        // template instance, and a config struct as fields 
+        // in our Env struct.
+    }
+
+    // Note that we&#x27;re using http.Handle, not http.HandleFunc. The 
+    // latter only accepts the http.HandlerFunc type, which is not 
+    // what we have here.
+    http.Handle(&quot;/&quot;, handler.Handler{env, handler.GetIndex})
+
+    // Logs the error if ListenAndServe fails.
+    log.Fatal(http.ListenAndServe(&quot;:8000&quot;, nil))
+}</code></pre><p> 在实际使用时，会将handler和Env放入不同的包中，这里只是为了简单放在了同一个包中。</p></div></section><section class="post-footer"></section></article></div><div class="__react_component_tooltip place-top type-dark " data-id="tooltip"></div></div></div><script type="text/javascript">window.__CSS_CHUNKS__ = {"main":"https://shjie047.github.io/styles.cda04391.css"}</script><script type="text/javascript">
+                window.__routeInfo = {'path':'post/2015-11-13/http-Handler-\u4E0EGo\u7684\u9519\u8BEF\u5904\u7406','templateID':2,'sharedPropsHashes':{},'localProps':null,'allProps':{'post':{'title':'http.Handler \u4E0EGo\u7684\u9519\u8BEF\u5904\u7406','tags':['Go','Translate','backend'],'iso8601Date':'2015-11-13T05:24:57+08:00','basename':'http-Handler-\u4E0EGo\u7684\u9519\u8BEF\u5904\u7406','body':'\n\n[\u539F\u6587\u5730\u5740](http://elithrar.github.io/article/http-handler-error-handling-revisited/)\n\n \u5728\u4E4B\u524D\u6211\u5199\u8FC7\u4E00\u7BC7\u5173\u4E8E\u901A\u8FC7\u4F7F\u7528`http.HandlerFunc`\u6765\u5B9E\u73B0\u4E00\u4E2A\u5B9A\u5236handler\u7C7B\u578B\u7528\u6765\u907F\u514D\u4E00\u4E9B\u5E73\u5E38\u7684\u9519\u8BEF\u7684[\u6587\u7AE0](http://elithrar.github.io/article/custom-handlers-avoiding-globals/)\u3002`func MyHandler(w http.ResponseWriter, r *http.Request)`\u7684\u7B7E\u540D\u7ECF\u5E38\u53EF\u4EE5\u770B\u5230\u3002\u8FD9\u662F\u4E00\u4E2A\u6709\u7528\u7684\u901A\u7528\u7684\u5305\u542B\u4E00\u4E9B\u57FA\u672C\u529F\u80FD\u7684handler\u7C7B\u578B\uFF0C\u4F46\u662F\u548C\u5176\u4ED6\u4E8B\u60C5\u4E00\u6837\uFF0C\u4E5F\u6709\u4E00\u4E9B\u4E0D\u8DB3\uFF1A\n* \u5F53\u4F60\u60F3\u8981\u5728\u4E00\u4E2Ahandler\u4E2D\u505C\u6B62\u5904\u7406\u7684\u65F6\u5019\uFF0C\u5FC5\u987B\u8BB0\u5F97\u663E\u793A\u7684\u8C03\u7528\u4E00\u4E2Areturn\u3002\u8FD9\u4E2A\u5728\u5F53\u4F60\u60F3\u8981\u8DD1\u51FA\u4E00\u4E2A\u4ECE\u5B9A\u5411\uFF08301\u3001302\uFF09\uFF0C\u672A\u627E\u5230\uFF08404\uFF09\u6216\u8005\u670D\u52A1\u5668\u7AEF\u9519\u8BEF\uFF08500\uFF09\u7684\u72B6\u6001\u7684\u65F6\u5019\u662F\u5F88\u5E73\u5E38\u7684\u3002\u5982\u679C\u4E0D\u8FD9\u4E48\u505A\u53EF\u80FD\u4F1A\u5F15\u8D77\u4E00\u4E9B\u5FAE\u5999\u7684\u9519\u8BEF\uFF08\u51FD\u6570\u4F1A\u7EE7\u7EED\u6267\u884C\uFF09\uFF0C\u56E0\u4E3A\u51FD\u6570\u4E0D\u9700\u8981\u4E00\u4E2A\u8FD4\u56DE\u503C\uFF0C\u7F16\u8BD1\u5668\u4E5F\u4E0D\u4F1A\u8B66\u544A\u4F60\u3002\n* \u4E0D\u5BB9\u6613\u4F20\u9012\u989D\u5916\u7684\u53C2\u6570\uFF08\u4F8B\u5982\uFF0C\u6570\u636E\u5E93\u8FDE\u63A5\u6C60\uFF0C\u914D\u7F6E\uFF09\u3002\u4F60\u6700\u540E\u4E0D\u5F97\u4E0D\u5B9E\u7528\u4E00\u7CFB\u5217\u7684\u5168\u5C40\u53D8\u91CF\uFF08\u4E0D\u7B97\u592A\u574F\uFF0C\u4F46\u662F\u8DDF\u8E2A\u4ED6\u4EEC\u4F1A\u5BFC\u81F4\u96BE\u4EE5\u6269\u5C55\uFF09\u6216\u8005\u5C06\u4ED6\u4EEC\u5B58\u5230\u8BF7\u6C42\u4E0A\u4E0B\u6587\u4E2D\uFF0C\u7136\u540E\u6BCF\u6B21\u90FD\u4ECE\u5176\u53D6\u51FA\u3002\u8FD9\u6837\u505A\u5F88\u7B28\u91CD\u3002\n* \u4E00\u76F4\u5728\u4E0D\u65AD\u7684\u91CD\u590D\u540C\u6837\u7684\u8BED\u53E5\u3002\u60F3\u8981\u8BB0\u5F55\u6570\u636E\u5E93\u5305\u8FD4\u56DE\u7684\u9519\u8BEF\uFF1F\u65E2\u53EF\u4EE5\u518D\u6BCF\u4E2A\u67E5\u8BE2\u65B9\u6CD5\u4E2D\u8C03\u7528`log.Printf`\uFF0C\u4E5F\u53EF\u4EE5\u518D\u6BCF\u4E2Ahandler\u4E2D\u8FD4\u56DE\u9519\u8BEF\u3002\u5982\u679C\u4F60\u7684handler\u53EF\u4EE5\u8FD4\u56DE\u7ED9\u4E00\u4E2A\u96C6\u4E2D\u8BB0\u5F55\u9519\u8BEF\u7684\u51FD\u6570\uFF0C\u5E76\u4E14\u8DD1\u51FA\u4E00\u4E2A500\u7684\u9519\u8BEF\u5C31\u66F4\u597D\u4E86\u3002\n\n \u6211\u4EE5\u524D\u7684\u65B9\u6CD5\u4E2D\u4F7F\u7528\u4E86`func(http.ResponseWriter, *http.Request)`\u7B7E\u540D\u3002\u8FD9\u5DF2\u7ECF\u88AB\u8BC1\u660E\u662F\u4E00\u4E2A\u7B80\u4ECB\u7684\u65B9\u5F0F\uFF0C\u4F46\u662F\u6709\u4E2A\u5947\u602A\u7684\u5730\u65B9\u662F\uFF0C\u8FD4\u56DE\u4E00\u4E2A\u65E0\u9519\u8BEF\u7684\u72B6\u6001\uFF0C\u4F8B\u5982\uFF0C200,302,303\u5F80\u5F80\u662F\u591A\u4F59\u7684\uFF0C\u56E0\u4E3A\u8981\u4E48\u4F60\u5DF2\u7ECF\u5728\u5176\u4ED6\u5730\u65B9\u8BBE\u7F6E\u4E86\uFF0C\u8981\u4E48\u5C31\u662F\u6CA1\u7528\u7684\u3002\u4F8B\u5982\uFF1A\n\n```Go\nfunc SomeHandler(w http.ResponseWriter, r *http.Request) (int, error) {\n    db, err := someDBcall()\n    if err != nil {\n        // This makes sense.\n        return 500, err\n    }\n\n    if user.LoggedIn {\n        http.Redirect(w, r, "/dashboard", 302)\n        // Superfluous! Our http.Redirect function handles the 302, not \n        // our return value (which is effectively ignored).\n        return 302, nil\n    }\n\n}\n```\n\n\u770B\u8D77\u6765\u8FD8\u884C\uFF0C\u4F46\u662F\u6211\u4EEC\u53EF\u4EE5\u505A\u7684\u66F4\u597D\n\n### \u4E00\u4E9B\u533A\u522B\n\n \u90A3\u4E48\u6211\u4EEC\u5E94\u8BE5\u5982\u4F55\u6539\u8FDB\u5B83\uFF1F\u6211\u4EEC\u5148\u5217\u51FA\u4EE3\u7801\uFF1A\n\n```Go\npackage handler\n\n// Error represents a handler error. It provides methods for a HTTP status \n// code and embeds the built-in error interface.\ntype Error interface {\n    error\n    Status() int\n}\n\n// StatusError represents an error with an associated HTTP status code.\ntype StatusError struct {\n    Code int\n    Err  error\n}\n\n// Allows StatusError to satisfy the error interface.\nfunc (se StatusError) Error() string {\n    return se.Err.Error()\n}\n\n// Returns our HTTP status code.\nfunc (se StatusError) Status() int {\n    return se.Code\n}\n\n// A (simple) example of our application-wide configuration.\ntype Env struct {\n    DB   *sql.DB\n    Port string\n    Host string\n}\n\n// The Handler struct that takes a configured Env and a function matching\n// our useful signature.\ntype Handler struct {\n    *Env\n    H func(e *Env, w http.ResponseWriter, r *http.Request) error\n}\n\n// ServeHTTP allows our Handler type to satisfy http.Handler.\nfunc (h Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {\n    err := h.H(h.Env, w, r)\n    if err != nil {\n        switch e := err.(type) {\n        case Error:\n            // We can retrieve the status here and write out a specific\n            // HTTP status code.\n            log.Printf("HTTP %d - %s", e.Status(), e)\n            http.Error(w, e.Error(), e.Status())\n        default:\n            // Any error types we don\'t specifically look out for default\n            // to serving a HTTP 500\n            http.Error(w, http.StatusText(http.StatusInternalServerError),\n                http.StatusInternalServerError)\n        }\n    }\n}\n```\n\n \u4E0A\u9762\u7684\u4EE3\u7801\u4E0D\u8A00\u81EA\u660E\uFF0C\u4F46\u662F\u8981\u8BF4\u660E\u4E00\u4E0B\u4E00\u4E9B\u7A81\u51FA\u7684\u89C2\u70B9\uFF1A\n\n* \u6211\u4EEC\u81EA\u5B9A\u4E49\u4E86\u4E00\u4E2A`Error`\u7C7B\u578B\uFF08\u63A5\u53E3\uFF09\uFF0C\u4ED6\u5185\u5D4C\u4E86Go\u7684\u5185\u5EFA\u7684error\u63A5\u53E3\uFF0C\u540C\u65F6\u63D0\u4F9B\u4E86\u4E00\u4E2A`Status() int`\u65B9\u6CD5\u3002\n* \u6211\u4EEC\u63D0\u4F9B\u4E86\u4E00\u4E2A\u7B80\u5355\u7684`StatusError`\u7C7B\u578B\uFF08\u7ED3\u6784\u4F53\uFF09\uFF0C\u5B83\u6EE1\u8DB3`handler.Error`\u7684\u63A5\u53E3\u3002StatusError\u63A5\u53D7\u4E00\u4E2AHTTP\u7684\u72B6\u6001\u7801\uFF08int\u7C7B\u578B\uFF09\uFF0C\u4E00\u4E2A\u53EF\u4EE5\u8BA9\u6211\u4EEC\u5305\u88C5\u9519\u8BEF\u7528\u6765\u8BB0\u5F55\u6216\u8005\u67E5\u8BE2\u7684error\u7C7B\u578B\u3002\n* \u6211\u4EEC\u7684`ServeHTTP`\u65B9\u6CD5\u5305\u597D\u4E86\u4E00\u4E2A"e := err.(type)"\u7684\u7C7B\u578B\u65AD\u8A00\uFF0C\u5B83\u53EF\u4EE5\u6D4B\u8BD5\u6211\u4EEC\u9700\u8981\u5904\u7406\u7684\u9519\u8BEF\uFF0C\u5141\u8BB8\u6211\u4EEC\u5904\u7406\u90A3\u4E9B\u7279\u522B\u7684\u9519\u8BEF\u3002\u5728\u8FD9\u4E2A\u4F8B\u5B50\u4E2D\uFF0C\u4ED6\u662F\u53EA\u662F\u4E00\u4E2A`handler.Error`\u7C7B\u578B\u3002\u5176\u4ED6\u7684\u9519\u8BEF\uFF0C\u4F8B\u5982\u5176\u4ED6\u5305\u4E2D\u7684\u9519\u8BEF\u60F3net.Error\uFF0C\u6216\u8005\u5176\u4ED6\u6211\u4EEC\u5B9A\u4E49\u7684\u989D\u5916\u7684\u9519\u8BEF\uFF0C\u5982\u679C\u60F3\u8981\u68C0\u67E5\uFF0C\u540C\u6837\u4E5F\u53EF\u4EE5\u68C0\u67E5\u3002\n\n \u5982\u679C\u6211\u4EEC\u4E0D\u60F3\u6355\u6349\u90A3\u4E9B\u9519\u8BEF\uFF0C\u90A3\u4E48`default`\u5C06\u4F1A\u9ED8\u8BA4\u6355\u6349\u5230\u3002\u8BB0\u4F4F\u4E00\u70B9\uFF0C`ServeHTTP`\u53EF\u4EE5\u4F7F\u6211\u4EEC\u7684Handler\u7C7B\u578B\u6EE1\u8DB3http.Handler\u63A5\u53E3\uFF0C\u8FD9\u6837\u4ED6\u5C31\u53EF\u4EE5\u5728\u4EFB\u4F55\u4F7F\u7528http.Handler\u7684\u5730\u65B9\u4F7F\u7528\u4E86\uFF0C\u4F8B\u5982Go\u7684net/http\u5305\u6216\u8005\u6240\u6709\u7684\u5176\u4ED6\u7684\u7B2C\u4E09\u65B9\u6846\u67B6\u3002\u8FD9\u6837\u4F7F\u5F97\u5B9A\u5236\u7684handler\u66F4\u6709\u7528\uFF0C\u4ED6\u4EEC\u7528\u8D77\u6765\u5F88\u7075\u6D3B\u3002\n \u6CE8\u610F net \u5305\u5904\u7406\u4E8B\u60C5\u5F88\u7B80\u5355\u3002\u5B83\u53C8\u4E00\u4E2Anet.Error\u7684\u63A5\u53E3\uFF0C\u5185\u5D4C\u4E86\u5185\u5EFA\u7684error\u63A5\u53E3\u3002\u4E00\u4E9B\u5177\u4F53\u7684\u7C7B\u578B\u5B9E\u73B0\u4E86\u5B83\u3002\u51FD\u6570\u8FD4\u56DE\u7684\u5177\u4F53\u7C7B\u578B\u8DDF\u9519\u8BEF\u7684\u7C7B\u578B\u76F8\u540C\uFF08DNS\u9519\u8BEF\uFF0C\u89E3\u6790\u9519\u8BEF\u7B49\uFF09\u3002\u518Ddatastore \u5305\u4E2D\u5B9A\u4E49\u7684DBError\u6709\u4E00\u4E2AQuery() string \u65B9\u6CD5\uFF0C\u53EF\u4EE5\u5F88\u597D\u7684\u89E3\u91CA\u3002\n\n### \u6240\u6709\u793A\u4F8B\n\n \u5B83\u6700\u540E\u662F\u4EC0\u4E48\u6837\u5B50\u7684\uFF1F\u6211\u4EEC\u662F\u5426\u53EF\u4EE5\u5C06\u5176\u5206\u5230\u4E0D\u540C\u7684\u5305\u4E2D\uFF1F\n\n```Go\npackage handler\n\nimport (\n    "net/http"\n)\n\n// Error represents a handler error. It provides methods for a HTTP status \n// code and embeds the built-in error interface.\ntype Error interface {\n    error\n    Status() int\n}\n\n// StatusError represents an error with an associated HTTP status code.\ntype StatusError struct {\n    Code int\n    Err  error\n}\n\n// Allows StatusError to satisfy the error interface.\nfunc (se StatusError) Error() string {\n    return se.Err.Error()\n}\n\n// Returns our HTTP status code.\nfunc (se StatusError) Status() int {\n    return se.Code\n}\n\n// A (simple) example of our application-wide configuration.\ntype Env struct {\n    DB   *sql.DB\n    Port string\n    Host string\n}\n\n// The Handler struct that takes a configured Env and a function matching\n// our useful signature.\ntype Handler struct {\n    *Env\n    H func(e *Env, w http.ResponseWriter, r *http.Request) error\n}\n\n// ServeHTTP allows our Handler type to satisfy http.Handler.\nfunc (h Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {\n    err := h.H(h.Env, w, r)\n    if err != nil {\n        switch e := err.(type) {\n        case Error:\n            // We can retrieve the status here and write out a specific\n            // HTTP status code.\n            log.Printf("HTTP %d - %s", e.Status(), e)\n            http.Error(w, e.Error(), e.Status())\n        default:\n            // Any error types we don\'t specifically look out for default\n            // to serving a HTTP 500\n            http.Error(w, http.StatusText(http.StatusInternalServerError),\n                http.StatusInternalServerError)\n        }\n    }\n}\n\nfunc GetIndex(env *Env, w http.ResponseWriter, r *http.Request) error {\n    users, err := env.DB.GetAllUsers()\n    if err != nil {\n        // We return a status error here, which conveniently wraps the error\n        // returned from our DB queries. We can clearly define which errors \n        // are worth raising a HTTP 500 over vs. which might just be a HTTP \n        // 404, 403 or 401 (as appropriate). It\'s also clear where our \n        // handler should stop processing by returning early.\n        return StatusError{500, err}\n    }\n\n    fmt.Fprintf(w, "%+v", users)\n    return nil\n}\n```\n\n main\u5305\uFF1A\n\n```Go\npackage main\n\nimport (\n    "net/http"\n    "github.com/you/somepkg/handler"\n)\n\nfunc main() {\n    db, err := sql.Open("connectionstringhere")\n    if err != nil {\n          log.Fatal(err)\n    }\n\n    // Initialise our app-wide environment with the services/info we need.\n    env := &handler.Env{\n        DB: db,\n        Port: os.Getenv("PORT"),\n        Host: os.Getenv("HOST"),\n        // We might also have a custom log.Logger, our \n        // template instance, and a config struct as fields \n        // in our Env struct.\n    }\n\n    // Note that we\'re using http.Handle, not http.HandleFunc. The \n    // latter only accepts the http.HandlerFunc type, which is not \n    // what we have here.\n    http.Handle("/", handler.Handler{env, handler.GetIndex})\n\n    // Logs the error if ListenAndServe fails.\n    log.Fatal(http.ListenAndServe(":8000", nil))\n}\n```\n\n \u5728\u5B9E\u9645\u4F7F\u7528\u65F6\uFF0C\u4F1A\u5C06handler\u548CEnv\u653E\u5165\u4E0D\u540C\u7684\u5305\u4E2D\uFF0C\u8FD9\u91CC\u53EA\u662F\u4E3A\u4E86\u7B80\u5355\u653E\u5728\u4E86\u540C\u4E00\u4E2A\u5305\u4E2D\u3002\n\n','date':'2015-11-13'}},'siteData':{'title':'React Static'}};</script><script defer="" type="text/javascript" src="https://shjie047.github.io/bootstrap.12d62418.js"></script><script defer="" type="text/javascript" src="https://shjie047.github.io/templates/src/containers/Post.04c17553.js"></script><script defer="" type="text/javascript" src="https://shjie047.github.io/main.71b50d94.js"></script></body></html>
