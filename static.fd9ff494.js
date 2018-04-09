@@ -1165,7 +1165,7 @@ var _templateObject = _taggedTemplateLiteral([''], ['']),
     _templateObject4 = _taggedTemplateLiteral(['\n  margin-left: auto;\n  display: flex;\n  align-items: center;\n  overflow: hidden;\n\n  .search-input input {\n    -webkit-apparance: none;\n    border: 0;\n    outline: 0;\n    padding: 4px 5px;\n    margin: 0;\n    background-color: #fff;\n    width: 160px;\n    animation: .2s ', ' ease;\n  }\n'], ['\n  margin-left: auto;\n  display: flex;\n  align-items: center;\n  overflow: hidden;\n\n  .search-input input {\n    -webkit-apparance: none;\n    border: 0;\n    outline: 0;\n    padding: 4px 5px;\n    margin: 0;\n    background-color: #fff;\n    width: 160px;\n    animation: .2s ', ' ease;\n  }\n']),
     _templateObject5 = _taggedTemplateLiteral(['\n  @media only screen and (max-width: 920px) {\n    display: none;\n  }\n\n  a {\n    font-size: 1.4rem;\n  }\n\n  &::before {\n    content: \'\';\n    height: 2.1rem;\n    width: 1px;\n    background-color: #00000038;\n    display: inline-block;\n    vertical-align: middle;\n  }\n'], ['\n  @media only screen and (max-width: 920px) {\n    display: none;\n  }\n\n  a {\n    font-size: 1.4rem;\n  }\n\n  &::before {\n    content: \'\';\n    height: 2.1rem;\n    width: 1px;\n    background-color: #00000038;\n    display: inline-block;\n    vertical-align: middle;\n  }\n']),
     _templateObject6 = _taggedTemplateLiteral(['\n  display: none;\n  padding: 0;\n  margin: 0;\n  position: relative;\n  font-size: 1.4rem;\n\n  &::before {\n    content: \'\';\n    height: 2.1rem;\n    width: 1px;\n    background-color: #00000038;\n    display: inline-block;\n    vertical-align: middle;\n  }\n\n  > i {\n    display: inline-block;\n    padding: 1rem;\n    color: #fff;\n    font-weight: normal;\n    transition: color .3s ease;\n  }\n\n  a {\n    font-size: 1.4rem;\n    font-weight: normal;\n    line-height: 1;\n    display: block;\n    padding: 1.2rem 3rem 1.2rem 1rem;\n  }\n\n  li {\n    margin: 0;\n  }\n\n  ul {\n    list-style: none;\n    padding: 0;\n    margin: 0;\n    position: absolute;\n    top: 100%;\n    left: 0;\n    background-color: #108db8;\n    display: none;\n    width: 120px;\n    padding: 10px 0;\n  }\n\n  ul.show {\n    display: inline-block;\n  }\n\n  @media only screen and (max-width: 920px) {\n    display: inline;\n  }\n'], ['\n  display: none;\n  padding: 0;\n  margin: 0;\n  position: relative;\n  font-size: 1.4rem;\n\n  &::before {\n    content: \'\';\n    height: 2.1rem;\n    width: 1px;\n    background-color: #00000038;\n    display: inline-block;\n    vertical-align: middle;\n  }\n\n  > i {\n    display: inline-block;\n    padding: 1rem;\n    color: #fff;\n    font-weight: normal;\n    transition: color .3s ease;\n  }\n\n  a {\n    font-size: 1.4rem;\n    font-weight: normal;\n    line-height: 1;\n    display: block;\n    padding: 1.2rem 3rem 1.2rem 1rem;\n  }\n\n  li {\n    margin: 0;\n  }\n\n  ul {\n    list-style: none;\n    padding: 0;\n    margin: 0;\n    position: absolute;\n    top: 100%;\n    left: 0;\n    background-color: #108db8;\n    display: none;\n    width: 120px;\n    padding: 10px 0;\n  }\n\n  ul.show {\n    display: inline-block;\n  }\n\n  @media only screen and (max-width: 920px) {\n    display: inline;\n  }\n']),
-    _templateObject7 = _taggedTemplateLiteral(['\n  font-family: \'yy\';\n  position: absolute;\n  top: 0;\n  left: 50%;\n  top: 50%;\n  color: #fff;\n  transform: translate(-50%,-50%);\n  letter-spacing: .2rem;\n  font-weight: normal;\n  font-size: 2.2rem;\n  cursor: pointer;\n  &:hover {\n    color: #fff!important;\n  }\n'], ['\n  font-family: \'yy\';\n  position: absolute;\n  top: 0;\n  left: 50%;\n  top: 50%;\n  color: #fff;\n  transform: translate(-50%,-50%);\n  letter-spacing: .2rem;\n  font-weight: normal;\n  font-size: 2.2rem;\n  cursor: pointer;\n  &:hover {\n    color: #fff!important;\n  }\n']);
+    _templateObject7 = _taggedTemplateLiteral(['\n  position: absolute;\n  top: 0;\n  left: 50%;\n  top: 50%;\n  color: #fff;\n  transform: translate(-50%,-50%);\n  background-repeat: no-repeat;\n  background-size: 100% auto;\n  width: 8rem;\n  height: 2rem\n  @media only screen and (max-width: 500px) {\n    width: 6rem;\n    height: 1.5rem\n  }\n'], ['\n  position: absolute;\n  top: 0;\n  left: 50%;\n  top: 50%;\n  color: #fff;\n  transform: translate(-50%,-50%);\n  background-repeat: no-repeat;\n  background-size: 100% auto;\n  width: 8rem;\n  height: 2rem\n  @media only screen and (max-width: 500px) {\n    width: 6rem;\n    height: 1.5rem\n  }\n']);
 
 var _react = __webpack_require__(0);
 
@@ -1210,6 +1210,10 @@ var _search2 = _interopRequireDefault(_search);
 var _reactClickOutside = __webpack_require__(48);
 
 var _reactClickOutside2 = _interopRequireDefault(_reactClickOutside);
+
+var _logo = __webpack_require__(49);
+
+var _logo2 = _interopRequireDefault(_logo);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1304,11 +1308,7 @@ var App = function (_React$Component) {
           _react2.default.createElement(
             _reactHeadroom2.default,
             null,
-            _react2.default.createElement(
-              Title,
-              { onClick: _util.backtop, to: '/' },
-              '\u4EE3\u7801\u62FE\u9057'
-            ),
+            _react2.default.createElement(Title, { style: { backgroundImage: 'url(' + _logo2.default + ')' } }),
             _react2.default.createElement(
               Nav,
               null,
@@ -1442,7 +1442,7 @@ var Popular = _styledComponents2.default.span(_templateObject5);
 
 var ToggledPopular = _styledComponents2.default.span(_templateObject6);
 
-var Title = (0, _styledComponents2.default)(_reactStatic.Link)(_templateObject7);
+var Title = _styledComponents2.default.div(_templateObject7);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)(module)))
 
 /***/ }),
@@ -2514,7 +2514,13 @@ exports.default = Search;
 
 module.exports = require("react-click-outside");
 
+/***/ }),
+/* 49 */
+/***/ (function(module, exports) {
+
+module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxODgiIGhlaWdodD0iNDUiIHZpZXdCb3g9IjAgMCAxODggNDUiPjx0ZXh0IGZpbGw9IiNGRkYiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZm9udC1mYW1pbHk9IllvdVl1YW4iIGZvbnQtc2l6ZT0iNDgiPjx0c3BhbiB4PSItMiIgeT0iMzgiPuS7o+eggeaLvumBlzwvdHNwYW4+PC90ZXh0Pjwvc3ZnPg=="
+
 /***/ })
 /******/ ]);
 });
-//# sourceMappingURL=static.47b7a3a2.js.map
+//# sourceMappingURL=static.fd9ff494.js.map
