@@ -130,7 +130,7 @@ var vkLoader = {
 /**
 * 执行
 */
-var loadstring = 'index.59c70ae156e0048f6406.js,';
+var loadstring = 'index.a6efad91fedd82336e80.js,';
 var loadarray = loadstring.slice(0, -1).split(',');
 vkLoader.sync(loadarray, function(sdk, status) {
   loadargs[0](sdk, status);
