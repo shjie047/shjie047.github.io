@@ -807,6 +807,7 @@ exports.default = function () {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.tag_name_map = undefined;
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
@@ -880,15 +881,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _moment2.default.locale('zh-cn');
 
-function chineseToEnglish(name) {
-  var tag_name_map = {
-    '前端': 'frontend',
-    '后端': 'backend',
-    '开发': 'development',
-    '移动端': 'mobile',
-    '跨平台': 'cross platform'
-  };
+var tag_name_map = exports.tag_name_map = {
+  '前端': 'frontend',
+  '后端': 'backend',
+  '开发': 'development',
+  '移动端': 'mobile',
+  '跨平台': 'cross platform'
+};
 
+function chineseToEnglish(name) {
   var _iteratorNormalCompletion = true;
   var _didIteratorError = false;
   var _iteratorError = undefined;
@@ -2561,4 +2562,4 @@ module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5v
 /***/ })
 /******/ ]);
 });
-//# sourceMappingURL=static.399df348.js.map
+//# sourceMappingURL=static.627df952.js.map
