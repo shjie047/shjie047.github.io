@@ -929,7 +929,7 @@ exports.default = (0, _reactStatic.withRouteData)(function (_ref) {
               { key: tag },
               _react2.default.createElement(
                 _reactStatic.Link,
-                { to: '/tags/' + tag.toLowerCase() },
+                { to: '/tags/' + encodeURIComponent(tag.toLowerCase()) },
                 tag
               ),
               i !== post.tags.length - 1 && _react2.default.createElement(
@@ -2518,4 +2518,4 @@ module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5v
 /***/ })
 /******/ ]);
 });
-//# sourceMappingURL=static.d9fdedd1.js.map
+//# sourceMappingURL=static.4ef798f0.js.map
