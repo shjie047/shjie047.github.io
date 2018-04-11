@@ -810,6 +810,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
+exports.chineseToEnglish = chineseToEnglish;
+
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
@@ -878,21 +880,21 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _moment2.default.locale('zh-cn');
 
-var tag_name_map = {
-  '前端': 'frontend',
-  '后端': 'backend',
-  '开发': 'development',
-  '移动端': 'mobile',
-  '跨平台': 'cross platform'
-};
+function chineseToEnglish(name) {
+  var tag_name_map = {
+    '前端': 'frontend',
+    '后端': 'backend',
+    '开发': 'development',
+    '移动端': 'mobile',
+    '跨平台': 'cross platform'
+  };
 
-function chineseToEnlish(map, name) {
   var _iteratorNormalCompletion = true;
   var _didIteratorError = false;
   var _iteratorError = undefined;
 
   try {
-    for (var _iterator = Object.entries(map)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+    for (var _iterator = Object.entries(tag_name_map)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
       var _step$value = _slicedToArray(_step.value, 2),
           key = _step$value[0],
           value = _step$value[1];
@@ -970,7 +972,7 @@ exports.default = (0, _reactStatic.withRouteData)(function (_ref) {
               { key: tag },
               _react2.default.createElement(
                 _reactStatic.Link,
-                { to: '/tags/' + chineseToEnlish(tag_name_map, tag).toLowerCase() },
+                { to: '/tags/' + chineseToEnglish(tag).toLowerCase() },
                 tag
               ),
               i !== post.tags.length - 1 && _react2.default.createElement(
@@ -2559,4 +2561,4 @@ module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5v
 /***/ })
 /******/ ]);
 });
-//# sourceMappingURL=static.79382714.js.map
+//# sourceMappingURL=static.399df348.js.map
