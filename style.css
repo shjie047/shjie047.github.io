@@ -1,0 +1,13 @@
+#posts li, .cates {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cates {
+  justify-content: flex-start;
+}
+
+.cates > div + div {
+  margin-left: 25px;
+}
