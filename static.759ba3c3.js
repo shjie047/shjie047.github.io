@@ -3740,8 +3740,10 @@ var Search = function Search(_ref) {
   );
 };
 
-exports.default = (0, _reactStatic.withRouter)((0, _reactStatic.withRouteData)(Search));
-
+exports.default = function () {
+  return _react2.default.createElement('div', null);
+};
+// export default withRouter(withRouteData(Search))
 
 var fadeIn = (0, _styledComponents.keyframes)(_templateObject);
 
@@ -3762,4 +3764,4 @@ module.exports = require("lodash.isempty");
 /***/ })
 /******/ ]);
 });
-//# sourceMappingURL=static.9ba59f55.js.map
+//# sourceMappingURL=static.759ba3c3.js.map
