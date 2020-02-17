@@ -1,0 +1,2312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<style>
+		#app {
+			width: calc(100vw - 100px);
+			height: calc(100vh - 100px);
+			margin: 0 auto;
+		}
+
+		iframe {
+			width: 100%;
+			height: 100%;
+			border: none;
+		}
+
+		.actions {
+			width: calc(100vw - 100px);
+			margin: 0 auto;
+			margin-bottom: 10px;
+		}
+	</style>
+	<title>player demo</title>
+</head>
+
+<body>
+	<div>
+		<input id="num"></input><button id='currentPage'>跳转到指定页</button>
+		<input id="step"></input><button id='currentStep'>跳转到指定步骤</button>
+	</div>
+	<div>
+		<button id='prePage'>上一页</button>
+		<button id='nextPage'>下一页</button>
+	</div>
+	<div>
+		<input id="reloadValue"></input>
+		<button id='reloadIspring'>重新加载Ispring</button>
+		<button id='reload'>重新加载普通课件</button>
+	</div>
+	<div id="app"></div>
+	<script>
+		(function (global, factory) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+    typeof define === 'function' && define.amd ? define(['exports'], factory) :
+    (global = global || self, factory(global.SLIDE_SDK = {}));
+}(this, (function (exports) { 'use strict';
+
+    /*! *****************************************************************************
+    Copyright (c) Microsoft Corporation. All rights reserved.
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+    this file except in compliance with the License. You may obtain a copy of the
+    License at http://www.apache.org/licenses/LICENSE-2.0
+
+    THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+    WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+    MERCHANTABLITY OR NON-INFRINGEMENT.
+
+    See the Apache Version 2.0 License for specific language governing permissions
+    and limitations under the License.
+    ***************************************************************************** */
+    /* global Reflect, Promise */
+
+    var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+
+    function __extends(d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    }
+
+    var __assign = function() {
+        __assign = Object.assign || function __assign(t) {
+            for (var s, i = 1, n = arguments.length; i < n; i++) {
+                s = arguments[i];
+                for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+            }
+            return t;
+        };
+        return __assign.apply(this, arguments);
+    };
+
+    function __awaiter(thisArg, _arguments, P, generator) {
+        return new (P || (P = Promise))(function (resolve, reject) {
+            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+            function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+            step((generator = generator.apply(thisArg, _arguments || [])).next());
+        });
+    }
+
+    function __generator(thisArg, body) {
+        var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+        function verb(n) { return function (v) { return step([n, v]); }; }
+        function step(op) {
+            if (f) throw new TypeError("Generator is already executing.");
+            while (_) try {
+                if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+                if (y = 0, t) op = [op[0] & 2, t.value];
+                switch (op[0]) {
+                    case 0: case 1: t = op; break;
+                    case 4: _.label++; return { value: op[1], done: false };
+                    case 5: _.label++; y = op[1]; op = [0]; continue;
+                    case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                    default:
+                        if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                        if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                        if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                        if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                        if (t[2]) _.ops.pop();
+                        _.trys.pop(); continue;
+                }
+                op = body.call(thisArg, _);
+            } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+            if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+        }
+    }
+
+    /* tslint:disable */
+    var VERSION = '1.0.59';
+    // production
+    var URL_PREFIX_PROD_EDITOR;
+    var URL_PREFIX_PROD_PLAYER;
+    // 自动保存间隔(ms)
+    var AUTO_SAVE_INTERVAL = 30 * 1000;
+    //补充url页面信息
+    var getFullUrl = function (urlPrefix, editor) {
+        if (!urlPrefix.match(/\.html$/)) {
+            return urlPrefix.replace(/\/?$/, '') + ("/" + editor + ".html");
+        }
+        return urlPrefix;
+    };
+    // 根据环境变量获取编辑器网址前缀
+    var getUrlPrefix = function (platform) {
+        return new Promise(function (resolve) {
+            if (!URL_PREFIX_PROD_EDITOR) {
+                var script = document.createElement('script');
+                script.onload = function () {
+                    var _a = window.URL_PREFIX_PROD, editor = _a.editor, player = _a.player;
+                    URL_PREFIX_PROD_EDITOR = editor;
+                    URL_PREFIX_PROD_PLAYER = player;
+                    resolve({ editor: editor, player: player });
+                };
+                script.src = "//slide.aixuexi.com/api/v2/sdk/config." + platform + ".js";
+                document.head.appendChild(script);
+            }
+            else {
+                resolve({
+                    player: URL_PREFIX_PROD_PLAYER,
+                    editor: URL_PREFIX_PROD_EDITOR,
+                });
+            }
+        });
+    };
+
+    var DirectiveType;
+    (function (DirectiveType) {
+        DirectiveType["Slide"] = "slide";
+        DirectiveType["Editor"] = "editor";
+        DirectiveType["CourseWareControl"] = "coursewarecontrol";
+        DirectiveType["CourseWareInfo"] = "CoursewareInfo";
+        DirectiveType["COURSEWARE_SYNC"] = "coursewaresync";
+        DirectiveType["ISPRING_COURSEWARE_CONTROL"] = "ispring-courseware-control";
+    })(DirectiveType || (DirectiveType = {}));
+    var DirectiveName;
+    (function (DirectiveName) {
+        DirectiveName["ActiveSlide"] = "active-slide";
+        DirectiveName["DeleteSlide"] = "delete-slide";
+        DirectiveName["ExchangeSlide"] = "exchange-slide";
+        DirectiveName["InsertSlide"] = "insert-slide";
+        DirectiveName["ImportSlide"] = "import-slide";
+        DirectiveName["Save"] = "save";
+        DirectiveName["SaveMessage"] = "save-message";
+        DirectiveName["AutoSave"] = "auto-save";
+        DirectiveName["Reload"] = "reload";
+        DirectiveName["GetAllSlides"] = "get-all-slides";
+        DirectiveName["Preview"] = "preview";
+        // 通知 ispring PlayerIframeLoaded
+        DirectiveName["IspringPlayerIframeLoaded"] = "ispring-player-iframe-loaded";
+    })(DirectiveName || (DirectiveName = {}));
+
+    var domain;
+
+    // This constructor is used to store event handlers. Instantiating this is
+    // faster than explicitly calling `Object.create(null)` to get a "clean" empty
+    // object (tested with v8 v4.9).
+    function EventHandlers() {}
+    EventHandlers.prototype = Object.create(null);
+
+    function EventEmitter() {
+      EventEmitter.init.call(this);
+    }
+
+    // nodejs oddity
+    // require('events') === require('events').EventEmitter
+    EventEmitter.EventEmitter = EventEmitter;
+
+    EventEmitter.usingDomains = false;
+
+    EventEmitter.prototype.domain = undefined;
+    EventEmitter.prototype._events = undefined;
+    EventEmitter.prototype._maxListeners = undefined;
+
+    // By default EventEmitters will print a warning if more than 10 listeners are
+    // added to it. This is a useful default which helps finding memory leaks.
+    EventEmitter.defaultMaxListeners = 10;
+
+    EventEmitter.init = function() {
+      this.domain = null;
+      if (EventEmitter.usingDomains) {
+        // if there is an active domain, then attach to it.
+        if (domain.active && !(this instanceof domain.Domain)) ;
+      }
+
+      if (!this._events || this._events === Object.getPrototypeOf(this)._events) {
+        this._events = new EventHandlers();
+        this._eventsCount = 0;
+      }
+
+      this._maxListeners = this._maxListeners || undefined;
+    };
+
+    // Obviously not all Emitters should be limited to 10. This function allows
+    // that to be increased. Set to zero for unlimited.
+    EventEmitter.prototype.setMaxListeners = function setMaxListeners(n) {
+      if (typeof n !== 'number' || n < 0 || isNaN(n))
+        throw new TypeError('"n" argument must be a positive number');
+      this._maxListeners = n;
+      return this;
+    };
+
+    function $getMaxListeners(that) {
+      if (that._maxListeners === undefined)
+        return EventEmitter.defaultMaxListeners;
+      return that._maxListeners;
+    }
+
+    EventEmitter.prototype.getMaxListeners = function getMaxListeners() {
+      return $getMaxListeners(this);
+    };
+
+    // These standalone emit* functions are used to optimize calling of event
+    // handlers for fast cases because emit() itself often has a variable number of
+    // arguments and can be deoptimized because of that. These functions always have
+    // the same number of arguments and thus do not get deoptimized, so the code
+    // inside them can execute faster.
+    function emitNone(handler, isFn, self) {
+      if (isFn)
+        handler.call(self);
+      else {
+        var len = handler.length;
+        var listeners = arrayClone(handler, len);
+        for (var i = 0; i < len; ++i)
+          listeners[i].call(self);
+      }
+    }
+    function emitOne(handler, isFn, self, arg1) {
+      if (isFn)
+        handler.call(self, arg1);
+      else {
+        var len = handler.length;
+        var listeners = arrayClone(handler, len);
+        for (var i = 0; i < len; ++i)
+          listeners[i].call(self, arg1);
+      }
+    }
+    function emitTwo(handler, isFn, self, arg1, arg2) {
+      if (isFn)
+        handler.call(self, arg1, arg2);
+      else {
+        var len = handler.length;
+        var listeners = arrayClone(handler, len);
+        for (var i = 0; i < len; ++i)
+          listeners[i].call(self, arg1, arg2);
+      }
+    }
+    function emitThree(handler, isFn, self, arg1, arg2, arg3) {
+      if (isFn)
+        handler.call(self, arg1, arg2, arg3);
+      else {
+        var len = handler.length;
+        var listeners = arrayClone(handler, len);
+        for (var i = 0; i < len; ++i)
+          listeners[i].call(self, arg1, arg2, arg3);
+      }
+    }
+
+    function emitMany(handler, isFn, self, args) {
+      if (isFn)
+        handler.apply(self, args);
+      else {
+        var len = handler.length;
+        var listeners = arrayClone(handler, len);
+        for (var i = 0; i < len; ++i)
+          listeners[i].apply(self, args);
+      }
+    }
+
+    EventEmitter.prototype.emit = function emit(type) {
+      var er, handler, len, args, i, events, domain;
+      var doError = (type === 'error');
+
+      events = this._events;
+      if (events)
+        doError = (doError && events.error == null);
+      else if (!doError)
+        return false;
+
+      domain = this.domain;
+
+      // If there is no 'error' event listener then throw.
+      if (doError) {
+        er = arguments[1];
+        if (domain) {
+          if (!er)
+            er = new Error('Uncaught, unspecified "error" event');
+          er.domainEmitter = this;
+          er.domain = domain;
+          er.domainThrown = false;
+          domain.emit('error', er);
+        } else if (er instanceof Error) {
+          throw er; // Unhandled 'error' event
+        } else {
+          // At least give some kind of context to the user
+          var err = new Error('Uncaught, unspecified "error" event. (' + er + ')');
+          err.context = er;
+          throw err;
+        }
+        return false;
+      }
+
+      handler = events[type];
+
+      if (!handler)
+        return false;
+
+      var isFn = typeof handler === 'function';
+      len = arguments.length;
+      switch (len) {
+        // fast cases
+        case 1:
+          emitNone(handler, isFn, this);
+          break;
+        case 2:
+          emitOne(handler, isFn, this, arguments[1]);
+          break;
+        case 3:
+          emitTwo(handler, isFn, this, arguments[1], arguments[2]);
+          break;
+        case 4:
+          emitThree(handler, isFn, this, arguments[1], arguments[2], arguments[3]);
+          break;
+        // slower
+        default:
+          args = new Array(len - 1);
+          for (i = 1; i < len; i++)
+            args[i - 1] = arguments[i];
+          emitMany(handler, isFn, this, args);
+      }
+
+      return true;
+    };
+
+    function _addListener(target, type, listener, prepend) {
+      var m;
+      var events;
+      var existing;
+
+      if (typeof listener !== 'function')
+        throw new TypeError('"listener" argument must be a function');
+
+      events = target._events;
+      if (!events) {
+        events = target._events = new EventHandlers();
+        target._eventsCount = 0;
+      } else {
+        // To avoid recursion in the case that type === "newListener"! Before
+        // adding it to the listeners, first emit "newListener".
+        if (events.newListener) {
+          target.emit('newListener', type,
+                      listener.listener ? listener.listener : listener);
+
+          // Re-assign `events` because a newListener handler could have caused the
+          // this._events to be assigned to a new object
+          events = target._events;
+        }
+        existing = events[type];
+      }
+
+      if (!existing) {
+        // Optimize the case of one listener. Don't need the extra array object.
+        existing = events[type] = listener;
+        ++target._eventsCount;
+      } else {
+        if (typeof existing === 'function') {
+          // Adding the second element, need to change to array.
+          existing = events[type] = prepend ? [listener, existing] :
+                                              [existing, listener];
+        } else {
+          // If we've already got an array, just append.
+          if (prepend) {
+            existing.unshift(listener);
+          } else {
+            existing.push(listener);
+          }
+        }
+
+        // Check for listener leak
+        if (!existing.warned) {
+          m = $getMaxListeners(target);
+          if (m && m > 0 && existing.length > m) {
+            existing.warned = true;
+            var w = new Error('Possible EventEmitter memory leak detected. ' +
+                                existing.length + ' ' + type + ' listeners added. ' +
+                                'Use emitter.setMaxListeners() to increase limit');
+            w.name = 'MaxListenersExceededWarning';
+            w.emitter = target;
+            w.type = type;
+            w.count = existing.length;
+            emitWarning(w);
+          }
+        }
+      }
+
+      return target;
+    }
+    function emitWarning(e) {
+      typeof console.warn === 'function' ? console.warn(e) : console.log(e);
+    }
+    EventEmitter.prototype.addListener = function addListener(type, listener) {
+      return _addListener(this, type, listener, false);
+    };
+
+    EventEmitter.prototype.on = EventEmitter.prototype.addListener;
+
+    EventEmitter.prototype.prependListener =
+        function prependListener(type, listener) {
+          return _addListener(this, type, listener, true);
+        };
+
+    function _onceWrap(target, type, listener) {
+      var fired = false;
+      function g() {
+        target.removeListener(type, g);
+        if (!fired) {
+          fired = true;
+          listener.apply(target, arguments);
+        }
+      }
+      g.listener = listener;
+      return g;
+    }
+
+    EventEmitter.prototype.once = function once(type, listener) {
+      if (typeof listener !== 'function')
+        throw new TypeError('"listener" argument must be a function');
+      this.on(type, _onceWrap(this, type, listener));
+      return this;
+    };
+
+    EventEmitter.prototype.prependOnceListener =
+        function prependOnceListener(type, listener) {
+          if (typeof listener !== 'function')
+            throw new TypeError('"listener" argument must be a function');
+          this.prependListener(type, _onceWrap(this, type, listener));
+          return this;
+        };
+
+    // emits a 'removeListener' event iff the listener was removed
+    EventEmitter.prototype.removeListener =
+        function removeListener(type, listener) {
+          var list, events, position, i, originalListener;
+
+          if (typeof listener !== 'function')
+            throw new TypeError('"listener" argument must be a function');
+
+          events = this._events;
+          if (!events)
+            return this;
+
+          list = events[type];
+          if (!list)
+            return this;
+
+          if (list === listener || (list.listener && list.listener === listener)) {
+            if (--this._eventsCount === 0)
+              this._events = new EventHandlers();
+            else {
+              delete events[type];
+              if (events.removeListener)
+                this.emit('removeListener', type, list.listener || listener);
+            }
+          } else if (typeof list !== 'function') {
+            position = -1;
+
+            for (i = list.length; i-- > 0;) {
+              if (list[i] === listener ||
+                  (list[i].listener && list[i].listener === listener)) {
+                originalListener = list[i].listener;
+                position = i;
+                break;
+              }
+            }
+
+            if (position < 0)
+              return this;
+
+            if (list.length === 1) {
+              list[0] = undefined;
+              if (--this._eventsCount === 0) {
+                this._events = new EventHandlers();
+                return this;
+              } else {
+                delete events[type];
+              }
+            } else {
+              spliceOne(list, position);
+            }
+
+            if (events.removeListener)
+              this.emit('removeListener', type, originalListener || listener);
+          }
+
+          return this;
+        };
+
+    EventEmitter.prototype.removeAllListeners =
+        function removeAllListeners(type) {
+          var listeners, events;
+
+          events = this._events;
+          if (!events)
+            return this;
+
+          // not listening for removeListener, no need to emit
+          if (!events.removeListener) {
+            if (arguments.length === 0) {
+              this._events = new EventHandlers();
+              this._eventsCount = 0;
+            } else if (events[type]) {
+              if (--this._eventsCount === 0)
+                this._events = new EventHandlers();
+              else
+                delete events[type];
+            }
+            return this;
+          }
+
+          // emit removeListener for all listeners on all events
+          if (arguments.length === 0) {
+            var keys = Object.keys(events);
+            for (var i = 0, key; i < keys.length; ++i) {
+              key = keys[i];
+              if (key === 'removeListener') continue;
+              this.removeAllListeners(key);
+            }
+            this.removeAllListeners('removeListener');
+            this._events = new EventHandlers();
+            this._eventsCount = 0;
+            return this;
+          }
+
+          listeners = events[type];
+
+          if (typeof listeners === 'function') {
+            this.removeListener(type, listeners);
+          } else if (listeners) {
+            // LIFO order
+            do {
+              this.removeListener(type, listeners[listeners.length - 1]);
+            } while (listeners[0]);
+          }
+
+          return this;
+        };
+
+    EventEmitter.prototype.listeners = function listeners(type) {
+      var evlistener;
+      var ret;
+      var events = this._events;
+
+      if (!events)
+        ret = [];
+      else {
+        evlistener = events[type];
+        if (!evlistener)
+          ret = [];
+        else if (typeof evlistener === 'function')
+          ret = [evlistener.listener || evlistener];
+        else
+          ret = unwrapListeners(evlistener);
+      }
+
+      return ret;
+    };
+
+    EventEmitter.listenerCount = function(emitter, type) {
+      if (typeof emitter.listenerCount === 'function') {
+        return emitter.listenerCount(type);
+      } else {
+        return listenerCount.call(emitter, type);
+      }
+    };
+
+    EventEmitter.prototype.listenerCount = listenerCount;
+    function listenerCount(type) {
+      var events = this._events;
+
+      if (events) {
+        var evlistener = events[type];
+
+        if (typeof evlistener === 'function') {
+          return 1;
+        } else if (evlistener) {
+          return evlistener.length;
+        }
+      }
+
+      return 0;
+    }
+
+    EventEmitter.prototype.eventNames = function eventNames() {
+      return this._eventsCount > 0 ? Reflect.ownKeys(this._events) : [];
+    };
+
+    // About 1.5x faster than the two-arg version of Array#splice().
+    function spliceOne(list, index) {
+      for (var i = index, k = i + 1, n = list.length; k < n; i += 1, k += 1)
+        list[i] = list[k];
+      list.pop();
+    }
+
+    function arrayClone(arr, i) {
+      var copy = new Array(i);
+      while (i--)
+        copy[i] = arr[i];
+      return copy;
+    }
+
+    function unwrapListeners(arr) {
+      var ret = new Array(arr.length);
+      for (var i = 0; i < ret.length; ++i) {
+        ret[i] = arr[i].listener || arr[i];
+      }
+      return ret;
+    }
+
+    var MESSAGE_NAME = 'on-editor-message';
+    var Message = /** @class */ (function (_super) {
+        __extends(Message, _super);
+        function Message(api) {
+            var _this = _super.call(this) || this;
+            _this.api = api;
+            _this.callbackQueue = [];
+            _this._handleMessage = _this._handleMessage.bind(_this);
+            return _this;
+        }
+        Message.prototype.clear = function () {
+            this.callbackQueue = [];
+        };
+        Message.prototype._handleMessage = function (e) {
+            return __awaiter(this, void 0, void 0, function () {
+                var platform, url, data, callbackId_1, ret, error, i;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            platform = this.api.editorConfig.platform;
+                            return [4 /*yield*/, getUrlPrefix(platform)];
+                        case 1:
+                            url = _a.sent();
+                            if (url.editor.includes(e.origin)) {
+                                data = e.data;
+                                callbackId_1 = data.callbackId, ret = data.ret, error = data.error;
+                                if (callbackId_1) {
+                                    i = this.callbackQueue.findIndex(function (v) { return v.callbackId === callbackId_1; });
+                                    if (i !== -1) {
+                                        if (error) {
+                                            return [2 /*return*/, this.callbackQueue[i].callbackFail(new Error(error))];
+                                        }
+                                        else {
+                                            this.callbackQueue[i].callbackSuccess(ret);
+                                        }
+                                        this.emit(MESSAGE_NAME, __assign(__assign({}, (this.callbackQueue[i].msg || {})), { ret: ret }));
+                                        this.callbackQueue.splice(i, 1);
+                                    }
+                                }
+                                else {
+                                    this.emit(MESSAGE_NAME, data);
+                                }
+                            }
+                            return [2 /*return*/];
+                    }
+                });
+            });
+        };
+        /**
+         * 初始化消息所用的frame组件
+         *
+         * @param iframe
+         */
+        Message.prototype.init = function (iframe) {
+            this.iframe = iframe;
+            window.addEventListener('message', this._handleMessage);
+        };
+        /**
+         * 发送消息到编辑器
+         *
+         * @param {IMessage} msg
+         * @returns {Promise<any>}
+         */
+        Message.prototype.post = function (msg, isPlayer) {
+            var _this = this;
+            if (!this.iframe || !this.iframe.contentWindow) {
+                throw new Error('编辑器尚未初始化，请初始化后再使用');
+            }
+            return new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
+                var platform, url, callbackId;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            platform = this.api.editorConfig.platform;
+                            return [4 /*yield*/, getUrlPrefix(platform)];
+                        case 1:
+                            url = _a.sent();
+                            msg.type = msg.type || DirectiveType.Slide;
+                            callbackId = new Date().getTime();
+                            if (isPlayer) {
+                                msg.callbackId = callbackId;
+                                this.iframe.contentWindow.postMessage(msg, url.editor);
+                            }
+                            else {
+                                this.iframe.contentWindow.postMessage({ msg: msg, callbackId: callbackId }, url.editor);
+                            }
+                            this.callbackQueue.push({
+                                msg: msg,
+                                callbackId: callbackId,
+                                callbackSuccess: resolve,
+                                callbackFail: reject,
+                            });
+                            return [2 /*return*/];
+                    }
+                });
+            }); });
+        };
+        return Message;
+    }(EventEmitter));
+
+    (function (EditorMessage) {
+        /**
+         * 复制课件到剪贴板
+         */
+        EditorMessage["ON_SLIDE_COPY_CLIP"] = "slide-copy-clip";
+        /**
+         * 剪贴课件到剪贴板
+         */
+        EditorMessage["ON_SLIDE_CUT_CLIP"] = "slide-cut-clip";
+        /**
+         * 粘贴复制
+         */
+        EditorMessage["ON_SLIDE_COPY_PASTE"] = "slide-copy-paste";
+        /**
+         * 粘贴剪贴
+         */
+        EditorMessage["ON_SLIDE_CUT_PASTE"] = "slide-cut-paste";
+        /**
+         * 课件重命名
+         */
+        EditorMessage["ON_SLIDE_RENAME"] = "slide-rename";
+        /**
+         * 课件新增一页时执行
+         */
+        EditorMessage["ON_SLIDE_ADD"] = "slide-add";
+        /**
+         * 导入ppt课件
+         */
+        EditorMessage["ON_SLIDE_IMPORT"] = "slide-import";
+        /**
+         * 课件发生移动时执行
+         */
+        EditorMessage["ON_SLIDE_MOVE"] = "slide-move";
+        /**
+         * 课件选中一页时执行
+         */
+        EditorMessage["ON_SLIDE_ACTIVE"] = "slide-active";
+        /**
+         * 课件被删除时执行
+         */
+        EditorMessage["ON_SLIDE_DELETE"] = "slide-delete";
+        /**
+         * 组件发生任何变化时执行
+         */
+        EditorMessage["ON_WIDGET_CHANGE"] = "widget-change";
+        /**
+         * 课件加载完时
+         */
+        EditorMessage["ON_SLIDES_LOADED"] = "slides-loaded";
+        /**
+         * 课程重载时
+         */
+        EditorMessage["ON_COURSE_RELOAD"] = "course-reload";
+        /**
+         * 课件保存
+         */
+        EditorMessage["ON_SLIDE_SAVE"] = "slide-save";
+        /**
+         * 课件隐藏
+         */
+        EditorMessage["ON_SLIDE_HIDE"] = "slide-hide";
+        /**
+         * 课件显示
+         */
+        EditorMessage["ON_SLIDE_SHOW"] = "slide-show";
+        /**
+         * 课件克隆
+         */
+        EditorMessage["ON_SLIDE_COPY"] = "slide-clone";
+    })(exports.EditorMessage || (exports.EditorMessage = {}));
+
+    var BlankSlideTheme;
+    (function (BlankSlideTheme) {
+        BlankSlideTheme["dark"] = "dark-slide slide";
+        BlankSlideTheme["white"] = "light-slide slide";
+    })(BlankSlideTheme || (BlankSlideTheme = {}));
+
+    var editorMessageDirectiveMap = (function () {
+        var map = new Map();
+        map.set(DirectiveName.ActiveSlide, exports.EditorMessage.ON_SLIDE_ACTIVE);
+        map.set(DirectiveName.GetAllSlides, exports.EditorMessage.ON_SLIDES_LOADED);
+        map.set(DirectiveName.DeleteSlide, exports.EditorMessage.ON_SLIDE_DELETE);
+        map.set(DirectiveName.ExchangeSlide, exports.EditorMessage.ON_SLIDE_MOVE);
+        map.set(DirectiveName.InsertSlide, exports.EditorMessage.ON_SLIDE_ADD);
+        map.set(DirectiveName.ImportSlide, exports.EditorMessage.ON_SLIDE_IMPORT);
+        map.set(DirectiveName.Reload, exports.EditorMessage.ON_COURSE_RELOAD);
+        return map;
+    })();
+    /**
+     * 课件编辑器与SDK通信类，
+     * 所有课件编辑器的调用方法都由此类提供
+     *
+     * @class SlideEditorAPI
+     * @param {HTMLElement} containerElement 课件容器节点
+     * @param {string} coursewareId 课件ID
+     */
+    var SlideEditorAPI = /** @class */ (function () {
+        function SlideEditorAPI(containerElement, coursewareId) {
+            var _this = this;
+            this.iframe = null;
+            this.config = null;
+            this.iframeCallbacks = [];
+            this.events = new EventEmitter();
+            /**
+             * 监听编辑器发来的消息
+             */
+            this._handleEditorMessage = function (data) {
+                var editorMessage = editorMessageDirectiveMap.get(data.name);
+                if (editorMessage) {
+                    _this.events.emit(editorMessage, data.ret);
+                }
+                else {
+                    if (Object.values(exports.EditorMessage).includes(data.name)) {
+                        _this.events.emit(data.name, data.ret);
+                    }
+                }
+            };
+            this.handleIframeLoaded = function () { return __awaiter(_this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            if (!this.config)
+                                return [2 /*return*/];
+                            if (this.iframeCallbacks.length) {
+                                this.iframeCallbacks.forEach(function (fn) { return fn(); });
+                                this.iframeCallbacks = [];
+                            }
+                            return [4 /*yield*/, Promise.all([
+                                    this.message.post({
+                                        name: DirectiveName.SaveMessage,
+                                        params: {
+                                            message: this.config.saveMessage,
+                                        },
+                                    }),
+                                    this.getAllSlides(),
+                                    this.setAutoSave(this.config.autoSave, this.config.autoSaveInterval),
+                                ])];
+                        case 1:
+                            _a.sent();
+                            return [2 /*return*/];
+                    }
+                });
+            }); };
+            this.containerElement = containerElement;
+            this.coursewareId = coursewareId;
+            this.message = new Message(this);
+        }
+        Object.defineProperty(SlideEditorAPI.prototype, "editorConfig", {
+            get: function () {
+                return this.config;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        SlideEditorAPI.prototype.addEditorEvent = function (message, handle) {
+            this.events.on(message, handle);
+        };
+        SlideEditorAPI.prototype.removeEditorEvent = function (message, handle) {
+            if (handle) {
+                this.events.removeListener(message, handle);
+            }
+            else {
+                this.events.removeAllListeners(message);
+            }
+        };
+        SlideEditorAPI.prototype.loadIframe = function (theme, slide, hiddenButtons, showSaveMessage, prefix) {
+            if (prefix === void 0) { prefix = ''; }
+            return __awaiter(this, void 0, void 0, function () {
+                var url;
+                return __generator(this, function (_a) {
+                    if (!this.iframe)
+                        return [2 /*return*/];
+                    url = getFullUrl(prefix, 'editor') + "?deck=" + this.coursewareId +
+                        (theme ? "&theme=" + theme : '') +
+                        (hiddenButtons ? "&hiddenButtons=" + hiddenButtons.join(',') : '') +
+                        ("&sdk_version=" + VERSION) +
+                        (showSaveMessage !== undefined
+                            ? "&showSaveMessage=" + (showSaveMessage ? 1 : 0)
+                            : '');
+                    if (typeof slide === 'function') {
+                        this.iframeCallbacks.push(slide);
+                        this.iframe.src = url;
+                    }
+                    else if (typeof slide === 'string') {
+                        this.iframe.src = url + ("&slide=" + slide);
+                    }
+                    else {
+                        this.iframe.src = url;
+                    }
+                    return [2 /*return*/, this.iframe.src];
+                });
+            });
+        };
+        SlideEditorAPI.prototype.render = function (config) {
+            var _this = this;
+            if (this.iframe)
+                return;
+            this.config = config;
+            this.iframe = document.createElement('iframe');
+            this.iframe.onload = this.handleIframeLoaded;
+            getUrlPrefix(this.config.platform).then(function (url) {
+                _this.loadIframe(config.themeId, undefined, config.hiddenButtons, config.showSaveMessage, url.editor);
+                _this.message.init(_this.iframe);
+                _this.message.on(MESSAGE_NAME, _this._handleEditorMessage);
+                if (_this.iframe) {
+                    _this.containerElement.appendChild(_this.iframe);
+                }
+            });
+        };
+        /**
+         * 自动保存设置
+         *
+         * @param {boolean} autoSave
+         * @param {number} interval 如果autosave为true，可传设置的间隔时间
+         */
+        SlideEditorAPI.prototype.setAutoSave = function (autoSave, interval) {
+            return __awaiter(this, void 0, void 0, function () {
+                var e_1;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            _a.trys.push([0, 2, , 3]);
+                            return [4 /*yield*/, this.message.post({
+                                    name: DirectiveName.AutoSave,
+                                    params: { interval: interval || AUTO_SAVE_INTERVAL, autoSave: autoSave },
+                                })];
+                        case 1:
+                            _a.sent();
+                            return [3 /*break*/, 3];
+                        case 2:
+                            e_1 = _a.sent();
+                            console.error(e_1);
+                            return [3 /*break*/, 3];
+                        case 3: return [2 /*return*/];
+                    }
+                });
+            });
+        };
+        SlideEditorAPI.prototype.getAllSlides = function () {
+            return this.message.post({
+                name: DirectiveName.GetAllSlides,
+            });
+        };
+        SlideEditorAPI.prototype.exchangeSlide = function (target, source) {
+            return this.message.post({
+                name: DirectiveName.ExchangeSlide,
+                params: { target: target, source: source },
+            });
+        };
+        SlideEditorAPI.prototype.insertSlide = function (title, theme) {
+            if (theme === void 0) { theme = BlankSlideTheme.white; }
+            return this.message.post({
+                name: DirectiveName.InsertSlide,
+                params: {
+                    background: { class: theme },
+                    params: { title: title },
+                },
+            });
+        };
+        SlideEditorAPI.prototype.deleteSlide = function (id) {
+            return this.message.post({
+                name: DirectiveName.DeleteSlide,
+                params: id,
+            });
+        };
+        SlideEditorAPI.prototype.moveUpSlide = function (id) {
+            return this.exchangeSlide('', id);
+        };
+        SlideEditorAPI.prototype.moveDownSlide = function (id) {
+            return this.exchangeSlide(id, '');
+        };
+        SlideEditorAPI.prototype.activeSlide = function (id) {
+            return this.message.post({
+                name: DirectiveName.ActiveSlide,
+                params: id,
+            });
+        };
+        SlideEditorAPI.prototype.save = function () {
+            return this.message.post({
+                name: DirectiveName.Save,
+            });
+        };
+        /**
+         * 重新加载course
+         */
+        SlideEditorAPI.prototype.reload = function (coursewareId, slideId) {
+            return __awaiter(this, void 0, void 0, function () {
+                var _this = this;
+                return __generator(this, function (_a) {
+                    return [2 /*return*/, new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
+                            var url_1;
+                            var _this = this;
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0:
+                                        if (!!this.config) return [3 /*break*/, 1];
+                                        reject(new Error('参数错误'));
+                                        return [3 /*break*/, 3];
+                                    case 1: return [4 /*yield*/, getUrlPrefix(this.config.platform)];
+                                    case 2:
+                                        url_1 = _a.sent();
+                                        this.message
+                                            .post({
+                                            name: DirectiveName.Reload,
+                                            params: coursewareId,
+                                        })
+                                            .then(function () {
+                                            _this.message.clear();
+                                            _this.coursewareId = coursewareId;
+                                            if (_this.config) {
+                                                resolve(_this.loadIframe(_this.config.themeId, slideId, _this.config.hiddenButtons, _this.config.showSaveMessage, url_1.editor));
+                                            }
+                                        })
+                                            .catch(function (e) {
+                                            reject(e);
+                                        });
+                                        _a.label = 3;
+                                    case 3: return [2 /*return*/];
+                                }
+                            });
+                        }); })];
+                });
+            });
+        };
+        /**
+         * 预览
+         */
+        SlideEditorAPI.prototype.preview = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var ret, e_2;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            _a.trys.push([0, 2, , 3]);
+                            return [4 /*yield*/, this.message.post({
+                                    name: DirectiveName.Preview,
+                                })];
+                        case 1:
+                            ret = _a.sent();
+                            window.open(ret.preview_url);
+                            return [3 /*break*/, 3];
+                        case 2:
+                            e_2 = _a.sent();
+                            console.error(e_2);
+                            return [3 /*break*/, 3];
+                        case 3: return [2 /*return*/];
+                    }
+                });
+            });
+        };
+        return SlideEditorAPI;
+    }());
+
+    (function (PlatformType) {
+        PlatformType["ATF"] = "atf";
+        PlatformType["AXX"] = "axx";
+        PlatformType["VIDEO"] = "video";
+        PlatformType["AJZ"] = "ajz";
+    })(exports.PlatformType || (exports.PlatformType = {}));
+
+    function required(field) {
+        throw Error("[init sdk]: " + field + " is required");
+    }
+    function getContainerElement(sel) {
+        var el = document.querySelector(sel);
+        if (!el) {
+            throw Error("container element is null");
+        }
+        return el;
+    }
+    /**
+     * 课件编辑器接口类，提供
+     *
+     * @class EditorSDK
+     * @param	{string} container 初始化的dom容器ID
+     * @param	{IEditorConfig} config 课件编辑器初始化配置
+     */
+    var EditorSDK = /** @class */ (function () {
+        function EditorSDK(container, config) {
+            if (!container)
+                required('container');
+            if (!config.coursewareId)
+                required('config.coursewareId');
+            if (!config.platform)
+                required('config.platform');
+            if (!Object.values(exports.PlatformType).includes(config.platform)) {
+                throw Error("platform:[" + config.platform + "]  is not supported");
+            }
+            this.slideEditor = new SlideEditorAPI(getContainerElement(container), config.coursewareId);
+            this.slideEditor.render(config);
+        }
+        EditorSDK.prototype.fetchAll = function () {
+            return this.slideEditor.getAllSlides();
+        };
+        EditorSDK.prototype.save = function () {
+            return this.slideEditor.save();
+        };
+        EditorSDK.prototype.reload = function (coursewareId, slideId) {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    return [2 /*return*/, this.slideEditor.reload(coursewareId, slideId)];
+                });
+            });
+        };
+        EditorSDK.prototype.preview = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.slideEditor.preview()];
+                        case 1:
+                            _a.sent();
+                            return [2 /*return*/];
+                    }
+                });
+            });
+        };
+        EditorSDK.prototype.addEventListener = function (message, handle) {
+            if (Object.values(exports.EditorMessage).includes(message)) {
+                this.slideEditor.addEditorEvent(message, handle);
+            }
+            return this;
+        };
+        EditorSDK.prototype.removeEventListener = function (message, handle) {
+            if (Object.values(exports.EditorMessage).includes(message)) {
+                this.slideEditor.removeEditorEvent(message, handle);
+            }
+            return this;
+        };
+        EditorSDK.prototype.insertSlide = function (title, theme) {
+            return this.slideEditor.insertSlide(title, theme);
+        };
+        EditorSDK.prototype.deleteSlide = function (id) {
+            return this.slideEditor.deleteSlide(id);
+        };
+        EditorSDK.prototype.exchangeSlide = function (source, target) {
+            return this.slideEditor.exchangeSlide(source, target);
+        };
+        EditorSDK.prototype.moveUpSlide = function (id) {
+            return this.slideEditor.moveUpSlide(id);
+        };
+        EditorSDK.prototype.moveDownSlide = function (id) {
+            return this.slideEditor.moveDownSlide(id);
+        };
+        EditorSDK.prototype.activeSlide = function (id) {
+            return this.slideEditor.activeSlide(id);
+        };
+        return EditorSDK;
+    }());
+
+    // 服务器端节流时长
+    var THROTTLE_TIME = 500;
+    // 点击节流时长
+    var CLICK_THROTTLE_TIME = 50;
+    // 需要节流的业务线
+    var THROTTLE_PLATFORMS = [exports.PlatformType.VIDEO];
+    (function (RatioType) {
+        RatioType[RatioType["WIDE_SCREEN"] = 0] = "WIDE_SCREEN";
+        RatioType[RatioType["STANDDARD_SCREEN"] = 1] = "STANDDARD_SCREEN";
+    })(exports.RatioType || (exports.RatioType = {}));
+    var VideoAction;
+    (function (VideoAction) {
+        // 进入课件页面后读取视频信息
+        VideoAction[VideoAction["LOAD"] = 1] = "LOAD";
+        // 播放
+        VideoAction[VideoAction["PLAY"] = 2] = "PLAY";
+        //暂停
+        VideoAction[VideoAction["PAUSE"] = 3] = "PAUSE";
+        // 检索
+        VideoAction[VideoAction["SEEK"] = 4] = "SEEK";
+    })(VideoAction || (VideoAction = {}));
+
+    var IPlayerMessage;
+    (function (IPlayerMessage) {
+        /**
+         * 播放器翻页
+         */
+        IPlayerMessage["ON_PLAYER_GO_PAGE"] = "player-go-page";
+        /**
+         * 播放器翻页前
+         */
+        IPlayerMessage["ON_PLAYER_BEFORE_GO_PAGE"] = "player-before-go-page";
+        /**
+         * 动画开始前
+         */
+        IPlayerMessage["ON_PLAYER_NEXT_STEP_START"] = "player-next-step-start";
+        /**
+         * 播放器下一步
+         */
+        IPlayerMessage["ON_PLAYER_NEXT_STEP"] = "player-next-step";
+        /**
+         * 播放器键盘事件
+         */
+        IPlayerMessage["ON_PLAYER_KEY_BOARD"] = "player_key_board";
+        /**
+         * 播放器点击位置
+         */
+        IPlayerMessage["ON_PLAYER_CLICK_POSITION"] = "player-click-position";
+        /**
+         * 视频进度调整
+         */
+        IPlayerMessage["ON_PLAYER_VIDEO_SEEK"] = "ON_PLAYER_VIDEO_SEEK";
+        /**
+         * 视频播放、暂停
+         */
+        IPlayerMessage["ON_PLAYER_VIDEO_PLAY_PAUSE"] = "ON_PLAYER_VIDEO_PLAY_PAUSE";
+        /**
+         * 播放器输出scrollTop
+         */
+        IPlayerMessage["ON_PLAYER_SCROLL_TOP"] = "player-scroll-top";
+    })(IPlayerMessage || (IPlayerMessage = {}));
+    var IPlayerMessage$1 = IPlayerMessage;
+
+    var Message$1 = /** @class */ (function (_super) {
+        __extends(Message, _super);
+        function Message(config, events) {
+            var _this = _super.call(this) || this;
+            _this.currentPage = 1;
+            _this.initInfo = {};
+            _this.config = config;
+            _this.callbackQueue = [];
+            _this._handleMessage = _this._handleMessage.bind(_this);
+            _this.events = events;
+            return _this;
+        }
+        Message.prototype.getCurrentPage = function () {
+            return this.currentPage;
+        };
+        Message.prototype.clear = function () {
+            this.callbackQueue = [];
+        };
+        /**
+         *
+         * @param messageData
+         * @param initInfo 初始化时可能同一个字段会被更新多次，所以需要缓存将其他字段缓存下来
+         */
+        Message.prototype._generateCallbackData = function (messageData, initInfo) {
+            var result = initInfo || {};
+            var data = messageData.data, type = messageData.type;
+            // 课件播放进度、动画进度需要接受课件传来的参数
+            if (type === 'courseware') {
+                // 课件总页数
+                if (data &&
+                    data.coursewareConstant &&
+                    data.coursewareConstant.hasOwnProperty('totalPage')) {
+                    result.totalPage = data.coursewareConstant.totalPage;
+                }
+                if (data &&
+                    data.coursewareConstant &&
+                    data.coursewareConstant.hasOwnProperty('ratio')) {
+                    result.ratio = data.coursewareConstant.ratio;
+                }
+                if (data &&
+                    data.coursewareConstant &&
+                    data.coursewareConstant.hasOwnProperty('id')) {
+                    result.id = data.coursewareConstant.id;
+                }
+                // 当前正在播放的课件页数
+                if (data &&
+                    data.coursewareVariable &&
+                    data.coursewareVariable.hasOwnProperty('currentPage')) {
+                    this.currentPage = result.currentPage =
+                        data.coursewareVariable.currentPage;
+                }
+                // 动画总数
+                if (data && data.slideConstant) {
+                    if (data.slideConstant.hasOwnProperty('totalAnimationStep')) {
+                        result.totalAnimationStep = data.slideConstant.totalAnimationStep;
+                    }
+                    if (data.slideConstant.hasOwnProperty('videoInfo')) {
+                        result.videoInfo = data.slideConstant.videoInfo;
+                    }
+                    if (data.slideConstant.hasOwnProperty('widgetsInfo')) {
+                        result.widgetsInfo = data.slideConstant.widgetsInfo;
+                    }
+                }
+                // 当前动画数
+                if (data &&
+                    data.slideVariable &&
+                    data.slideVariable.hasOwnProperty('currentAnimationStep')) {
+                    result.currentAnimationStep = data.slideVariable.currentAnimationStep;
+                }
+                // 键盘事件
+                if (data && data.keyBoard) {
+                    result.keyBoard = data.keyBoard;
+                }
+                // 鼠标点击位置
+                if (data && data.clickPosition) {
+                    result.clickPosition = data.clickPosition;
+                }
+                // 视频点击信息
+                if (data && data.videoInfo) {
+                    result.videoInfo = data.videoInfo;
+                }
+                // 课件输出 scrollTop
+                if (data && data.hasOwnProperty('scrollTopValue')) {
+                    result.scrollTopValue = data.scrollTopValue;
+                }
+            }
+            return result;
+        };
+        Message.prototype._handleMessage = function (e) {
+            return __awaiter(this, void 0, void 0, function () {
+                var url, _a, name_1, data, callbackId_1, result, index, callbackData, _b, isEnd, callbackId_2, lifeCycle, name_2, isCompatibilityPostMessage, index, callbackData, result;
+                return __generator(this, function (_c) {
+                    switch (_c.label) {
+                        case 0: return [4 /*yield*/, getUrlPrefix(this.config.platform)];
+                        case 1:
+                            url = _c.sent();
+                            // todo 把这些整理到下面统一处理
+                            if (e.data.type === 'ispring-courseware') {
+                                _a = e.data, name_1 = _a.name, data = _a.data, callbackId_1 = _a.callbackId;
+                                result = {};
+                                if (name_1 === IPlayerMessage$1.ON_PLAYER_GO_PAGE) {
+                                    result = {
+                                        currentPage: data.currentPage + 1,
+                                        totalPage: data.totalPage + 1,
+                                    };
+                                }
+                                if (name_1 === IPlayerMessage$1.ON_PLAYER_NEXT_STEP) {
+                                    result = {
+                                        currentPage: data.currentPage + 1,
+                                        totalPage: data.totalPage + 1,
+                                        currentAnimationStep: data.currentAnimationStep,
+                                    };
+                                    this.events.emit(IPlayerMessage$1.ON_PLAYER_NEXT_STEP_START, result);
+                                }
+                                if (callbackId_1) {
+                                    index = this.callbackQueue.findIndex(function (v) { return v.callbackId === callbackId_1; });
+                                    if (index !== -1) {
+                                        callbackData = data;
+                                        callbackData.callbackId = callbackId_1;
+                                        this.callbackQueue[index].callbackSuccess(callbackData);
+                                        this.callbackQueue.splice(index, 1);
+                                    }
+                                }
+                                this.events.emit(name_1, result);
+                                return [2 /*return*/];
+                            }
+                            if (url.player.includes(e.origin)) {
+                                _b = e.data, isEnd = _b.isEnd, callbackId_2 = _b.callbackId, lifeCycle = _b.lifeCycle, name_2 = _b.name, isCompatibilityPostMessage = _b.isCompatibilityPostMessage;
+                                if (isCompatibilityPostMessage) {
+                                    return [2 /*return*/];
+                                }
+                                if (callbackId_2) {
+                                    index = this.callbackQueue.findIndex(function (v) { return v.callbackId === callbackId_2; });
+                                    if (index !== -1) {
+                                        callbackData = this._generateCallbackData(e.data);
+                                        callbackData.callbackId = callbackId_2;
+                                        this.callbackQueue[index].callbackSuccess(callbackData);
+                                        this.callbackQueue.splice(index, 1);
+                                    }
+                                }
+                                // 生命周期
+                                this.initInfo = this._generateCallbackData(e.data, this.initInfo);
+                                if (lifeCycle === 'onPlayerMounted') {
+                                    this.config.onPlayerMounted &&
+                                        this.config.onPlayerMounted(this.initInfo);
+                                }
+                                else if (lifeCycle === 'onPlayerLoaded') {
+                                    this.config.onPlayerWillMount &&
+                                        this.config.onPlayerWillMount(this.initInfo);
+                                }
+                                else if (lifeCycle === 'onPlayerWillLoad') {
+                                    this.config.onPlayerWillLoad && this.config.onPlayerWillLoad();
+                                }
+                                if (Object.values(IPlayerMessage$1).includes(name_2)) {
+                                    result = this._generateCallbackData(e.data);
+                                    // todo 临时处理
+                                    if (name_2 === 'player-next-step' && result.currentAnimationStep) {
+                                        result.currentAnimationStep -= 1;
+                                    }
+                                    if (callbackId_2) {
+                                        result.callbackId = callbackId_2;
+                                    }
+                                    if (isEnd) {
+                                        result.isEnd = isEnd;
+                                    }
+                                    this.events.emit(name_2, result);
+                                }
+                            }
+                            return [2 /*return*/];
+                    }
+                });
+            });
+        };
+        /**
+         * 初始化消息所用的frame组件
+         *
+         * @param iframe
+         */
+        Message.prototype.init = function (iframe) {
+            this.iframe = iframe;
+            window.addEventListener('message', this._handleMessage);
+        };
+        /**
+         * 发送消息到编辑器
+         *
+         * @param {IMessage} msg
+         * @returns {Promise<any>}
+         */
+        Message.prototype.post = function (msg) {
+            var _this = this;
+            if (!this.iframe || !this.iframe.contentWindow) {
+                throw new Error('播放器尚未初始化，请初始化后再使用');
+            }
+            return new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
+                var url, callbackId;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, getUrlPrefix(this.config.platform)];
+                        case 1:
+                            url = _a.sent();
+                            msg.type = msg.type || DirectiveType.Slide;
+                            callbackId = new Date().getTime();
+                            msg.callbackId = callbackId;
+                            msg.IsSlideSdkPlayerPostMessage = true;
+                            this.iframe.contentWindow.postMessage(msg, '*'); // todo: 暂时将 url.player 修改为 *， 后续优化处理
+                            this.callbackQueue.push({
+                                msg: msg,
+                                callbackId: callbackId,
+                                callbackSuccess: resolve,
+                                callbackFail: reject,
+                            });
+                            return [2 /*return*/];
+                    }
+                });
+            }); });
+        };
+        return Message;
+    }(EventEmitter));
+
+    var fullScreen = function (ele) {
+        if (ele.requestFullscreen) {
+            ele.requestFullscreen();
+        }
+        else if (ele.mozRequestFullscreen) {
+            ele.mozRequestFullscreen();
+        }
+        else if (ele.webkitRequestFullscreen) {
+            ele.webkitRequestFullscreen();
+        }
+        else if (ele.msRequestFullscreen) {
+            ele.msRequestFullscreen();
+        }
+    };
+    var exitFullScreen = function () {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        }
+        else if (document.mozCancelFullscreen) {
+            document.mozCancelFullscreen();
+        }
+        else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        }
+        else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        }
+    };
+    // 此方法为了兼容ipd端触发ispring resize事件后页面不能铺满的问题，同时可替代pc端的 window.dispatchEvent(new Event('resize'))
+    var triggerIspringResize = function (containerElement) {
+        containerElement.style.width = '0px';
+        setTimeout(function () {
+            containerElement.style.width = '';
+        });
+    };
+
+    function isEmpty(obj) {
+        if (!obj)
+            return true;
+        for (var i in obj) {
+            if (obj.hasOwnProperty(i))
+                return false;
+        }
+        return true;
+    }
+    function normalizeCourwares(arr) {
+        return arr
+            .filter(function (v) { return !isEmpty(v); })
+            .map(function (item) {
+            return typeof item === 'string'
+                ? {
+                    id: item,
+                    title: {
+                        name: '',
+                        index: '',
+                        type: '',
+                    },
+                }
+                : item;
+        });
+    }
+
+    var LOG_ISPRING = "[SLIDE-SDK] ISPRING";
+    var SlidePlayerAPI = /** @class */ (function () {
+        function SlidePlayerAPI(containerElement, config, playerSDK) {
+            var _this = this;
+            this.iframe = null;
+            this.handleIframeLoaded = function () { return __awaiter(_this, void 0, void 0, function () {
+                var _this = this;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            this.config &&
+                                this.config.onPlayerIframeLoaded &&
+                                this.config.onPlayerIframeLoaded();
+                            if (this.isIspring) {
+                                console.log(LOG_ISPRING + ": handle iframe loaded");
+                                console.log(LOG_ISPRING + ": trigger ispring resize");
+                                this.containerElement && triggerIspringResize(this.containerElement);
+                            }
+                            return [4 /*yield*/, this.message.post({
+                                    name: DirectiveName.IspringPlayerIframeLoaded,
+                                    type: DirectiveType.CourseWareInfo,
+                                    data: {
+                                        coursewares: this.config.coursewares,
+                                    },
+                                })];
+                        case 1:
+                            _a.sent();
+                            if (this.isIspring) {
+                                console.log(LOG_ISPRING + ": to go to page " + this.isIspringReloadSlideNum);
+                            }
+                            if (this.isIspringReloadSlideNum !== null) {
+                                setTimeout(function () {
+                                    if (_this.isIspringReloadSlideNum !== null) {
+                                        _this.playerSDK.goPage(_this.isIspringReloadSlideNum);
+                                        console.log(LOG_ISPRING + ":  go to page " + _this.isIspringReloadSlideNum);
+                                    }
+                                }, 300);
+                            }
+                            else {
+                                console.log(LOG_ISPRING + ": slideNum Not Found");
+                            }
+                            return [2 /*return*/];
+                    }
+                });
+            }); };
+            this.containerElement = containerElement;
+            this.config = config;
+            this.events = new EventEmitter();
+            this.message = new Message$1(config, this.events);
+            this.isIspringReloadSlideNum = null;
+            this.playerSDK = playerSDK;
+            this.iframePromise = new Promise(function (r) { return (_this.resolveIframe = r); });
+        }
+        /**
+         * 生成课件完整地址
+         */
+        SlidePlayerAPI.prototype.generateSource = function (params) {
+            return __awaiter(this, void 0, void 0, function () {
+                var prefixUrl, userConfig, url;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            // 返回 ispring 地址
+                            if (this.config.ispringUrls && this.config.ispringUrls.length > 0) {
+                                return [2 /*return*/, this.config.ispringUrls[0]];
+                            }
+                            return [4 /*yield*/, getUrlPrefix(this.config.platform)];
+                        case 1:
+                            prefixUrl = _a.sent();
+                            userConfig = this.config.userConfig;
+                            url = getFullUrl(prefixUrl.player, 'player') + "?deck=" + this.config.coursewares
+                                .map(function (v) { return v.id; })
+                                .join(',') + (this.config.themeId ? "&theme=" + this.config.themeId : '') + (this.config.ratioType === exports.RatioType.WIDE_SCREEN
+                                ? "&ratio=0"
+                                : this.config.ratioType === exports.RatioType.STANDDARD_SCREEN
+                                    ? "&ratio=1"
+                                    : '') + (this.config.screenLeftClickEnabled ? "&panelSplit=1" : '') + (userConfig
+                                ? "&uc=" + window.encodeURIComponent(Object.keys(userConfig)
+                                    .reduce(function (prev, cur) { return prev + ("&" + cur + "=" + userConfig[cur]); }, '')
+                                    .slice(1))
+                                : '') + "&sdk_version=" + VERSION + "&platform=" + this.config.platform.toLowerCase();
+                            params &&
+                                Object.keys(params).forEach(function (key) {
+                                    // 后端默认开启，前端默认关闭，前后端执行与逻辑
+                                    if (key === 'supervideo' &&
+                                        window.URL_PREFIX_PROD &&
+                                        window.URL_PREFIX_PROD.supervideo === 0) {
+                                        return;
+                                    }
+                                    url += "&" + key + "=" + params[key];
+                                });
+                            return [2 /*return*/, url];
+                    }
+                });
+            });
+        };
+        Object.defineProperty(SlidePlayerAPI.prototype, "isIspring", {
+            get: function () {
+                return this.config.ispringUrls && this.config.ispringUrls.length > 0;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        SlidePlayerAPI.prototype.addPlayerEvent = function (message, handle) {
+            this.events.on(message, handle);
+        };
+        SlidePlayerAPI.prototype.removePlayerEvent = function (message, handle) {
+            if (handle) {
+                this.events.removeListener(message, handle);
+            }
+            else {
+                this.events.removeAllListeners(message);
+            }
+        };
+        SlidePlayerAPI.prototype.reload = function (coursewareId, params) {
+            var _this = this;
+            if (this.iframe) {
+                this.config.coursewares = normalizeCourwares(coursewareId);
+                this.generateSource(params).then(function (src) {
+                    if (_this.iframe) {
+                        _this.iframe.src = src;
+                    }
+                });
+                this.isIspringReloadSlideNum = null;
+            }
+        };
+        SlidePlayerAPI.prototype.ispringReload = function (ispringUrls, slideNum) {
+            this.isIspringReloadSlideNum = slideNum || null;
+            console.log(LOG_ISPRING + ": To Reload ispring coureware: " + ispringUrls.join(','));
+            this.iframePromise.then(function (iframe) {
+                setTimeout(function () {
+                    iframe.src = ispringUrls[0] + '?a=helllo';
+                    console.log(LOG_ISPRING + ": Reload ispring coureware: " + ispringUrls.join(','));
+                }, 150);
+            });
+        };
+        SlidePlayerAPI.prototype.render = function () {
+            var _this = this;
+            if (this.iframe)
+                return;
+            if (!this.containerElement)
+                return;
+            var iframe = document.createElement('iframe');
+            iframe.onload = this.handleIframeLoaded;
+            this.generateSource(this.config.params).then(function (src) {
+                iframe.src = src;
+                iframe.allowFullscreen = true;
+                /**
+                 * > chrome 65
+                 */
+                iframe.setAttribute('allow', 'autoplay');
+                _this.iframe = iframe;
+                if (_this.containerElement) {
+                    _this.containerElement.appendChild(iframe);
+                }
+                _this.message.init(_this.iframe);
+                _this.resolveIframe(_this.iframe);
+            });
+        };
+        SlidePlayerAPI.prototype.goPage = function (n) {
+            return this.message.post({
+                type: DirectiveType.CourseWareControl,
+                data: {
+                    jumpTo: n < 1 ? 1 : n,
+                },
+            });
+        };
+        SlidePlayerAPI.prototype.onThumbClick = function () {
+            return this.message.post({
+                type: DirectiveType.CourseWareControl,
+                data: {
+                    thumb: true,
+                },
+            });
+        };
+        SlidePlayerAPI.prototype.onFullScreen = function () {
+            this.iframe && fullScreen(this.iframe);
+        };
+        SlidePlayerAPI.prototype.onCancelFullScreen = function () {
+            this.iframe && exitFullScreen();
+        };
+        SlidePlayerAPI.prototype.goStep = function (n, isEnd) {
+            if (isEnd === void 0) { isEnd = false; }
+            return this.message.post({
+                type: DirectiveType.CourseWareControl,
+                data: {
+                    animationCurrentIndex: n,
+                    isEnd: isEnd,
+                },
+            });
+        };
+        SlidePlayerAPI.prototype.goNextStep = function (isEnd) {
+            if (isEnd === void 0) { isEnd = false; }
+            return this.message.post({
+                type: DirectiveType.CourseWareControl,
+                data: {
+                    nextStep: true,
+                    isEnd: isEnd,
+                },
+            });
+        };
+        SlidePlayerAPI.prototype.goPrePage = function () {
+            return this.message.post({
+                type: DirectiveType.CourseWareControl,
+                data: {
+                    previousStep: true,
+                },
+            });
+        };
+        SlidePlayerAPI.prototype.goNextPage = function () {
+            return this.message.post({
+                type: DirectiveType.CourseWareControl,
+                data: {
+                    nextPage: true,
+                },
+            });
+        };
+        SlidePlayerAPI.prototype.showComment = function (isShow) {
+            return this.message.post({
+                type: DirectiveType.CourseWareControl,
+                data: {
+                    comment: isShow,
+                },
+            });
+        };
+        // 接收点击坐标
+        SlidePlayerAPI.prototype.clickByPointer = function (pointer) {
+            return this.message.post({
+                type: DirectiveType.CourseWareControl,
+                data: {
+                    pointer: pointer,
+                },
+            });
+        };
+        // 接收视频信息信令
+        SlidePlayerAPI.prototype.receiveVideoInfo = function (msg) {
+            return this.message.post({
+                type: DirectiveType.CourseWareControl,
+                data: {
+                    videoInfo: msg,
+                },
+            });
+        };
+        // 接收教师端信息
+        SlidePlayerAPI.prototype.receiveSlideInfo = function (msg) {
+            return this.message.post({
+                type: DirectiveType.COURSEWARE_SYNC,
+                data: msg,
+            });
+        };
+        SlidePlayerAPI.prototype.scrollTop = function (value) {
+            return this.message.post({
+                type: DirectiveType.CourseWareControl,
+                data: {
+                    scrollTopValue: value,
+                },
+            });
+        };
+        SlidePlayerAPI.prototype.goIspringPage = function (n) {
+            return this.message.post({
+                type: DirectiveType.ISPRING_COURSEWARE_CONTROL,
+                data: {
+                    currentPage: n - 1,
+                },
+            });
+        };
+        SlidePlayerAPI.prototype.gotoIspringNextStep = function () {
+            return this.message.post({
+                type: DirectiveType.ISPRING_COURSEWARE_CONTROL,
+                data: {
+                    gotoNextStep: true,
+                },
+            });
+        };
+        SlidePlayerAPI.prototype.gotoIspringPreviousStep = function () {
+            return this.message.post({
+                type: DirectiveType.ISPRING_COURSEWARE_CONTROL,
+                data: {
+                    gotoPreviousStep: true,
+                },
+            });
+        };
+        SlidePlayerAPI.prototype.getCurrentPageInfo = function () {
+            return this.message.post({
+                type: DirectiveType.CourseWareControl,
+                data: {
+                    getCurrentPageInfo: true,
+                },
+            });
+        };
+        return SlidePlayerAPI;
+    }());
+
+    function throttle (ctx, func, wait, options) {
+        var context;
+        var args, result;
+        var timeout = null;
+        var previous = 0;
+        if (!options)
+            options = {};
+        var later = function () {
+            previous = options.leading === false ? 0 : Date.now();
+            timeout = null;
+            result = func.apply(context, args);
+            if (!timeout)
+                context = args = null;
+        };
+        return function () {
+            var now = Date.now();
+            if (!previous && options.leading === false)
+                previous = now;
+            var remaining = wait - (now - previous);
+            context = ctx;
+            args = arguments;
+            if (remaining <= 0 || remaining > wait) {
+                if (timeout) {
+                    clearTimeout(timeout);
+                    timeout = null;
+                }
+                previous = now;
+                result = func.apply(context, args);
+                if (!timeout)
+                    context = args = null;
+            }
+            else if (!timeout && options.trailing !== false) {
+                timeout = setTimeout(later, remaining);
+            }
+            return result;
+        };
+    }
+
+    var defaultParam = {
+        sendType: 'single',
+        project: 'courseware',
+    };
+    var Elk = /** @class */ (function () {
+        function Elk() {
+        }
+        /**
+         * @param {Object} param 业务参数可自定义
+         * param = {
+         *  project: 'courseware', // 项目区分，先写死
+         *  time1: '', slide 中的 window.statistics_time1
+         *  time2: '', slide 中的 window.statistics_time2
+         *  getPerformance: '', // 原time参数
+         *  type: '' // 'play' slide 播放器中传入此值
+         *  version: '1.4.6', // 课件版本
+         *  deck_uuid: '', 课件 id，slide 中的 HJ.deckUUID 或 HJ.deck_uuid。原uuid参数
+         *  sendType: 'single' / 'multi', 目前看使用的都是 single
+         * }
+         */
+        Elk.prototype.send = function (param) {
+            try {
+                if (typeof param !== 'object')
+                    return false;
+                var data = {};
+                // 非业务参数写死
+                data.timestamp = new Date().getTime();
+                data.ua = this.getExploreName();
+                data.os = this.getOperationSys();
+                data.cookie = this.getCookie();
+                data.getPerformance = this.getPerformance();
+                // 业务参数
+                data = Object.assign(data, param);
+                var XHR_1 = null;
+                if (window.XMLHttpRequest) {
+                    XHR_1 = new XMLHttpRequest();
+                }
+                else if (window.ActiveXObject) {
+                    XHR_1 = new window.ActiveXObject('Microsoft.XMLHTTP');
+                }
+                else {
+                    XHR_1 = null;
+                }
+                if (XHR_1) {
+                    //测试地址http://101.201.181.187:8888/log/
+                    //线上地址https://log.aixuexi.com/log/
+                    XHR_1.open('POST', "https://log.aixuexi.com/log/" + defaultParam.sendType + "/" + defaultParam.project + "?strict=true");
+                    XHR_1.onreadystatechange = function () {
+                        if (XHR_1.readyState === 4) {
+                            // console.log('success')
+                        }
+                        else {
+                            // console.log('error')
+                        }
+                    };
+                    XHR_1.setRequestHeader('Content-type', 'application/json');
+                    XHR_1.send(JSON.stringify(data));
+                }
+            }
+            catch (e) {
+                // console.log(e)
+            }
+        };
+        Elk.prototype.getPerformance = function () {
+            var timing = performance.timing;
+            var domReadyTime = timing.domComplete - timing.domInteractive;
+            return domReadyTime;
+        };
+        Elk.prototype.getCookie = function () {
+            return document.cookie;
+        };
+        Elk.prototype.getExploreName = function () {
+            var userAgent = navigator.userAgent;
+            var appName = navigator.appName;
+            var appVersion = navigator.appVersion;
+            var appCodeName = navigator.appCodeName;
+            if (userAgent.indexOf('Opera') > -1 || userAgent.indexOf('OPR') > -1) {
+                userAgent = 'Opera';
+            }
+            else if (userAgent.indexOf('compatible') > -1 &&
+                userAgent.indexOf('MSIE') > -1) {
+                userAgent = 'IE';
+            }
+            else if (userAgent.indexOf('Edge') > -1) {
+                userAgent = 'Edge';
+            }
+            else if (userAgent.indexOf('Firefox') > -1) {
+                userAgent = 'Firefox';
+            }
+            else if (userAgent.indexOf('Safari') > -1 &&
+                userAgent.indexOf('Chrome') == -1) {
+                userAgent = 'Safari';
+            }
+            else if (userAgent.indexOf('Chrome') > -1 &&
+                userAgent.indexOf('Safari') > -1) {
+                userAgent = 'Chrome';
+            }
+            else if (!!window.ActiveXObject || 'ActiveXObject' in window) {
+                userAgent = 'IE>=11';
+            }
+            else {
+                userAgent = 'Unkonwn';
+            }
+            return {
+                userAgent: userAgent,
+                appName: appName,
+                appVersion: appVersion,
+                appCodeName: appCodeName,
+            };
+        };
+        Elk.prototype.getOperationSys = function () {
+            var OS = '';
+            var OSArray = {};
+            var UserAgent = navigator.userAgent.toLowerCase();
+            OSArray.Windows =
+                navigator.platform == 'Win32' || navigator.platform == 'Windows';
+            OSArray.Mac =
+                navigator.platform == 'Mac68K' ||
+                    navigator.platform == 'MacPPC' ||
+                    navigator.platform == 'Macintosh' ||
+                    navigator.platform == 'MacIntel';
+            OSArray.iphone = UserAgent.indexOf('iPhone') > -1;
+            OSArray.ipod = UserAgent.indexOf('iPod') > -1;
+            OSArray.ipad = UserAgent.indexOf('iPad') > -1;
+            OSArray.Android = UserAgent.indexOf('Android') > -1;
+            for (var i in OSArray) {
+                if (OSArray[i]) {
+                    OS = i;
+                }
+            }
+            return OS;
+        };
+        return Elk;
+    }());
+
+    function S4() {
+        return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+    }
+    function guid() {
+        return (S4() +
+            S4() +
+            '-' +
+            S4() +
+            '-' +
+            S4() +
+            '-' +
+            S4() +
+            '-' +
+            S4() +
+            S4() +
+            S4());
+    }
+
+    function required$1(field) {
+        throw Error("[init sdk]: " + field + " is required");
+    }
+    function getContainerElement$1(sel) {
+        var el = document.querySelector(sel);
+        if (!el) {
+            throw Error("container element is null");
+        }
+        return el;
+    }
+    /**
+     * 课件编辑器接口类，提供
+     *
+     * @class PlayerSDK
+     * @param	{string} container 初始化的dom容器ID
+     */
+    var PlayerSDK = /** @class */ (function () {
+        function PlayerSDK(container, config) {
+            this.container = container;
+            this.ispringCurrentStep = 0;
+            this.ispringCurrentPage = 1;
+            this.uuid = guid();
+            this.log = new Elk();
+            if (!this.container)
+                required$1('container');
+            if (!config)
+                required$1('config');
+            if (!config.platform)
+                required$1('config.platform');
+            if (!Object.values(exports.PlatformType).includes(config.platform)) {
+                throw Error("platform:[" + config.platform + "]  is not supported");
+            }
+            if (config.coursewares && config.coursewareId) {
+                throw Error("Support either config.coursewares or config.coursewareId, not both");
+            }
+            if (!config.coursewares || !config.coursewares.length) {
+                if (!config.coursewareId || !config.coursewareId.length) {
+                    !config.ispringUrls ||
+                        (!config.ispringUrls.length &&
+                            required$1('config.coursewares or config.coursewareId or config.ispringUrls'));
+                }
+                else {
+                    config.coursewares = normalizeCourwares(config.coursewareId);
+                }
+            }
+            this.config = __assign(__assign({}, config), { coursewares: config.coursewares && normalizeCourwares(config.coursewares) });
+            this.slidePlayer = new SlidePlayerAPI(getContainerElement$1(this.container), this.config, this);
+            this.slidePlayer.render();
+            // 节流，减轻服务端压力
+            // 上一页、下一页、下一步
+            if (THROTTLE_PLATFORMS.includes(this.config.platform)) {
+                this.goNextPage = throttle(this, this.goNextPage, THROTTLE_TIME);
+                this.goNextStep = throttle(this, this.goNextStep, THROTTLE_TIME);
+                this.goPrePage = throttle(this, this.goPrePage, THROTTLE_TIME);
+                this.clickByPointer = throttle(this, this.clickByPointer, CLICK_THROTTLE_TIME);
+            }
+            if (this.config.platform === exports.PlatformType.VIDEO) {
+                //  发送初始化数据
+                this._log({
+                    action: 'INIT',
+                    userConfig: this.config.userConfig,
+                });
+            }
+        }
+        Object.defineProperty(PlayerSDK.prototype, "isIspring", {
+            get: function () {
+                return !!(this.config.ispringUrls && this.config.ispringUrls.length > 0);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        PlayerSDK.prototype._log = function (params) {
+            var data = __assign({ project: 'slide-sdk', version: VERSION, uuid: this.uuid, platform: this.config.platform }, params);
+            this.log.send(data);
+        };
+        PlayerSDK.prototype.addEventListener = function (message, handle) {
+            if (Object.values(IPlayerMessage$1).includes(message)) {
+                this.slidePlayer.addPlayerEvent(message, handle);
+            }
+            return this;
+        };
+        PlayerSDK.prototype.removePlayerEvent = function (message, handle) {
+            if (Object.values(IPlayerMessage$1).includes(message)) {
+                this.slidePlayer.removePlayerEvent(message, handle);
+            }
+            return this;
+        };
+        PlayerSDK.prototype.removeEventListener = function (message, handle) {
+            if (Object.values(IPlayerMessage$1).includes(message)) {
+                this.slidePlayer.removePlayerEvent(message, handle);
+            }
+            return this;
+        };
+        PlayerSDK.prototype.reload = function (coursewareId, params, reloadIspring) {
+            this.config.ispringUrls = reloadIspring ? coursewareId : null;
+            if (reloadIspring) {
+                this.ispringCurrentStep = 0;
+                this.ispringCurrentPage = 1;
+                this.slidePlayer.ispringReload(coursewareId, params.slideNum);
+                return;
+            }
+            this.slidePlayer.reload(coursewareId, params);
+        };
+        PlayerSDK.prototype.goPage = function (n) {
+            this._log({
+                action: 'GO_PAGE',
+                page: n,
+            });
+            if (this.isIspring) {
+                this.ispringCurrentStep = 0;
+                this.ispringCurrentPage = n;
+                return this.slidePlayer.goIspringPage(n);
+            }
+            return this.slidePlayer.goPage(n);
+        };
+        PlayerSDK.prototype.onThumbClick = function () {
+            return this.slidePlayer.onThumbClick();
+        };
+        PlayerSDK.prototype.onFullScreen = function () {
+            return this.slidePlayer.onFullScreen();
+        };
+        PlayerSDK.prototype.onCancelFullScreen = function () {
+            return this.slidePlayer.onCancelFullScreen();
+        };
+        PlayerSDK.prototype.goStep = function (n, isEnd) {
+            this._log({
+                action: 'GO_STEP',
+                step: n,
+            });
+            if (this.isIspring) {
+                var num = Math.abs(this.ispringCurrentStep - n);
+                while (num > 0) {
+                    if (this.ispringCurrentStep > n) {
+                        this.slidePlayer.gotoIspringPreviousStep();
+                    }
+                    if (this.ispringCurrentStep < n) {
+                        this.slidePlayer.gotoIspringNextStep();
+                    }
+                    num--;
+                }
+                this.ispringCurrentStep = n;
+                return Promise.resolve();
+            }
+            return this.slidePlayer.goStep(n, isEnd);
+        };
+        PlayerSDK.prototype.goNextStep = function (isEnd) {
+            this._log({
+                action: 'GO_NEXT_STEP',
+            });
+            return this.slidePlayer.goNextStep(isEnd);
+        };
+        PlayerSDK.prototype.goPrePage = function () {
+            this._log({
+                action: 'GO_PRE_PAGE',
+            });
+            if (this.isIspring) {
+                this.ispringCurrentPage = Math.max(--this.ispringCurrentPage, 1);
+                return this.goPage(this.ispringCurrentPage);
+            }
+            return this.slidePlayer.goPrePage();
+        };
+        PlayerSDK.prototype.goNextPage = function () {
+            this._log({
+                action: 'GO_NEXT_PAGE',
+            });
+            if (this.isIspring) {
+                return this.goPage(++this.ispringCurrentPage);
+            }
+            return this.slidePlayer.goNextPage();
+        };
+        PlayerSDK.prototype.showComment = function (isShow) {
+            return this.slidePlayer.showComment(isShow);
+        };
+        PlayerSDK.prototype.clickByPointer = function (pointer) {
+            return this.slidePlayer.clickByPointer(pointer);
+        };
+        PlayerSDK.prototype.receiveVideoInfo = function (msg) {
+            return this.slidePlayer.receiveVideoInfo(msg);
+        };
+        PlayerSDK.prototype.receiveSlideInfo = function (msg) {
+            return this.slidePlayer.receiveSlideInfo(msg);
+        };
+        PlayerSDK.prototype.scrollTop = function (value) {
+            return this.slidePlayer.scrollTop(value);
+        };
+        PlayerSDK.prototype.getCurrentPageInfo = function () {
+            return this.slidePlayer.getCurrentPageInfo();
+        };
+        return PlayerSDK;
+    }());
+
+    exports.EditorSDK = EditorSDK;
+    exports.IPlayerMessage = IPlayerMessage$1;
+    exports.PlayerSDK = PlayerSDK;
+    exports.VERSION = VERSION;
+
+    Object.defineProperty(exports, '__esModule', { value: true });
+
+})));
+//# sourceMappingURL=index.js.map
+
+	</script>
+	<script>
+		var { PlayerSDK, IPlayerMessage, PlatformType, RatioType } = window.SLIDE_SDK
+		const sdk = new PlayerSDK('#app', {
+			// coursewareId: ['8e29bab2-f715-451c-9651-24a5c9075c53'],
+			params: {},
+			ispringUrls: ['https://imgali-courseware.aixuexi.com//kjqn40e45b652bed43458ef91b9c9d61965f/html5.html'],
+			platform: PlatformType.VIDEO,
+			ratioType: RatioType.WIDE_SCREEN,
+			onPlayerIframeLoaded
+		})
+
+		window.sdk = sdk
+
+		// ispring 监听翻页
+		sdk.addEventListener(IPlayerMessage.ON_PLAYER_GO_PAGE, (arg) => {
+			console.log('ON_PLAYER_GO_PAGE', arg)
+		})
+
+		// ispring 监听step
+		sdk.addEventListener(IPlayerMessage.ON_PLAYER_NEXT_STEP_START, (arg) => {
+			console.log('ON_PLAYER_NEXT_STEP_START', arg)
+		})
+
+		// ispring 监听step
+		sdk.addEventListener(IPlayerMessage.ON_PLAYER_NEXT_STEP, (arg) => {
+			console.log('ON_PLAYER_NEXT_STEP', arg)
+		})
+
+		// 生命周期
+		function onPlayerIframeLoaded() {
+			console.log('===onPlayerIframeLoaded===')
+		}
+
+	// ispring 触发跳到指定步骤
+	document.querySelector('#currentStep').addEventListener('click', () => {
+		const step = Number(document.querySelector('#step').value)
+		console.log('===goIspringStep===', step)
+		sdk.goStep(step)
+	})
+
+	// ispring 触发跳到指定页
+	document.querySelector('#currentPage').addEventListener('click', () => {
+		const num = Number(document.querySelector('#num').value)
+		sdk.goPage(num).then((data) => {
+			console.log('===goPage===', num)
+		})
+	})
+
+	// ispring 上一页
+	document.querySelector('#prePage').addEventListener('click', () => {
+		sdk.goPrePage(num)
+	})
+
+	// ispring 下一页
+	document.querySelector('#nextPage').addEventListener('click', () => {
+		sdk.goNextPage(num)
+	})
+
+	// ispring 重新加载
+	document.querySelector('#reloadIspring').addEventListener('click', () => {
+		const value = document.querySelector('#reloadValue').value
+		console.log('reloadValue', value)
+		sdk.reload(value.split(','), {slideNum: 4}, true)
+	})
+
+	// 普通课件 重新加载
+	document.querySelector('#reload').addEventListener('click', () => {
+		const value = document.querySelector('#reloadValue').value
+		console.log('普通课件 reloadValue', value)
+		sdk.reload(value.split(','), {})
+	})
+
+	</script>
+</body>
+
+</html>
